@@ -6,6 +6,7 @@ import ContextProvider, {usePlayer} from './context/';
 
 // hooks
 import {useUnload} from 'hooks/'
+import {useFullscreen} from './hooks/'
 
 // material
 import Button from '@mui/material/Button';
@@ -25,10 +26,11 @@ import Messages from './snippets/Messages'
 
 
 function PlayerContent(props) {
+  const player = usePlayer()
+  const fullscreen = useFullscreen();
+
   const refMessages = React.useRef(null)
   const refCallback = React.useRef(null)
-
-  const player = usePlayer()
 
   useUnload(e => {
     e.preventDefault();
@@ -44,6 +46,7 @@ function PlayerContent(props) {
       refCallback.current.onShow(payload)
     },
   }));
+
 
   return (
     <div>

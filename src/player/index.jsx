@@ -8,8 +8,6 @@ import {env} from 'api/'
 import PixelStreaming, {DebugData, usePS} from './pixel_streaming/';
 export {DebugData, usePS};
 
-// import PixelStreaming, {DebugData} from 'pixel-streaming'; export {DebugData};
-
 // content
 import PlayerContent from './Content'
 
@@ -28,6 +26,7 @@ function PixelWrapper(props) {
   React.useEffect(() => {
     setServerData(getHost)
   }, [props.host, props.port])
+
 
   return (
     <div>
@@ -72,6 +71,7 @@ function PixelWrapper(props) {
 
         {(payload) => (
           <>
+
             <PlayerContent
               {...payload}
               ref={refContent}
