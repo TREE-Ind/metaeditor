@@ -1,0 +1,13 @@
+{
+  "name": "@player/pixel-streaming",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "react-online-hook": "^1.0.4",
+    "slugify": "latest",
+    "moment": "latest",
+    "styled-jss": "^2.2.3",
+    "url": "^0.11.0",
+    "loglevel": "^1.8.0"
+  }
+}
