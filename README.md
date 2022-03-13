@@ -16,28 +16,14 @@ The standard implementation of [PixelStreaming](https://docs.unrealengine.com/5.
 
 https://metaeditor.io/docs/
 
-### Steps to run this project:
-
-1. Run `yarn install` command
-2. Run `yarn dev` command
-
 ### Community
 
 * [Discord App](https://discordapp.com/invite/eGHKuQ3BHM)
 
-### Config
+### Steps to run this project:
 
-Global config:
-
-* `/api/env.js`
-
-Setup the [Sentry](https://sentry.io/) — *Open-source error tracking with full stacktraces & asynchronous context.*
-
-- `/.sentryclirc`
-
-- `/sentry.client.config.js`
-
-- `/sentry.server.config.js`
+1. Run `yarn install` command
+2. Run `yarn dev` command
 
 ### Stack:
 
