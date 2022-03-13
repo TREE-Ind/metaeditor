@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "use-sound": "latest"
+    "use-sound": "^4.0.1",
+    "react-hotkeys-hook": "^3.4.4"
   },
   "devDependencies": {}
 }

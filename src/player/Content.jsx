@@ -12,6 +12,9 @@ import Button from '@mui/material/Button';
 
 // snippets
 import Preloader from './snippets/Preloader'
+import CallbackLoader from './snippets/CallbackLoader'
+import RippleClick from './snippets/RippleClick'
+import KeyboardHelper from './snippets/KeyboardHelper'
 import DevBar from './snippets/DevBar/'
 
 // layouts
@@ -23,6 +26,8 @@ import Messages from './snippets/Messages'
 
 function PlayerContent(props) {
   const refMessages = React.useRef(null)
+  const refCallback = React.useRef(null)
+
   const player = usePlayer()
 
   useUnload(e => {
@@ -36,13 +41,17 @@ function PlayerContent(props) {
 	React.useImperativeHandle(props.innerRef, () => ({
     onCommand: (payload) => {
       refMessages.current.onCommand(payload)
-    }
+      refCallback.current.onShow(payload)
+    },
   }));
 
   return (
     <div>
 
+      <CallbackLoader ref={refCallback} />
       <Preloader secondsToStart={props.secondsToStart} />
+      <RippleClick />
+      <KeyboardHelper />
 
       <Messages
         ref={refMessages}

@@ -1,8 +1,14 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-// material
-import MuiBox from '@mui/material/Box';
+// api
+import {env} from 'api/'
+
+// hooks
+import {useHotkeys} from 'hooks/'
+
+// styles
+import {styled} from 'styles/snippets'
 
 // blocks
 import AppBar from './AppBar';
@@ -13,10 +19,9 @@ import DebugForm from './DebugForm'
 import LogsData from './LogsData'
 import CommandsList from './CommandsList/'
 
+// Config
+const debugMode = env.isDev
 
-
-// styles
-import {styled} from 'styles/snippets'
 
 const RootDiv = styled.ul(theme => ({
   position: 'absolute',
@@ -35,7 +40,28 @@ function DevBar(props) {
   const refSystemDialog = React.useRef(null)
   const refConnectionForm = React.useRef(null)
 
+  const [show, setShow] = React.useState(debugMode)
   const [currentMenu, setCurrentMenu] = React.useState(false)
+
+  useHotkeys('ctrl+r', async (e, ke) => {
+     if(!e.repeat) {
+       if(confirm('Do you want to restart the streaming server?')) {
+         await props.onRestart()
+       }
+       return ;
+     }
+   }, [])
+
+  useHotkeys('ctrl+z', (e, ke) => {
+     if(!e.repeat) {
+       setShow(c => {
+         // const res = !c
+         // setCurrentMenu(false)
+         return !c;
+       })
+       return ;
+     }
+   }, [show])
 
   const renderDialog = () => {
 
@@ -90,6 +116,10 @@ function DevBar(props) {
 
     }
 
+  }
+
+  if(!show) {
+    return (<div />);
   }
 
   return (

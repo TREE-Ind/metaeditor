@@ -6,6 +6,9 @@ import useNotify from './useNotify'
 import useUnload from './useUnload'
 import useSound from './useSound'
 
+import useHotkeys, {useIsHotkeyPressed} from './useHotkeys'
+
+
 module.exports = {
   useStorage,
   useMedia,
@@ -14,4 +17,5 @@ module.exports = {
   useNotify,
   useUnload,
   useSound,
+  useHotkeys, useIsHotkeyPressed,
 }
