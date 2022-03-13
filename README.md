@@ -6,6 +6,12 @@ The standard implementation of [PixelStreaming](https://docs.unrealengine.com/5.
 
 **MetaEditor** streamlines PixelStreaming development to allow businesses to easily deploy and customize their ReactJS application.
 
+
+<p align="center">
+  <img src="https://metaeditor.io/assets/preview.png?v=1" width="100%" title="Pixel Streaming">
+</p>
+
+
 ### Documentation
 
 https://metaeditor.io/docs/
@@ -14,6 +20,10 @@ https://metaeditor.io/docs/
 
 1. Run `yarn install` command
 2. Run `yarn dev` command
+
+### Community
+
+* [Discord App](https://discordapp.com/invite/eGHKuQ3BHM)
 
 ### Config
 

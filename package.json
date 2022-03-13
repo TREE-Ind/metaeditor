@@ -10,7 +10,7 @@
     "start": "next start",
     "export": "next export -o build && npm run replaceFilePaths",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build && open https://github.com/markolofsen/metaeditor/blob/main/README_DEPLOY.md && yarn deploy_readme",
+    "deploy": "gh-pages -d build && yarn deploy_readme",
     "deploy_readme": "open https://github.com/markolofsen/metaeditor/blob/main/README_DEPLOY.md",
     "static": "next build && next export && http-server ./build/ -o -p 8080",
     "lint": "next lint",
