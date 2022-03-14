@@ -52,6 +52,7 @@ const actions = () => {
 
   // Detect body click (for webrtc sound)
   const bodyClick = React.useCallback((event) => {
+    DISPATCHER({body_clicked: true})
     if(state.loaded === null) {
       DISPATCHER({volume: true})
     }

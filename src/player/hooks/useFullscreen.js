@@ -8,10 +8,7 @@ import {usePlayer} from '../context/';
 
 
 function useFullscreen() {
-  const player = usePlayer()
-
-  const playerLoaded = player.state.loaded
-
+  const {state} = usePlayer()
 
   // Hot key
   useHotkeys('ctrl+f', (e, ke) => {
@@ -24,11 +21,11 @@ function useFullscreen() {
   // Set fullscreen mode
   React.useEffect(() => {
 
-    if(playerLoaded && confirm('useFullscreen?')) {
+    if(state.loaded && state.body_clicked && confirm('useFullscreen?')) {
       cls.open()
     }
 
-  }, [playerLoaded])
+  }, [state.loaded])
 
 
   const cls = new class {
@@ -41,7 +38,8 @@ function useFullscreen() {
     /* View in fullscreen */
     open() {
 
-      console.error('this.elem', this.elem);
+      if(!state.body_clicked) return ;
+
       if (this.elem.requestFullscreen) {
         this.elem.requestFullscreen()
         .then(() => {
@@ -70,6 +68,8 @@ function useFullscreen() {
 
     /* Close fullscreen */
     close() {
+      if(!state.body_clicked) return ;
+      
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) { /* Safari */

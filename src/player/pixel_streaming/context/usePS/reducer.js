@@ -21,6 +21,7 @@ const initialState = {
   quality_speed: false,
   last_interaction: null,
   volume: null,
+  body_clicked: false,
 };
 
 const KEY = {
