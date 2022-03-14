@@ -7,29 +7,35 @@ import {usePlayer} from '../context/';
 import {styled} from 'styles/snippets'
 
 // material
-import CircularProgress from '@mui/material/CircularProgress';
-import MuiBackdrop from '@mui/material/Backdrop';
+import MuiLinearProgress from '@mui/material/LinearProgress';
+import MuiBox from '@mui/material/Box';
 
-const Backdrop = styled.custom(MuiBackdrop, theme => ({
+
+const Box = styled.custom(MuiBox, theme => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+
   zIndex: theme.zIndex.modal + 1,
-  background: 'rgba(255,255,255, .2)',
-  cursor: 'wait',
-
-  pointerEvents: 'all',
-
-  display: 'flex',
-  alignItems: 'flex-start',
-  justifyContent: 'flex-start',
-
-  padding: theme.spacing(2),
 }))
 
+const LinearProgress = styled.custom(MuiLinearProgress, theme => ({
+  // backgroundColor: 'rgba(255,255,255, .1)',
+}))
 
 function CallbackLoader(props) {
   const player = usePlayer()
-  const [open, setOpen] = React.useState(false);
+  const refInteval = React.useRef(null)
 
+  const [progress, setProgress] = React.useState(0);
   const playerLoaded = player.state.loaded
+
+  React.useEffect(() => {
+    return () => {
+      handleClose()
+    };
+  }, []);
 
   // The component instance will be extended
 	// with whatever you return from the callback passed
@@ -44,22 +50,35 @@ function CallbackLoader(props) {
   }));
 
   const handleOpen = (payload) => {
-    if(!playerLoaded) return ;
-    if(['console_command'].includes(payload?.type)) {
-      return ;
-    }
+    if(!playerLoaded || ['console_command'].includes(payload?.type)) return ;
 
-    setOpen(true);
+    handleClose()
+
+    refInteval.current = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          clearInterval(refInteval.current);
+          return 0;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    clearInterval(refInteval.current);
+    setProgress(0)
   };
 
+  if(progress <= 0 || progress >= 100) {
+    return (<div />);
+  }
+
   return (
-    <Backdrop open={open} onClick={handleClose}>
-      <CircularProgress color="inherit" size={20} />
-    </Backdrop>
+    <Box>
+      <LinearProgress variant="determinate" color="inherit" value={progress} />
+    </Box>
   );
 }
 
