@@ -7,3 +7,5 @@ export {
   MsgEvent,
   Config,
 }
+
+export default undefined
