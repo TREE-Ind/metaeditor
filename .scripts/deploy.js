@@ -37,16 +37,16 @@ class Deploy {
     await this.exec('npx gh-pages -d ../build')
 
     // Open urls
-    this.exec(`open ${this.repo_url}/actions`)
+    await this.exec(`open ${this.repo_url}/actions`)
 
-    setTimeout(() => {
+    setTimeout(async () => {
 
-      this.exec(`open ${this.repo_url}/blob/main/${this.dir}/README.md`)
-      this.exec(`open ${this.repo_url}/settings/pages`)
-      this.exec(`open ${this.repo_url}/new/gh-pages`)
-      this.exec(`open ${this.repo_url}/new/gh-pages/_next`)
+      await this.exec(`open ${this.repo_url}/blob/main/${this.dir}/README.md`)
+      await this.exec(`open ${this.repo_url}/settings/pages`)
+      await this.exec(`open ${this.repo_url}/new/gh-pages`)
+      await this.exec(`open ${this.repo_url}/new/gh-pages/_next`)
 
-    }, 1000 * 10)
+    }, 1000 * 1)
 
   }
 

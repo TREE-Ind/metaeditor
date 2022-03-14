@@ -13,3 +13,10 @@ After `yarn deploy` create empty `.nojekyll` in [gh-pages](https://github.com/ma
 
 
 [Set domain](https://github.com/markolofsen/metaeditor/settings/pages) `ps.metaeditor.io`
+
+
+---
+
+### obfuscator
+
+javascript-obfuscator ./src/player/pixel_streaming/client/index_src.js --output ./src/player/pixel_streaming/client/index.js

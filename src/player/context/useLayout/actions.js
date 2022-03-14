@@ -29,10 +29,14 @@ const actions = () => {
     }
 
     get sounds() {
-      const allowed = player.state.sounds
+      const play = obj => {
+        if(player.state.sounds) {
+          obj.play()
+        }
+      }
       
       return {
-        click: () => allowed && soundClick.play(),
+        click: () => play(soundClick),
       }
     }
 
