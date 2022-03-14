@@ -1,7 +1,7 @@
 import React from 'react';
 
 // hooks
-import {useHotkeys, useIsHotkeyPressed} from 'hooks/'
+import {useDevice, useHotkeys, useIsHotkeyPressed} from 'hooks/'
 
 // context
 import {usePlayer} from '../context/';
@@ -88,18 +88,22 @@ let key_timer = null
 
 function KeyboardHelper() {
 	const player = usePlayer()
+	const {isBrowser, isMobile} = useDevice();
+
   const [active, setActive] = React.useState(null);
   const [isArrows, setIsArrows] = React.useState(false);
 
 	const playerLoaded = player.state.loaded
 
 	React.useEffect(() => {
-		if(active) {
+
+		if(isBrowser && active) {
 			clearTimeout(key_timer)
 			key_timer = setTimeout(() => {
 				setActive(null)
 			}, 1000)
 		}
+
 	}, [active])
 
   // useTimeout (
@@ -194,10 +198,10 @@ function KeyboardHelper() {
   // const isPressed = useIsHotkeyPressed()('w');
   // const pressed = useIsHotkeyPressed()('w'); // Returns true if Return key is pressed down.
 
-	if(!playerLoaded) {
+	if(!playerLoaded || isMobile) {
 		return (<div />);
 	}
-	
+
 	return (
 		<RootList>
 			{list_render.map((item, index) => (

@@ -10,6 +10,9 @@ import {useHotkeys} from 'hooks/'
 // styles
 import {styled} from 'styles/snippets'
 
+// material
+import Box from '@mui/material/Box';
+
 // blocks
 import AppBar from './AppBar';
 import SystemDialog from './SystemDialog'
@@ -131,7 +134,10 @@ function DevBar(props) {
     if(!show) return ;
 
     return (
-      <>
+      <Box sx={{ml: 2}}>
+
+        {renderDialog()}
+
         <ConnectionForm
           ref={refConnectionForm}
           autoConnect={props.autoConnect}
@@ -143,8 +149,8 @@ function DevBar(props) {
         <AppBar
           onRestart={props.onRestart}
           handleMenu={handleMenu} />
-        {renderDialog()}
-      </>
+
+      </Box>
     )
   }
   return (

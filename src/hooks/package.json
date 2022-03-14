@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "use-sound": "^4.0.1",
-    "react-hotkeys-hook": "^3.4.4"
+    "react-hotkeys-hook": "^3.4.4",
+    "react-device-detect": "^2.1.2"
   },
   "devDependencies": {}
 }

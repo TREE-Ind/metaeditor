@@ -35,10 +35,12 @@ class Deploy {
     await this.exec('cd ../ && npx next build && npx next export -o ./build')
     await this.replaceFilePaths()
     await this.exec('npx gh-pages -d ../build')
-    await this.exec(`open ${this.repo_url}/actions`)
 
-    // URLS
-    await new Promise((resolve, reject) => {
+    // Open urls
+    setTimeout(() => {
+
+      this.exec(`open ${this.repo_url}/actions`)
+
       setTimeout(() => {
 
         this.exec(`open ${this.repo_url}/blob/main/${this.dir}/README.md`)
@@ -46,10 +48,9 @@ class Deploy {
         this.exec(`open ${this.repo_url}/new/gh-pages`)
         this.exec(`open ${this.repo_url}/new/gh-pages/_next`)
 
-        resolve(true)
+      }, 1000 * 60 * 2)
 
-      }, 1000 * 60 * 3)
-    })
+    }, 1000 * 60 * 1)
 
   }
 

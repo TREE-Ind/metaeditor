@@ -9,7 +9,7 @@ import {usePlayer} from '../../../context/';
 
 function useFullscreen() {
   const {state} = usePlayer()
-  const [active, setActive] = React.useState(true)
+  const [active, setActive] = React.useState(false)
 
   // Hot key
   useHotkeys('ctrl+f', (e, ke) => {
@@ -24,9 +24,10 @@ function useFullscreen() {
 
     if (document.fullscreenElement) {
       console.log(`Element: ${document.fullscreenElement.id} entered fullscreen mode.`);
+      setActive(true)
     } else {
       console.log('Leaving fullscreen mode.');
-      setActive(true)
+      setActive(false)
     }
 
   }
@@ -62,8 +63,6 @@ function useFullscreen() {
 
       if(!state.body_clicked) return ;
 
-      setActive(false)
-
       if (this.elem.requestFullscreen) {
         this.elem.requestFullscreen()
         .then(() => {
@@ -94,13 +93,21 @@ function useFullscreen() {
     close() {
       if(!state.body_clicked) return ;
 
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) { /* Safari */
-        document.webkitExitFullscreen();
-      } else if (document.msExitFullscreen) { /* IE11 */
-        document.msExitFullscreen();
+      if (document.fullscreenElement) {
+        document.exitFullscreen()
+          .then(() => console.log("Document Exited from Full screen mode"))
+          .catch((err) => console.error(err))
+      } else {
+        document.documentElement.requestFullscreen();
       }
+
+      // if (document.exitFullscreen) {
+      //   document.exitFullscreen();
+      // } else if (document.webkitExitFullscreen) { /* Safari */
+      //   document.webkitExitFullscreen();
+      // } else if (document.msExitFullscreen) { /* IE11 */
+      //   document.msExitFullscreen();
+      // }
     }
   }
 

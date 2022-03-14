@@ -5,7 +5,7 @@ import useHelpers from './useHelpers/'
 import useNotify from './useNotify'
 import useUnload from './useUnload'
 import useSound from './useSound'
-
+import useDevice from './useDevice'
 import useHotkeys, {useIsHotkeyPressed} from './useHotkeys'
 
 
@@ -17,5 +17,6 @@ module.exports = {
   useNotify,
   useUnload,
   useSound,
+  useDevice,
   useHotkeys, useIsHotkeyPressed,
 }
