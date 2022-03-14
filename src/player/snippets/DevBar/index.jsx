@@ -18,6 +18,8 @@ import StateData from './StateData'
 import DebugForm from './DebugForm'
 import LogsData from './LogsData'
 import CommandsList from './CommandsList/'
+import FullscreenButton from './FullscreenButton/'
+
 
 // Config
 const debugMode = env.isDev
@@ -25,12 +27,19 @@ const debugMode = env.isDev
 
 const RootDiv = styled.ul(theme => ({
   position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  maxHeight: '100%',
-  padding: theme.spacing(2),
   zIndex: theme.zIndex.appBar + 1,
+
+  top: theme.spacing(2),
+  right: theme.spacing(4),
+  // bottom: 0,
+  // maxHeight: '100%',
+  // padding: theme.spacing(2),
+  pointerEvents: 'all',
+
+  // width: 'max-content',
+  display: 'flex',
+
+
   // [theme.breakpoints.up('md')]: {
   //   maxWidth: '50vw',
   // },
@@ -118,26 +127,32 @@ function DevBar(props) {
 
   }
 
-  if(!show) {
-    return (<div />);
-  }
+  const renderDevBar = () => {
+    if(!show) return ;
 
-  return (
-    <div>
+    return (
+      <>
+        <ConnectionForm
+          ref={refConnectionForm}
+          autoConnect={props.autoConnect}
+          serverData={props.serverData}
+          setServerData={props.setServerData}
+          initConnection={props.initConnection}
+        />
 
-      <ConnectionForm
-        ref={refConnectionForm}
-        autoConnect={props.autoConnect}
-        serverData={props.serverData}
-        setServerData={props.setServerData}
-        initConnection={props.initConnection}
-      />
-
-      <RootDiv>
         <AppBar
           onRestart={props.onRestart}
           handleMenu={handleMenu} />
         {renderDialog()}
+      </>
+    )
+  }
+  return (
+    <div>
+
+      <RootDiv>
+        <FullscreenButton />
+        {renderDevBar()}
       </RootDiv>
 
     </div>

@@ -26,11 +26,8 @@ import {styled} from 'styles/snippets'
 
 
 const AppBar = styled.custom(MuiAppBar, theme => ({
-  pointerEvents: 'all',
-  width: 'max-content',
   borderRadius: theme.shape.borderRadius,
-  top: theme.spacing(2),
-  right: theme.spacing(2),
+  width: 'max-content',
 }))
 
 
@@ -94,7 +91,7 @@ const ResponsiveAppBar = (props) => {
   }
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters variant="dense">
           <Typography

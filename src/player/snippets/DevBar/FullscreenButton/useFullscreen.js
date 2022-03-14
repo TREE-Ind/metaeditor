@@ -4,11 +4,12 @@ import React from "react";
 import {useHotkeys} from 'hooks/'
 
 // context
-import {usePlayer} from '../context/';
+import {usePlayer} from '../../../context/';
 
 
 function useFullscreen() {
   const {state} = usePlayer()
+  const [active, setActive] = React.useState(true)
 
   // Hot key
   useHotkeys('ctrl+f', (e, ke) => {
@@ -18,14 +19,34 @@ function useFullscreen() {
      }
    }, [])
 
-  // Set fullscreen mode
-  React.useEffect(() => {
 
-    if(state.loaded && state.body_clicked && confirm('useFullscreen?')) {
-      cls.open()
+  const fullscreenchanged = (event) => {
+
+    if (document.fullscreenElement) {
+      console.log(`Element: ${document.fullscreenElement.id} entered fullscreen mode.`);
+    } else {
+      console.log('Leaving fullscreen mode.');
+      setActive(true)
     }
 
-  }, [state.loaded])
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('fullscreenchange', fullscreenchanged);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', fullscreenchanged);
+    }
+  }, [])
+
+  // // Set fullscreen mode
+  // React.useEffect(() => {
+  //
+  //   if(state.loaded && state.body_clicked && confirm('useFullscreen?')) {
+  //     cls.open()
+  //   }
+  //
+  // }, [state.loaded])
 
 
   const cls = new class {
@@ -33,12 +54,15 @@ function useFullscreen() {
     constructor() {
       // Get the documentElement (<html>) to display the page in fullscreen
       this.elem = document.documentElement
+      this.active = active
     }
 
     /* View in fullscreen */
     open() {
 
       if(!state.body_clicked) return ;
+
+      setActive(false)
 
       if (this.elem.requestFullscreen) {
         this.elem.requestFullscreen()
@@ -69,7 +93,7 @@ function useFullscreen() {
     /* Close fullscreen */
     close() {
       if(!state.body_clicked) return ;
-      
+
       if (document.exitFullscreen) {
         document.exitFullscreen();
       } else if (document.webkitExitFullscreen) { /* Safari */

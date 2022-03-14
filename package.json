@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "homepage": "https://markolofsen.github.io/metaeditor",
   "scripts": {
-    "dev": "next dev",
+    "dev": "open http://localhost:3000/ && next dev",
     "build": "next build",
     "start": "next start",
     "export": "next export -o build",
