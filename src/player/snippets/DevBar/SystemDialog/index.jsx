@@ -11,14 +11,19 @@ import {styled, alpha} from 'styles/snippets'
 
 
 const Box = styled.custom(MuiBox, theme => ({
-  maxHeight: '100%',
+  position: 'absolute',
+
+  top: 0,
+  right: 0,
+  maxHeight: 'calc(var(--window-height) - 40px)',
+  zIndex: theme.zIndex.appBar + 2,
+
   backgroundColor: alpha(theme.palette.background.paper, .9),
   pointerEvents: 'all',
   overflow: 'auto',
   padding: theme.spacing(2, 3, 3),
   borderRadius: theme.shape.borderRadius,
-  zIndex: theme.zIndex.appBar + 2,
-  position: 'relative',
+
   [theme.breakpoints.down('md')]: {
     width: 'calc(100vw - 30px)',
   },

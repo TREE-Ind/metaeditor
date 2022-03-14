@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 // context
 import {usePlayer, useLayout} from '../context/'
 
+// material
+import Collapse from '@mui/material/Collapse';
+
 // layouts
 import AppBar from './AppBar'
 import Panels from './Panels/'
@@ -15,6 +18,7 @@ import DraggableCard from 'player/components/DraggableCard'
 import {styled} from 'styles/snippets'
 
 const RootList = styled.ul(theme => ({
+
   position: 'absolute',
   zIndex: theme.zIndex.appBar,
   top: 0,
@@ -25,13 +29,13 @@ const RootList = styled.ul(theme => ({
   display: 'flex',
   flexDirection: 'column',
 
-  '& [data-layout-hide]': {
+  '&[data-layout-hide]': {
     transition: theme.transitions.create(['opacity'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  '& [data-layout-hide="true"]': {
+  '&[data-layout-hide="true"]': {
     opacity: .0,
     pointerEvents: 'none',
   },
@@ -46,6 +50,10 @@ const RootList = styled.ul(theme => ({
     '& > [data-li="appbar"]': {
       pointerEvents: 'all',
     },
+
+    '& > [data-li="panels"]': {
+
+    },
   }
 
 }))
@@ -56,18 +64,20 @@ function Content(props) {
   const layout = useLayout()
 
   const hideInterfaceAll = player.state.mouse_moving
-  const hideInterface = !layout.state.ui_visible
+  const hideInterface = layout.state.ui_visible
 
   return (
     <div>
-      <RootList>
+      <RootList data-layout-hide={hideInterfaceAll}>
         <li data-li="content">
           <DraggableCard />
         </li>
-        <li data-layout-hide={hideInterfaceAll}>
+        <li>
           <ul data-list="bottom">
-            <li data-layout-hide={hideInterface}>
-              <Panels />
+            <li data-li="panels">
+              <Collapse in={hideInterface} mountOnEnter={false} unmountOnExit={false}>
+                <Panels />
+              </Collapse>
             </li>
             <li data-li="appbar">
               <AppBar />
