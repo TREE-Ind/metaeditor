@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 // api
 import {env} from 'api/'
 
+// hooks
+import {useMedia} from 'hooks/'
+
 // context
 import {usePlayer, useLayout} from '../../context/';
-
 
 // styles
 import {styled} from 'styles/snippets'
@@ -64,11 +66,13 @@ const MenuButton = styled.custom(MuiButton, theme => ({
 const ResponsiveAppBar = () => {
   const player = usePlayer()
   const layout = useLayout()
+  const media = useMedia();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const isDisabled = !player.state.loaded
+	const isMobile = media.down.sm
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -173,31 +177,25 @@ const ResponsiveAppBar = () => {
               )}
             </SignalQuality>
 
-            <Tooltip title="Volume">
-              <span>
-                <IconButton disabled={isDisabled} onClick={() => player.cls.changeVolume()}>
-                  <Icon>{player.state.volume ? 'volume_up' : 'volume_off'}</Icon>
-                </IconButton>
-              </span>
-            </Tooltip>
-
             <Tooltip title={layout.state.ui_visible ? 'Hide UI' : 'Show UI'}>
               <span>
                 <IconButton onClick={() => layout.handleUiVisible()}>
-                  <Icon>{layout.state.ui_visible ? 'fullscreen' : 'fullscreen_exit'}</Icon>
+                  <Icon>{layout.state.ui_visible ? 'visibility' : 'visibility_off'}</Icon>
                 </IconButton>
               </span>
             </Tooltip>
 
-            <HelpPanel>
-              {(onClick) => (
-                <Tooltip title="Help">
-                  <IconButton onClick={onClick}>
-                    <Icon>help</Icon>
-                  </IconButton>
-                </Tooltip>
-              )}
-            </HelpPanel>
+            {!isMobile && (
+              <HelpPanel>
+                {(onClick) => (
+                  <Tooltip title="Help">
+                    <IconButton onClick={onClick}>
+                      <Icon>help</Icon>
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </HelpPanel>
+            )}
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

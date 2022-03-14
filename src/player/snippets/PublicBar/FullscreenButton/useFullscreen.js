@@ -8,7 +8,7 @@ import {usePlayer} from '../../../context/';
 
 
 function useFullscreen() {
-  const {state} = usePlayer()
+  const player = usePlayer()
   const [active, setActive] = React.useState(false)
 
   // Hot key
@@ -40,47 +40,35 @@ function useFullscreen() {
     }
   }, [])
 
-  // // Set fullscreen mode
-  // React.useEffect(() => {
-  //
-  //   if(state.loaded && state.body_clicked && confirm('useFullscreen?')) {
-  //     cls.open()
-  //   }
-  //
-  // }, [state.loaded])
-
-
   const cls = new class {
 
     constructor() {
       // Get the documentElement (<html>) to display the page in fullscreen
-      this.elem = document.documentElement
+      this.doc = document.documentElement
       this.active = active
     }
 
     /* View in fullscreen */
     open() {
 
-      if(!state.body_clicked) return ;
-
-      if (this.elem.requestFullscreen) {
-        this.elem.requestFullscreen()
+      if (this.doc.requestFullscreen) {
+        this.doc.requestFullscreen()
         .then(() => {
       		// element has entered fullscreen mode successfully
       	})
       	.catch((error) => {
       		console.error({error});
       	});
-      } else if (this.elem.webkitRequestFullscreen) { /* Safari */
-        this.elem.webkitRequestFullscreen()
+      } else if (this.doc.webkitRequestFullscreen) { /* Safari */
+        this.doc.webkitRequestFullscreen()
         .then(() => {
       		// element has entered fullscreen mode successfully
       	})
       	.catch((error) => {
       		console.error({error});
       	});
-      } else if (this.elem.msRequestFullscreen) { /* IE11 */
-        this.elem.msRequestFullscreen().then(() => {
+      } else if (this.doc.msRequestFullscreen) { /* IE11 */
+        this.doc.msRequestFullscreen().then(() => {
       		// element has entered fullscreen mode successfully
       	})
       	.catch((error) => {
@@ -91,7 +79,6 @@ function useFullscreen() {
 
     /* Close fullscreen */
     close() {
-      if(!state.body_clicked) return ;
 
       if (document.fullscreenElement) {
         document.exitFullscreen()

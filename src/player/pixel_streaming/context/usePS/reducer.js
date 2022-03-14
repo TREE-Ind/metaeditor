@@ -20,6 +20,7 @@ const initialState = {
   resolution_multiplier: 1, // from .5 to 2
   quality_speed: false,
   last_interaction: null,
+
   volume: null,
   body_clicked: false,
 };

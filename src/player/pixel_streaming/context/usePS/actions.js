@@ -1,7 +1,7 @@
 import React from "react"
 
 // hooks
-import {useWindowSize} from '../../hooks/'
+import {useWindowSize, useReducerEvents} from '../../hooks/'
 
 // libs
 import moment from 'moment'
@@ -18,15 +18,12 @@ import ClientClass from '../../client/'
 const actions = () => {
   const windowSize = useWindowSize();
 
-  const [state, dispatch] = React.useReducer(reducer.reducer, reducer.initialState);
+  const [state, dispatch_, refState] = useReducerEvents(reducer.reducer, reducer.initialState);
+  // const [state, dispatch_] = React.useReducer(reducer.reducer, reducer.initialState);
+  const dispatch = payload => dispatch_({type: reducer.KEY.UPDATE, payload})
 
   const [commandsList, setCommandsList] = React.useState([])
   const [callbacksList, setCallbacksList] = React.useState([])
-
-  const DISPATCHER = (payload) => dispatch({
-    type: reducer.KEY.UPDATE,
-    payload,
-  })
 
   // Resizing window
   React.useEffect(() => {
@@ -35,7 +32,7 @@ const actions = () => {
       state.window_size.width !== windowSize.width ||
       state.window_size.height !== windowSize.height
     ) {
-      DISPATCHER({window_size: windowSize})
+      dispatch({window_size: windowSize})
       ClientClass.resize(state.resolution_multiplier)
     }
 
@@ -51,12 +48,13 @@ const actions = () => {
   }
 
   // Detect body click (for webrtc sound)
-  const bodyClick = React.useCallback((event) => {
-    DISPATCHER({body_clicked: true})
-    if(state.loaded === null) {
-      DISPATCHER({volume: true})
+  const bodyClick = () => {
+    dispatch({body_clicked: true})
+
+    if(refState.current.volume === null) {
+      dispatch({volume: true})
     }
-  }, [])
+  }
 
 
   React.useEffect(() => {
@@ -65,10 +63,11 @@ const actions = () => {
 
     return () => {
       debugRef.current = null
-      document.removeEventListener('ps_debug', debugListener)
-      document.body.removeEventListener('click', bodyClick); // Remove body click listener
+      document.rem
+      document.body.removeEventListener('click', bodyClick); // Remove body click listeneroveEventListener('ps_debug', debugListener)
     }
   }, [])
+
 
   // Init original pixel streaming module
   const cls = new class {
@@ -99,7 +98,7 @@ const actions = () => {
 
       // Set resolution multiplier
       if(typeof quality === 'number') {
-        DISPATCHER({resolution_multiplier: quality})
+        dispatch({resolution_multiplier: quality})
       }
 
       // Sending events listener to onDebug function
@@ -110,7 +109,7 @@ const actions = () => {
 
       this.client.init({
         onUserCount: (count) => {
-          DISPATCHER({users_count: count})
+          dispatch({users_count: count})
         },
         onCommand: (payload) => {
           console.warn('::onCommand');
@@ -144,26 +143,26 @@ const actions = () => {
           //   console.error('@@callback', newItem);
           //
           //   dispatch.commands.updateItem(newItem)
-          //   DISPATCHER({callback_caller: 'stream'})
+          //   dispatch({callback_caller: 'stream'})
           //
           // }
         },
         onLoad: (stream_config) => {
           console.warn('::onLoad');
-          DISPATCHER({...defaultState, loaded: true, connected: true, stream_config})
+          dispatch({...defaultState, loaded: true, connected: true, stream_config})
 
           onLoad(stream_config)
           // renewIntercation()
         },
         onConnect: () => {
           console.warn('::onConnect');
-          DISPATCHER({...defaultState, connected: true})
+          dispatch({...defaultState, connected: true})
 
           onConnect()
         },
         onError: ({code, reason}) => {
           console.warn('::onError', {code, reason});
-          DISPATCHER({
+          dispatch({
             error: {code, reason},
             connected: false,
           })
@@ -173,7 +172,7 @@ const actions = () => {
         onClose: async ({code, reason}) => {
           console.warn('::onClose', {code, reason});
 
-          DISPATCHER({
+          dispatch({
             ...defaultState,
             closed: {code, reason},
             loaded: false,
@@ -187,14 +186,14 @@ const actions = () => {
           onClose()
         },
         onMouseMove: (mouse_moving) => {
-          DISPATCHER({mouse_moving})
+          dispatch({mouse_moving})
           // renewIntercation()
         },
         onAggregatedStats: (aggregated_stats) => {
-          DISPATCHER({aggregated_stats})
+          dispatch({aggregated_stats})
         },
         onQuality: (quality_speed) => {
-          DISPATCHER({quality_speed})
+          dispatch({quality_speed})
         },
         // onWarnTimeout: () => {
         //
@@ -226,20 +225,24 @@ const actions = () => {
       if(this.__ws_locked__) return ;
 
       this.client.resize(resolution_multiplier)
-      DISPATCHER({resolution_multiplier})
+      dispatch({resolution_multiplier})
     }
 
     changeVolume() {
       if(this.__ws_locked__) return ;
 
-      const volume = !state.volume
-      DISPATCHER({volume})
+      const volume = state.volume === null ? null : !state.volume
+      
+      if(volume !== null) {
+        dispatch({volume})
 
-      this.client.emit({
-        type: 'system_sound',
-        value: volume,
-        verification_id: undefined,
-      })
+        this.client.emit({
+          type: 'system_sound',
+          value: volume,
+          verification_id: undefined,
+        })
+
+      }
     }
 
     playStop() {
@@ -254,7 +257,7 @@ const actions = () => {
         this.client.reinit()
       } else {
         this.client.exit()
-        DISPATCHER({
+        dispatch({
           loaded: false,
           connected: false,
         })

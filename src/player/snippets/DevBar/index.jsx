@@ -21,7 +21,7 @@ import StateData from './StateData'
 import DebugForm from './DebugForm'
 import LogsData from './LogsData'
 import CommandsList from './CommandsList/'
-import FullscreenButton from './FullscreenButton/'
+import PublicBar from '../PublicBar/'
 
 
 // Config
@@ -134,7 +134,7 @@ function DevBar(props) {
     if(!show) return ;
 
     return (
-      <Box sx={{ml: 2}}>
+      <Box sx={{ml: 1}}>
 
         {renderDialog()}
 
@@ -157,7 +157,7 @@ function DevBar(props) {
     <div>
 
       <RootDiv>
-        <FullscreenButton />
+        <PublicBar />
         {renderDevBar()}
       </RootDiv>
 
