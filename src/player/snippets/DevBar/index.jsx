@@ -25,26 +25,20 @@ import PublicBar from '../PublicBar/'
 
 
 // Config
-const debugMode = env.isDev
+const debugMode = true //env.isDev
 
 
 const RootDiv = styled.ul(theme => ({
   position: 'absolute',
   zIndex: theme.zIndex.appBar + 1,
-
   top: theme.spacing(2),
-  right: theme.spacing(4),
-  // bottom: 0,
-  // maxHeight: '100%',
-  // padding: theme.spacing(2),
+  right: theme.spacing(2),
   pointerEvents: 'all',
-
-  // width: 'max-content',
   display: 'flex',
+  // width: 'max-content',
 
-
-  // [theme.breakpoints.up('md')]: {
-  //   maxWidth: '50vw',
+  // [theme.breakpoints.down('sm')]: {
+  //   right: theme.spacing(2),
   // },
 }))
 

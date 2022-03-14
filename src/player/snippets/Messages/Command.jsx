@@ -46,6 +46,10 @@ function CommandMessage(props) {
         return ;
       }
 
+      if(['console_command'].includes(payload?.type)) {
+        return ;
+      }
+
       notify.info(content, {
         title: payload.type,
         key: payload.verification_id,

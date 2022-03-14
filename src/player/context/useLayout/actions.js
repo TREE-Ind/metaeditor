@@ -3,6 +3,9 @@ import React from "react"
 // api
 import {env} from 'api/'
 
+// context
+import {usePlayer} from '../';
+
 // reducers
 import reducer from './reducer'
 
@@ -10,6 +13,7 @@ import reducer from './reducer'
 import {useSound} from 'hooks/'
 
 const actions = () => {
+  const player = usePlayer()
   const [state, dispatch] = React.useReducer(reducer.reducer, reducer.initialState);
 
   const soundClick = useSound(env.staticPath('sounds', 'mouse_click.mp3'));
@@ -25,8 +29,10 @@ const actions = () => {
     }
 
     get sounds() {
+      const allowed = player.state.sounds
+      
       return {
-        click: () => soundClick.play()
+        click: () => allowed && soundClick.play(),
       }
     }
 
