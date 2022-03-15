@@ -7,6 +7,9 @@ import {env} from 'api/'
 // hooks
 import {useMedia} from 'hooks/'
 
+// libs
+import packageJson from '../../../../package.json'
+
 // context
 import {usePlayer, useLayout} from '../../context/';
 
@@ -95,6 +98,7 @@ const ResponsiveAppBar = () => {
   }
 
   const isMenuSelected = item => item.slug === layout.state.current_menu
+  const libVersion = packageJson.version
 
   const renderAppBar = () => {
 
@@ -109,6 +113,7 @@ const ResponsiveAppBar = () => {
               sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, cursor: 'default' }}
             >
               {env.data.siteLogoName}
+              <Box component="small" sx={{ml: 1, opacity: .5, fontSize: 11}}>v{libVersion}</Box>
             </Typography>
 
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>

@@ -1,6 +1,6 @@
 
 // libs
-import {DebugData} from '../../'
+import {DebugData} from '../../lib'
 
 function DebugForm() {
 

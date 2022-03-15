@@ -48,6 +48,7 @@ const actions = () => {
     handleMenu(current_menu) {
       this.sounds.click()
       this.draggableCard.close() //hack for draggable component
+      this.handleDrawer.close() //hack for drawer component
 
       current_menu = state.current_menu === current_menu ? false : current_menu
       dispatch({current_menu, ui_visible: true})

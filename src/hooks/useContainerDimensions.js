@@ -30,11 +30,21 @@ const useContainerDimensions = myRef => {
   const getDimensions = () => {
     if(!myRef.current) return dimensions;
 
+    console.dir(myRef.current);
+
+    const {
+      offsetWidth, offsetHeight,
+      scrollTop, scrollLeft,
+      scrollWidth, scrollHeight,
+    } = myRef.current
+
     return {
-      width: myRef.current.offsetWidth,
-      height: myRef.current.offsetHeight,
-      scrollTop: myRef.current.scrollTop,
-      scrollLeft: myRef.current.scrollLeft,
+      width: offsetWidth,
+      height: offsetHeight,
+      scrollTop,
+      scrollLeft,
+      scrollWidth: scrollWidth - offsetWidth,
+      scrollHeight: scrollHeight - offsetHeight,
     };
   }
 

@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import {env} from 'api/'
 
 // libs
-import PixelStreaming, {DebugData, usePS} from './pixel_streaming/';
-export {DebugData, usePS};
+import PixelStreaming from './lib';
 
 // content
 import PlayerContent from './Content'

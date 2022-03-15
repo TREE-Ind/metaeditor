@@ -4,7 +4,7 @@ const packageJson = require("../package.json");
 
 class Deploy {
   constructor() {
-    this.dir = '.scripts'
+    this.dir = '.deploy'
     this.repo_url = 'https://github.com/markolofsen/metaeditor'
   }
 

@@ -4,7 +4,7 @@ import React from "react"
 import reducer from './reducer'
 
 // context
-import {usePS} from '../../'
+import {usePS} from '../../lib'
 
 const actions = () => {
   const PS = usePS()

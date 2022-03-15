@@ -1,8 +1,12 @@
 {
   "name": "MetaEditor",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.1",
   "homepage": "https://markolofsen.github.io/metaeditor",
+  "engines": {
+    "npm": ">=8.1.2",
+    "node": ">=16.13.2"
+  },
   "scripts": {
     "dev": "open http://localhost:3000/ && next dev",
     "build": "next build",
@@ -18,7 +22,8 @@
     "packages": [
       "src/hooks/**",
       "src/components/**/**",
-      "src/player/**"
+      "src/player/**",
+      "src/player/pixel_streaming/**"
     ],
     "nohoist": []
   },

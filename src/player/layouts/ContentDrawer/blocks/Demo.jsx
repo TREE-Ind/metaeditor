@@ -18,10 +18,9 @@ import {styled} from 'styles/snippets'
 
 const ContentList = styled.ul(theme => ({
   display: 'flex',
-  height: 100 + 5,
-  overflow: 'hidden',
   padding: 5,
   '& > [data-li="image"]': {
+    minHeight: 100,
     width: 100,
     backgroundColor: 'rgba(0,0,0, .4)',
     backgroundSize: 'cover',
@@ -40,7 +39,7 @@ function DrawerBlock(props) {
 
   const itm = ['Name', env.staticPath('tmp', 'carousel_wheels.jpg')]
   const items = [
-    itm, itm, itm, itm, itm, itm, itm, itm
+    itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, 
   ].map(([name, src]) => ({name, src}))
 
   return (

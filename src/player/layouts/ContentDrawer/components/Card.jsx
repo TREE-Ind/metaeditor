@@ -20,11 +20,12 @@ const RootDiv = styled.custom(Box, theme => ({
   }),
 
   cursor: 'pointer',
-  border: `solid 1px transparent`,
+  border: `solid 1px rgba(255,255,255, .15)`,
   '&:hover': {
     backgroundColor: 'rgba(0,0,0, .4)',
-    borderColor: 'rgba(255,255,255, .6)',
+    borderColor: 'rgba(255,255,255, .4)',
   },
+  
 }))
 
 function DrawerCard(props) {

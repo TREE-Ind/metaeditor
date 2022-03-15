@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// hooks
+import {useContainerDimensions} from 'hooks/'
 
 // material
 import Icon from '@mui/material/Icon';
@@ -18,7 +20,14 @@ const RootDiv = styled.div(theme => ({
   top: 0,
   left: 0,
   bottom: 0,
-  minWidth: 600,
+
+  [theme.breakpoints.down('sm')]: {
+    right: 0,
+    width: '100%',
+  },
+  [theme.breakpoints.up('sm')]: {
+    minWidth: 600,
+  },
 
   '&[data-expanded]': {
     transition: theme.transitions.create(['width', 'padding-right'], {
@@ -28,9 +37,9 @@ const RootDiv = styled.div(theme => ({
   },
 
   '&[data-expanded="true"]': {
-    // width: '30vw',
-    // minWidth: 300,
-    paddingRight: theme.spacing(20),
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing(20),
+    },
   },
 
   '&[data-expanded="false"]': {
@@ -47,11 +56,13 @@ const ShadowList = styled.ul(theme => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
 
-  '&[data-hover="false"]': {
-    opacity: .8,
-  },
-  '&[data-hover="true"]': {
-    opacity: 1,
+  [theme.breakpoints.up('sm')]: {
+    '&[data-hover="false"]': {
+      opacity: .8,
+    },
+    '&[data-hover="true"]': {
+      opacity: 1,
+    },
   },
 
   '& > li': {
@@ -64,52 +75,103 @@ const ShadowList = styled.ul(theme => ({
     height: 'var(--window-height)',
   },
 
-  '& > li:nth-child(1)': {
-    background: 'linear-gradient(90deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.3) 40%, rgba(255,255,255,0) 60%)',
-    opacity: .2,
+  [theme.breakpoints.down('sm')]: {
+    '& > li:nth-child(1)': {
+      zIndex: theme.zIndex.appBar + 1,
+      background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.8) 15%, rgba(0,0,0,.6) 30%)',
+    },
   },
-  '& > li:nth-child(2)': {
-    background: 'linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 30%, rgba(0,0,0,0) 100%)',
+  [theme.breakpoints.up('sm')]: {
+    '& > li:nth-child(1)': {
+      background: 'linear-gradient(90deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.3) 40%, rgba(255,255,255,0) 60%)',
+      opacity: .2,
+    },
+    '& > li:nth-child(2)': {
+      background: 'linear-gradient(90deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.6) 30%, rgba(0,0,0,0) 100%)',
+    },
   },
+
 }))
 
 const SlideDiv = styled.div(theme => ({
   height: '100%',
   borderRadius: theme.shape.borderRadius,
-  padding: theme.spacing(4),
-  paddingRight: theme.spacing(0),
   display: 'flex',
   flexDirection: 'column',
+
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+  },
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(4),
+    paddingRight: theme.spacing(0),
+  },
 }))
 
 const HeaderList = styled.ul(theme => ({
-  // pointerEvents: 'all',
   display: 'flex',
   alignItems: 'center',
-  paddingBottom: theme.spacing(3),
-  zIndex: theme.zIndex.appBar,
+  zIndex: theme.zIndex.appBar + 1,
   '& > [data-li="title"]': {
     flex: 1,
     ...theme.typography.h4,
-  }
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(0, 0, 2),
+  },
+  [theme.breakpoints.up('sm')]: {
+    paddingBottom: theme.spacing(3),
+  },
 }))
 
 const ContentDiv = styled.ul(theme => ({
-  zIndex: theme.zIndex.appBar,
+  zIndex: theme.zIndex.appBar + 10,
   pointerEvents: 'all',
   height: '100%',
   overflow: 'auto',
 }))
 
+const ContentArrowDiv = styled.div(theme => ({
+  position: 'relative',
+  backgroundColor: 'rgba(0,0,0, .6)',
+  height: 50,
+  zIndex: theme.zIndex.appBar + 10,
+  marginTop: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  borderTopLeftRadius: 0,
+  borderTopRightRadius: 0,
+
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  border: `solid 1px rgba(255,255,255, .15)`,
+  pointerEvents: 'all',
+  cursor: 'pointer',
+
+  transition: theme.transitions.create(['background-color', 'border-color'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+
+  '&:hover': {
+    backgroundColor: 'rgba(0,0,0, .8)',
+    borderColor: 'rgba(255,255,255, .4)'
+  },
+}))
 
 const ExpandButton = styled.custom(IconButton, theme => ({
   pointerEvents: 'all',
-  border: `solid 1px rgba(255,255,255, .3)`,
+  border: 0,
+  outline: `solid 1px rgba(255,255,255, .3)`,
 }))
 
 
 
 function ContentDrawer(props) {
+
+  const contentDownRef = React.useRef(null);
+  const contentRef = React.useRef(null);
+  const contentDimensions = useContainerDimensions(contentRef);
 
   const [hover, setHover] = React.useState(false)
   // const [expanded, setExpanded] = React.useState(true)
@@ -125,6 +187,22 @@ function ContentDrawer(props) {
     //   }
     //   return active;
     // })
+  }
+
+
+  const renderContentArrow = () => {
+
+    const isVisible = contentDimensions.scrollTop <= contentDimensions.scrollHeight - 50
+
+    if(!isVisible) return ;
+
+    return (
+      <ContentArrowDiv onClick={() => {
+        contentDownRef.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+      }}>
+        <Icon>expand_more</Icon>
+      </ContentArrowDiv>
+    );
   }
 
   const renderContent = () => {
@@ -146,10 +224,14 @@ function ContentDrawer(props) {
         </HeaderList>
 
         <ContentDiv
+          ref={contentRef}
           onMouseOver={() => setHover(true)}
           onMouseOut={() => setHover(false)}>
           {props.children}
+          <div ref={contentDownRef} />
         </ContentDiv>
+
+        {renderContentArrow()}
 
       </>
     )
@@ -164,13 +246,11 @@ function ContentDrawer(props) {
         mountOnEnter={false}
         unmountOnExit={false}
         >
-        <SlideDiv style={{
-          height: props.height,
-        }}>
+        <SlideDiv style={{height: props.height}}>
           {renderContent()}
         </SlideDiv>
       </Slide>
-      
+
     </RootDiv>
   );
 }

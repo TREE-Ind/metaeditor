@@ -40,7 +40,7 @@ const RootDiv = styled.div(theme => ({
 const RootList = styled.ul(theme => ({
 
   position: 'absolute',
-  zIndex: theme.zIndex.appBar,
+  zIndex: theme.zIndex.appBar + 10,
   top: 0,
   left: 0,
   right: 0,
