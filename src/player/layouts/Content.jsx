@@ -25,13 +25,13 @@ import {styled} from 'styles/snippets'
 
 
 const RootDiv = styled.div(theme => ({
-  '& [data-layout-visible]': {
+  '&[data-layout-visible]': {
     transition: theme.transitions.create(['opacity'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  '& [data-layout-visible="true"]': {
+  '&[data-layout-visible="true"]': {
     opacity: .0,
     pointerEvents: 'none',
   },
@@ -79,17 +79,16 @@ function Content(props) {
   const uiVisibleAll = player.state.mouse_moving
   const uiVisible = layout.state.ui_visible
 
-  const showDrawer = !uiVisibleAll && uiVisible
-
+  // const showDrawer = !uiVisibleAll && uiVisible
 
   return (
-    <RootDiv>
+    <RootDiv data-layout-visible={uiVisibleAll}>
 
       <ContentDrawer
-        show={showDrawer}
+        show={uiVisible}
         height={contentDimension?.height} />
 
-      <RootList data-layout-visible={uiVisibleAll}>
+      <RootList>
         <li data-li="content" ref={contentRef}>
           <DraggableCard />
         </li>

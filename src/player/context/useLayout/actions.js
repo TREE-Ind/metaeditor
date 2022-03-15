@@ -70,6 +70,7 @@ const actions = () => {
           setTimeout(() => dispatchComponent('streamDrawer', {slug, active: true}), 300)
         },
         close: () => {
+          this.sounds.click()
           dispatchComponent('streamDrawer', {slug: false, active: false})
         },
       }
@@ -81,14 +82,16 @@ const actions = () => {
         data: state.components.draggableCard.data,
         active: state.components.draggableCard.active,
         close: () => {
+          this.sounds.click()
           dispatchComponent('draggableCard', {active: false})
         },
         open: (title, body) => {
           this.sounds.click()
-
-          const data = {title, body}
           dispatchComponent('draggableCard', {active: false})
-          setTimeout(() => dispatchComponent('draggableCard', {active: true, data}), 300)
+          setTimeout(() => dispatchComponent('draggableCard', {
+            active: true,
+            data: {title, body},
+          }), 300)
         }
       };
     }

@@ -78,7 +78,7 @@ const ShadowList = styled.ul(theme => ({
   [theme.breakpoints.down('sm')]: {
     '& > li:nth-child(1)': {
       zIndex: theme.zIndex.appBar + 1,
-      background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.8) 15%, rgba(0,0,0,.6) 30%)',
+      background: 'linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,.85) 15%, rgba(0,0,0,.8) 30%)',
     },
   },
   [theme.breakpoints.up('sm')]: {

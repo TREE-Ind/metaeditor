@@ -19,27 +19,23 @@ const RootDiv = styled.custom(Box, theme => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
 
-  cursor: 'pointer',
   border: `solid 1px rgba(255,255,255, .15)`,
   '&:hover': {
     backgroundColor: 'rgba(0,0,0, .4)',
     borderColor: 'rgba(255,255,255, .4)',
   },
-  
+
 }))
 
 function DrawerCard(props) {
 
   return (
-    <RootDiv>
-      {props.children}
-    </RootDiv>
+    <RootDiv {...props} />
   );
 }
 
 DrawerCard.propTypes = {
 	children: PropTypes.node.isRequired,
 };
-
 
 export default DrawerCard

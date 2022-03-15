@@ -13,10 +13,16 @@ function Panel() {
   const layout = useLayout()
 
   const renderItems = () => {
-    const itm = ['Name', env.staticPath('tmp', 'carousel_wheels.jpg')]
+
+    const tmp = ['Demo', 'default', undefined]
+
     const items = [
-      itm, itm, itm, itm, itm, itm, itm, itm
-    ].map(([name, src], index) => ({name, slug: `slug-${index}`, src}))
+      ['Body Color', 'body_color', env.staticPath('tmp', 'carousel_wheels.jpg')],
+      ['Interior Color', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
+
+      tmp, tmp, tmp, tmp, tmp, tmp, tmp, tmp,
+
+    ].map(([name, slug, src]) => ({name, slug, src}))
 
     return (
       <CarouselItems
@@ -28,7 +34,7 @@ function Panel() {
         {(item, index) => {
           return (
             <div>
-              {item.name} #{index}
+              {item.name}
             </div>
           )
         }}

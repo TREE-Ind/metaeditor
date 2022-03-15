@@ -26,21 +26,21 @@ const ItemList = styled.ul(theme => ({
   transition: theme.transitions.create(['border-color']),
   backgroundColor: 'rgba(0,0,0,.9)',
   padding: theme.spacing('2px'),
+  minHeight: 110,
   '&:hover': {
     borderColor: theme.palette.primary.main,
   },
   '& > [data-li="image"]': {
     minWidth: 100,
     maxWidth: 100,
-    height: 100,
     backgroundColor: theme.palette.background.default,
-    borderRadius: theme.shape.borderRadius / 1.2,
+    borderRadius: theme.shape.borderRadius / 1.3,
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
   },
   '& > [data-li="content"]': {
     flex: 1,
-    padding: theme.spacing(.5, 2, 0, 2),
+    padding: theme.spacing(1, 2),
   },
 }))
 
@@ -52,16 +52,22 @@ function CustomCarousel(props) {
         infiniteLoop
         gutter={10}
         items={props.items}>
-        {(item, index) => (
-          <ItemList key={index} onClick={() => props.onClickItem(item, index)}>
-            <li data-li="image" style={{
-              backgroundImage: `url(${props.image(item)})`,
-            }} />
-            <li data-li="content">
-              {props.children(item, index)}
-            </li>
-          </ItemList>
-        )}
+        {(item, index) => {
+          const imageSrc = props.image(item)
+
+          return (
+            <ItemList key={index} onClick={() => props.onClickItem(item, index)}>
+              {imageSrc ? (
+                <li data-li="image" style={{
+                  backgroundImage: `url(${imageSrc})`,
+                }} />
+              ) : ''}
+              <li data-li="content">
+                {props.children(item, index)}
+              </li>
+            </ItemList>
+          )
+        }}
       </CarouselItems>
     </RootDiv>
   )
