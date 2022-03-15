@@ -1,17 +1,21 @@
 const initialState = {
   current_menu: 'about',
   components: {
+    streamDrawer: {
+      active: false,
+      slug: false,
+    },
     draggableCard: {
       active: false,
       data: false,
-    }
+    },
   },
   ui_visible: true,
 };
 
 const KEY = {
   UPDATE: 'UPDATE',
-  // COMPONENT: 'COMPONENT'
+  COMPONENT: 'COMPONENT'
 }
 
 

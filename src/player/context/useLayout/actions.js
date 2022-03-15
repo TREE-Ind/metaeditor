@@ -14,13 +14,18 @@ import {useSound} from 'hooks/'
 
 const actions = () => {
   const player = usePlayer()
-  const [state, dispatch] = React.useReducer(reducer.reducer, reducer.initialState);
+  const [state, dispatch_] = React.useReducer(reducer.reducer, reducer.initialState);
 
   const soundClick = useSound(env.staticPath('sounds', 'mouse_click.mp3'));
 
-  const DISPATCHER = (payload) => dispatch({
+  const dispatch = (payload) => dispatch_({
     type: reducer.KEY.UPDATE,
     payload,
+  })
+
+  const dispatchComponent = (key, payload) => dispatch_({
+    type: reducer.KEY.COMPONENT,
+    payload: {[key]: payload},
   })
 
   const cls = new class {
@@ -30,11 +35,11 @@ const actions = () => {
 
     get sounds() {
       const play = obj => {
-        if(player.state.sounds) {
+        if(player.state.volume) {
           obj.play()
         }
       }
-      
+
       return {
         click: () => play(soundClick),
       }
@@ -45,36 +50,44 @@ const actions = () => {
       this.draggableCard.close() //hack for draggable component
 
       current_menu = state.current_menu === current_menu ? false : current_menu
-      DISPATCHER({current_menu, ui_visible: true})
+      dispatch({current_menu, ui_visible: true})
     }
 
     handleUiVisible() {
       this.sounds.click()
       this.draggableCard.close() //hack for draggable component
 
-      DISPATCHER({ui_visible: !state.ui_visible})
+      dispatch({ui_visible: !state.ui_visible})
+    }
+
+    get handleDrawer() {
+
+      return {
+        open: (slug) => {
+          this.sounds.click()
+          dispatchComponent('streamDrawer', {slug: false, active: false})
+          setTimeout(() => dispatchComponent('streamDrawer', {slug, active: true}), 300)
+        },
+        close: () => {
+          dispatchComponent('streamDrawer', {slug: false, active: false})
+        },
+      }
     }
 
     get draggableCard() {
-
-      const _dispatch = (draggableCard) => dispatch({
-        type: reducer.KEY.COMPONENT,
-        payload: {draggableCard},
-      })
 
       return {
         data: state.components.draggableCard.data,
         active: state.components.draggableCard.active,
         close: () => {
-          _dispatch({active: false})
-          setTimeout(() => _dispatch({data: false}), 300)
+          dispatchComponent('draggableCard', {active: false})
         },
         open: (title, body) => {
           this.sounds.click()
 
           const data = {title, body}
-          _dispatch({active: false})
-          setTimeout(() => _dispatch({active: true, data}), 300)
+          dispatchComponent('draggableCard', {active: false})
+          setTimeout(() => dispatchComponent('draggableCard', {active: true, data}), 300)
         }
       };
     }

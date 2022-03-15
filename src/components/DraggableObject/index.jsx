@@ -41,7 +41,8 @@ const RootDiv = styled.div(theme => ({
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
 	}),
-	zIndex: 1,
+	position: 'relative',
+	zIndex: theme.zIndex.appBar + 20,
 	padding: theme.spacing(2),
 	'&[data-active="true"]': {
 		backgroundColor: 'rgba(0,0,0, .2)',
@@ -51,6 +52,7 @@ const RootDiv = styled.div(theme => ({
 const ChildrenDiv = styled.div(theme => ({
 	pointerEvents: 'all',
 	display: 'inline-block',
+
 }))
 
 

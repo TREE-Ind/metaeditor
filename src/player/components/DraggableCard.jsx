@@ -52,7 +52,7 @@ function DraggableCard(props) {
       show={active}
       disabled={false}
       defaultPosition={{
-        x: 100,
+        x: 600,
         y: 100,
       }}>
       {({active, CardHandler, handleClass}) => (

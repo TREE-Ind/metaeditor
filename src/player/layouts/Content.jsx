@@ -1,21 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// hooks
+import {useContainerDimensions} from 'hooks/'
+
 // context
 import {usePlayer, useLayout} from '../context/'
 
 // material
 import Collapse from '@mui/material/Collapse';
+import Slide from '@mui/material/Slide';
 
 // layouts
 import AppBar from './AppBar'
 import Panels from './Panels/'
+import ContentDrawer from './ContentDrawer/'
 
 // player components
 import DraggableCard from 'player/components/DraggableCard'
 
 // styles
 import {styled} from 'styles/snippets'
+
+
+
+const RootDiv = styled.div(theme => ({
+  '& [data-layout-visible]': {
+    transition: theme.transitions.create(['opacity'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  '& [data-layout-visible="true"]': {
+    opacity: .0,
+    pointerEvents: 'none',
+  },
+}))
 
 const RootList = styled.ul(theme => ({
 
@@ -29,19 +49,9 @@ const RootList = styled.ul(theme => ({
   display: 'flex',
   flexDirection: 'column',
 
-  '&[data-layout-hide]': {
-    transition: theme.transitions.create(['opacity'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  '&[data-layout-hide="true"]': {
-    opacity: .0,
-    pointerEvents: 'none',
-  },
-
   '& > [data-li="content"]': {
     flex: 1,
+    position: 'relative',
   },
 
   '& > li > [data-list="bottom"]': {
@@ -63,19 +73,34 @@ function Content(props) {
   const player = usePlayer()
   const layout = useLayout()
 
-  const hideInterfaceAll = player.state.mouse_moving
-  const hideInterface = layout.state.ui_visible
+  const contentRef = React.useRef(null);
+  const contentDimension = useContainerDimensions(contentRef);
+
+  const uiVisibleAll = player.state.mouse_moving
+  const uiVisible = layout.state.ui_visible
+
+  const showDrawer = !uiVisibleAll && uiVisible
+
 
   return (
-    <div>
-      <RootList data-layout-hide={hideInterfaceAll}>
-        <li data-li="content">
+    <RootDiv>
+
+      <ContentDrawer
+        show={showDrawer}
+        height={contentDimension?.height} />
+
+      <RootList data-layout-visible={uiVisibleAll}>
+        <li data-li="content" ref={contentRef}>
           <DraggableCard />
         </li>
         <li>
           <ul data-list="bottom">
             <li data-li="panels">
-              <Collapse in={hideInterface} mountOnEnter={false} unmountOnExit={false}>
+              <Collapse
+                in={uiVisible}
+                mountOnEnter={false}
+                unmountOnExit={false}
+                orientation="vertical">
                 <Panels />
               </Collapse>
             </li>
@@ -85,7 +110,7 @@ function Content(props) {
           </ul>
         </li>
       </RootList>
-    </div>
+    </RootDiv>
   )
 }
 

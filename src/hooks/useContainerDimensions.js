@@ -21,14 +21,22 @@ const MyComponent = () => {
 
 import React from 'react';
 
+// libs
+import useResizeObserver from '@react-hook/resize-observer'
+
+
 const useContainerDimensions = myRef => {
 
-  const getDimensions = () => ({
-    width: myRef.current.offsetWidth,
-    height: myRef.current.offsetHeight,
-    scrollTop: myRef.current.scrollTop,
-    scrollLeft: myRef.current.scrollLeft,
-  })
+  const getDimensions = () => {
+    if(!myRef.current) return dimensions;
+
+    return {
+      width: myRef.current.offsetWidth,
+      height: myRef.current.offsetHeight,
+      scrollTop: myRef.current.scrollTop,
+      scrollLeft: myRef.current.scrollLeft,
+    };
+  }
 
   const [dimensions, setDimensions] = React.useState({
     width: 0,
@@ -37,18 +45,23 @@ const useContainerDimensions = myRef => {
     scrollLeft: 0,
   })
 
+  const handleResize = () => setDimensions(getDimensions())
+
+  React.useLayoutEffect(() => {
+    // setSize(target.current.getBoundingClientRect())
+    handleResize()
+  }, [myRef.current])
+
+  useResizeObserver(myRef.current, (entry) => {
+    // setSize(entry.contentRect)
+    handleResize()
+  })
+
   React.useEffect(() => {
-    if(!myRef.current) return ;
 
-    const handleResize = () => {
-      setDimensions(getDimensions())
-    }
+    setDimensions(getDimensions())
 
-    if(myRef.current) {
-      setDimensions(getDimensions())
-    }
-
-    myRef.current.addEventListener("scroll", handleResize)
+    myRef.current?.addEventListener("scroll", handleResize)
     window.addEventListener("resize", handleResize)
 
     return () => {
