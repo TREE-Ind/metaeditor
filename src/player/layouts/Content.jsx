@@ -7,6 +7,9 @@ import {useContainerDimensions} from 'hooks/'
 // context
 import {usePlayer, useLayout} from '../context/'
 
+// styles
+import {styled} from 'styles/snippets'
+
 // material
 import Collapse from '@mui/material/Collapse';
 import Slide from '@mui/material/Slide';
@@ -18,9 +21,6 @@ import ContentDrawer from './ContentDrawer/'
 
 // player components
 import DraggableCard from 'player/components/DraggableCard'
-
-// styles
-import {styled} from 'styles/snippets'
 
 
 

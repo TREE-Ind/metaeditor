@@ -7,13 +7,18 @@ import {env} from 'api/'
 // libs
 import PixelStreaming from './lib';
 
+// styles
+import {styled} from 'styles/snippets'
+
 // content
 import PlayerContent from './Content'
 
 // snippets
 import BackPreloader from './snippets/BackPreloader'
 
-
+const RootDiv = styled.div(theme => ({
+  backgroundColor: 'rgba(0,0,0, 1)',
+}))
 
 function PixelWrapper(props) {
   const refPixelStreaming = React.useRef(null)
@@ -28,7 +33,7 @@ function PixelWrapper(props) {
 
 
   return (
-    <div>
+    <RootDiv>
 
       <BackPreloader />
 
@@ -89,7 +94,7 @@ function PixelWrapper(props) {
         )}
       </PixelStreaming>
 
-    </div>
+    </RootDiv>
   )
 }
 
