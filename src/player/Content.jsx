@@ -11,11 +11,12 @@ import {useUnload} from 'hooks/'
 import Button from '@mui/material/Button';
 
 // snippets
-import Preloader from './snippets/Preloader'
+import Preloader from './snippets/Preloader/'
 import CallbackLoader from './snippets/CallbackLoader'
 import RippleClick from './snippets/RippleClick'
 import KeyboardHelper from './snippets/KeyboardHelper'
 import DevBar from './snippets/DevBar/'
+import WelcomeBar from './snippets/WelcomeBar/'
 
 // layouts
 import Content from './layouts/Content'
@@ -49,6 +50,8 @@ function PlayerContent(props) {
 
   return (
     <div>
+
+      <WelcomeBar />
 
       <CallbackLoader ref={refCallback} />
       <Preloader />

@@ -1,17 +1,19 @@
 /* Usage
 
 // hooks
-import {useReducerEvents} from 'hooks/'
+import {useStateEvents, useReducerEvents} from 'hooks/'
 
 function Demo() {
 
   const [state, dispatch] = useReducerEvents(reducer, initialState)
+  const [test, setTest] = useStateEvents(false)
 
   React.useEffect(() => {
 
     document.addEventListener('demo_key', (e) => {
       console.log(e.detail)
       dispatch({...})
+      // or setTest(true)
     })
 
   }, [])
@@ -25,6 +27,18 @@ function Demo() {
 import React from 'react';
 
 
+function useStateEvents(initialValue) {
+  const [value, setValue] = React.useState(initialValue);
+
+  const ref = React.useRef(value);
+
+  React.useEffect(() => {
+    ref.current = value;
+  }, [value]);
+
+  return [value, setValue, ref];
+}
+
 function useReducerEvents(reducer, initialState) {
   const [state, dispatch] = React.useReducer(reducer, initialState);
 
@@ -37,4 +51,5 @@ function useReducerEvents(reducer, initialState) {
   return [state, dispatch, ref];
 }
 
-export default useReducerEvents
+export {useStateEvents, useReducerEvents}
+export default undefined

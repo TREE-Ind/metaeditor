@@ -5,19 +5,21 @@ import PropTypes from 'prop-types';
 import {env} from 'api/'
 
 // context
-import {usePlayer, useConnection} from '../context/'
+import {usePlayer, useConnection} from '../../context/'
 
 // hooks
-import {useCountdown} from '../hooks/'
+import {useCountdown} from '../../hooks/'
 
 // material
 import Typography from '@mui/material/Typography';
 import MuiBox from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import MuiLinearProgress from '@mui/material/LinearProgress';
 
 // styles
 import {styled} from 'styles/snippets'
+
+// blocks
+import Progress from './Progress'
 
 // config
 const videoUrl = env.staticUrl('videos', 'intro.mp4')
@@ -50,15 +52,15 @@ const ProgressBox = styled.custom(MuiBox, theme => ({
   justifyContent: 'center',
   flexDirection: 'column',
   position: 'relative',
-}))
 
-const LinearProgress = styled.custom(MuiLinearProgress, theme => ({
-  height: 1,
-  width: '20vw',
-  [theme.breakpoints.down('sm')]: {
-    width: '50vw',
+  '& > [data-progress]': {
+    width: '20vw',
+    [theme.breakpoints.down('sm')]: {
+      width: '50vw',
+    },
   },
 }))
+
 
 const VideoCover = styled.div(theme => ({
   position: 'absolute',
@@ -127,10 +129,9 @@ function Preloader() {
             <img src={logoUnrealEngine} />
           </LogoDiv>
 
-          <LinearProgress
-            variant="determinate"
-            value={countdown.value}
-            color="inherit" />
+          <div data-progress>
+            <Progress />
+          </div>
 
           <Typography variant="body1" sx={{mt: 3}}>
             Loading 3D

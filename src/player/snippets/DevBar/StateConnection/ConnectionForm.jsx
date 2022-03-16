@@ -55,7 +55,6 @@ function ConnectionForm(props) {
 
     if(!connection.state.autoConnect) {
       storage.setItem(STORAGE_KEY, connection.state)
-      console.error('connection.state', connection.state);
     }
 
   }, [connection.state])

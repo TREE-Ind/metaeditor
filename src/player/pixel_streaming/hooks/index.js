@@ -1,7 +1,7 @@
 import useWindowSize from './useWindowSize'
-import useReducerEvents from './useReducerEvents'
+import {useStateEvents, useReducerEvents} from './useEvents'
 
 export {
   useWindowSize,
-  useReducerEvents,
+  useStateEvents, useReducerEvents,
 }

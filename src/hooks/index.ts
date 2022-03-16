@@ -7,6 +7,7 @@ import useUnload from './useUnload'
 import useSound from './useSound'
 import useDevice from './useDevice'
 import useHotkeys, {useIsHotkeyPressed} from './useHotkeys'
+import {useStateEvents, useReducerEvents} from './useEvents'
 
 
 module.exports = {
@@ -19,4 +20,5 @@ module.exports = {
   useSound,
   useDevice,
   useHotkeys, useIsHotkeyPressed,
+  useStateEvents, useReducerEvents,
 }

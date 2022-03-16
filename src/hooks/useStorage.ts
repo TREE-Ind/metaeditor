@@ -8,23 +8,35 @@ const STORAGE_KEY = 'DEMO_KEY'
 
 function Demo() {
   const storage = useStorage()
-  const [value, setValue] = React.useState({value: 'new'})
+  const [data, setData] = React.useState({name: ''})
 
   React.useEffect(() => {
 
-    const stored_data = storage.getItem(STORAGE_KEY)
+    const stored_data = storage.getItem(STORAGE_KEY, 'local')
     if(typeof stored_data === 'object') {
-      setValue(stored_data)
+      setData(stored_data)
     }
 
   }, [])
 
-  const updateStorage = (value) => {
-    storage.setItem(STORAGE_KEY, value)
+  const handleChange = (key) => (event) => {
+    const value = event.target.value
+
+    setData(c => {
+      const newData = {...c, [key]: value}
+      storage.setItem(STORAGE_KEY, newData, 'local')
+      return newData;
+    })
   }
 
   return (
-    <div />
+    <TextField
+      value={data.name}
+      onChange={handleChange('name')}
+      label="Name"
+      type="text"
+      fullWidth
+    />
   );
 };
 

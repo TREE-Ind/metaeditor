@@ -22,7 +22,7 @@ const App = (props: MyAppProps) => {
   return (
     <CacheProvider value={emotionCache}>
       <Head>
-        <title>PixelStreaming</title>
+        <title>MetaEditor</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 

@@ -232,7 +232,7 @@ const actions = () => {
       if(this.__ws_locked__) return ;
 
       const volume = state.volume === null ? null : !state.volume
-      
+
       if(volume !== null) {
         dispatch({volume})
 

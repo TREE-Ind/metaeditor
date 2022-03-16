@@ -77,14 +77,19 @@ const actions = () => {
       const onStartStream = async () => {
 
         await this.request.get()
-        .then(json => {
+        .then(res => {
 
-          dispatch(json)
+          if(res.status === 200) {
 
-          if(json?.status === 'active') {
-            clearInterval(refInterval.current)
-            this.onTimeToKill()
+            dispatch(res.body)
+
+            if(res.body?.status === 'active') {
+              clearInterval(refInterval.current)
+              this.onTimeToKill()
+            }
+
           }
+
 
         })
         .catch(err => {
@@ -101,7 +106,7 @@ const actions = () => {
     async onRestartStream() {
 
       await this.request.delete()
-      .then(json => {
+      .then(res => {
         // setTimeout(onRequestStream, 1000 * 1) // Delay: hack for stream server
         document.location.reload();
       })

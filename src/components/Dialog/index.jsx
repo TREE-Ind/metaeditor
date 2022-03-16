@@ -15,6 +15,7 @@ function demo() {
         ref={refDialog}
         title="Some title"
         subtitle="Some subtitle"
+        defaultOpen={false}
         closeIcon
         showActions
       >
@@ -51,27 +52,32 @@ import MuiDialogTitle from '@mui/material/DialogTitle';
 
 
 const Dialog = styled.custom(MuiDialog, theme => ({
-
+  '& .MuiPaper-root': {
+    // border: `solid 3px rgba(255,255,255, .3)`,
+  },
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(3),
+  },
+  '& .MuiDialogActions-root': {
+    // padding: theme.spacing(1),
+  },
+  '& .MuiDialogTitle-root': {
+    padding: theme.spacing(2, 3),
+  }
 }))
 
 const DialogTitle = styled.custom(MuiDialogTitle, theme => ({
-  padding: theme.spacing(3, 4),
-  '&[data-variant="icon"]': {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    borderBottom: `solid 1px ${theme.palette.divider}`,
-    '& > button': {
-      marginRight: theme.spacing(-1),
-    }
-  },
-
+  borderBottom: `solid 1px ${theme.palette.divider}`,
+  '& > button': {
+    position: 'absolute',
+    right: theme.spacing(1.2),
+    top: theme.spacing(1.2),
+  }
 }))
 
 const DialogContent = styled.custom(MuiDialogContent, theme => ({
   padding: theme.spacing(4),
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(2),
 }))
 
 const DialogContentText = styled.custom(MiuDialogContentText, theme => ({
@@ -86,8 +92,38 @@ const DialogActions = styled.custom(MuiDialogActions, theme => ({
   },
 }))
 
-function CustomDialog({buttonConfirm, ...props}) {
-  const [open, setOpen] = React.useState(false);
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, closeIcon, ...other } = props;
+
+  if(!closeIcon) {
+    return (
+      <DialogTitle {...other}>
+        {children}
+      </DialogTitle>
+    );
+  }
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          onClick={onClose}
+          sx={{
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <Icon>close</Icon>
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+
+function CustomDialog({buttonConfirm, defaultOpen, ...props}) {
+  const [open, setOpen] = React.useState(defaultOpen);
 
   // The component instance will be extended
 	// with whatever you return from the callback passed
@@ -124,14 +160,11 @@ function CustomDialog({buttonConfirm, ...props}) {
         onClose={handleClose}
         fullWidth
         maxWidth={props.maxWidth}>
-        <DialogTitle data-variant={variant}>
+
+        <BootstrapDialogTitle onClose={handleClose} closeIcon={props.closeIcon}>
           {props.title}
-          {props.closeIcon && (
-            <IconButton onClick={handleClose}>
-              <Icon>close</Icon>
-            </IconButton>
-          )}
-        </DialogTitle>
+        </BootstrapDialogTitle>
+
         <DialogContent>
 
           {props.subtitle ? (
@@ -166,6 +199,7 @@ function CustomDialog({buttonConfirm, ...props}) {
 
 CustomDialog.propTypes = {
   children: PropTypes.node.isRequired,
+  defaultOpen: PropTypes.bool,
   title: PropTypes.any,
   subtitle: PropTypes.any,
   closeIcon: PropTypes.bool,
@@ -181,6 +215,7 @@ CustomDialog.propTypes = {
 }
 
 CustomDialog.defaultProps = {
+  defaultOpen: false,
   showActions: true,
   closeIcon: true,
   onClose: () => {},
