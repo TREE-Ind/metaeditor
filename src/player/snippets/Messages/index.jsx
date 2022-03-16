@@ -28,21 +28,13 @@ function Messages(props) {
       <Offline />
 
       {player.state.loaded && (
-        <KillStream secondsToKill={props.secondsToKill} />
+        <KillStream />
       )}
 
       <Command ref={refCommand} />
     </>
   )
 }
-
-Messages.propTypes = {
-  secondsToKill: PropTypes.number.isRequired,
-};
-
-Messages.defaultProps = {
-  secondsToKill: 0,
-};
 
 export default React.forwardRef((props, ref) => (
 	<Messages {...props} innerRef={ref} />

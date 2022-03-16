@@ -18,8 +18,8 @@ import Box from '@mui/material/Box';
 // blocks
 import AppBar from './AppBar';
 import SystemDialog from './SystemDialog'
-import ConnectionForm from './ConnectionForm'
 import StateData from './StateData'
+import StateConnection from './StateConnection/'
 import DebugForm from './DebugForm'
 import LogsData from './LogsData'
 import CommandsList from './CommandsList/'
@@ -48,7 +48,6 @@ function DevBar(props) {
   const connection = useConnection()
 
   const refSystemDialog = React.useRef(null)
-  const refConnectionForm = React.useRef(null)
 
   const [show, setShow] = React.useState(debugMode)
   const [currentMenu, setCurrentMenu] = React.useState(false)
@@ -77,6 +76,7 @@ function DevBar(props) {
 
     const list = {
       state: ['State', <StateData />],
+      connection: ['Connection', <StateConnection />],
       debug: ['Debug', <DebugForm />],
       logs: ['Logs', <LogsData />],
       commands: ['Commands', <CommandsList />],
@@ -104,28 +104,8 @@ function DevBar(props) {
   }
 
   const handleMenu = (name) => {
-
-    // const closeDialog = () => refSystemDialog.current.close()
-
     setCurrentMenu(name)
-
-    switch (name) {
-
-      case 'connection':
-        refConnectionForm.current?.open()
-        // closeDialog()
-        break;
-
-      // case 'state':
-      // case 'debug':
-      // case 'logs':
-      // case 'commands':
-      default:
-        refSystemDialog.current?.open()
-        // break;
-
-    }
-
+    refSystemDialog.current?.open()
   }
 
   const renderDevBar = () => {
@@ -136,7 +116,6 @@ function DevBar(props) {
 
         {renderDialog()}
 
-        <ConnectionForm ref={refConnectionForm} />
         <AppBar handleMenu={handleMenu} />
 
       </Box>

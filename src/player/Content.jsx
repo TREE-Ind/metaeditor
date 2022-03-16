@@ -54,43 +54,14 @@ function PlayerContent(props) {
       <Preloader />
       <RippleClick />
       <KeyboardHelper />
-
-      <Messages
-        ref={refMessages}
-        // secondsToKill={props.secondsToKill}
-      />
-
-      <DevBar
-        // onResData={props.serverData}
-        // setServerData={props.setServerData}
-        // autoConnect={props.autoConnect}
-        // initConnection={props.initConnection}
-      />
+      <Messages ref={refMessages} />
+      <DevBar />
 
       <Content />
 
     </div>
   )
 }
-
-
-PlayerContent.propTypes = {
-  // onRestart: PropTypes.func.isRequired,
-  // secondsToStart: PropTypes.number.isRequired,
-  // secondsToKill: PropTypes.number.isRequired,
-  // serverData: PropTypes.exact({
-  //   host: PropTypes.string,
-  //   port: PropTypes.any,
-  // }),
-  // setServerData: PropTypes.func.isRequired,
-  // initConnection: PropTypes.func.isRequired,
-  // autoConnect: PropTypes.bool.isRequired,
-};
-
-PlayerContent.defaultProps = {
-  // secondsToStart: 0,
-  // secondsToKill: 0,
-};
 
 const PlayerContext = (props) => (
   <ContextProvider>

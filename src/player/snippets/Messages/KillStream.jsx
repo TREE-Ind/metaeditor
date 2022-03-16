@@ -9,22 +9,25 @@ import {useNotify} from 'hooks/'
 import {useCountdown} from '../../hooks/'
 
 // context
-import {usePlayer} from '../../context/'
+import {usePlayer, useConnection} from '../../context/'
 
 
 function KillStream(props) {
   const notify = useNotify()
   const player = usePlayer()
+  const connection = useConnection()
 
   const [time, setTime] = React.useState(false)
 
+  const secondsToKill = connection.state.seconds_to_kill
+
   const countdown = useCountdown({
-		seconds: props.secondsToKill,
+		seconds: secondsToKill,
 		onProgress: (payload) => {
       // console.error('>>> secondsToKill', payload);
 
       // const newTime = moment.utc(props.secondsToKill*1000).format('HH:mm:ss');
-      const newTime = moment().add(props.secondsToKill, 'seconds').format('HH:mm')
+      const newTime = moment().add(secondsToKill, 'seconds').format('HH:mm')
 
       setTime(newTime)
     },
@@ -32,17 +35,17 @@ function KillStream(props) {
 
   React.useEffect(() => {
 
-    if(!player.loaded) {
+    if(!player.state.loaded) {
       countdown.stop()
       cls.hide()
     }
 
-	}, [player.loaded])
+	}, [player.state.loaded])
 
   React.useEffect(() => {
 
-    if(player.loaded) {
-      if(props.secondsToKill > 60) {
+    if(player.state.loaded) {
+      if(secondsToKill >= connection.MIN_SECONDS_TO_KILL) {
         countdown.stop()
         cls.hide()
   		} else {
@@ -51,7 +54,7 @@ function KillStream(props) {
       }
     }
 
-	}, [player.loaded, props.secondsToKill])
+	}, [player.state.loaded, secondsToKill])
 
   const cls = new class {
     constructor() {
@@ -76,13 +79,5 @@ function KillStream(props) {
 
   return (<div />)
 }
-
-KillStream.propTypes = {
-  secondsToKill: PropTypes.number.isRequired,
-};
-
-KillStream.defaultProps = {
-  secondsToKill: 0,
-};
 
 export default KillStream

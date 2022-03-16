@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {usePlayer, useConnection} from '../../context/'
+import {usePlayer, useConnection} from '../../../context/'
 
 // material
 import Button from '@mui/material/Button';

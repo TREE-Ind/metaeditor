@@ -37,6 +37,7 @@ const actions = () => {
   const cls = new class {
 
     constructor() {
+      this.MIN_SECONDS_TO_KILL = 100
       this.state = state
     }
 

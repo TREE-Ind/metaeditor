@@ -87,8 +87,6 @@ function Preloader(props) {
   const player = usePlayer()
   const connection = useConnection()
 
-  const {state} = player
-
   const countdown = useCountdown({
 		seconds: connection.state.secondsToStart,
 		onProgress: (payload) => {
@@ -98,15 +96,15 @@ function Preloader(props) {
 
 	React.useEffect(() => {
 
-		if(state.loaded) {
+		if(player.state.loaded) {
       countdown.stop()
 		}
 
-	}, [state.loaded])
+	}, [player.state.loaded])
 
   const renderInner = () => {
 
-    if(state.connected && state.loaded) {
+    if(player.state.connected && player.state.loaded) {
       return (<div />);
     }
 
@@ -154,7 +152,7 @@ function Preloader(props) {
     )
   }
 
-  if(state.loaded) {
+  if(player.state.loaded) {
     return (<div />);
   }
 
@@ -165,12 +163,5 @@ function Preloader(props) {
   )
 }
 
-// Preloader.propTypes = {
-//   secondsToStart: PropTypes.number.isRequired,
-// };
-//
-// Preloader.defaultProps = {
-//   secondsToStart: 0,
-// };
 
 export default Preloader

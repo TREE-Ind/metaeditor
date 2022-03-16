@@ -81,6 +81,7 @@ function moduleExports(phase) {
 			return {
 				'/': { page: '/' },
 				'/404': { page: '/404' },
+				'/dev': { page: '/dev' },
 				// '/p/hello-nextjs': { page: '/post', query: { title: 'hello-nextjs' } },
 			}
 		},
