@@ -1,3 +1,4 @@
+import useAnalytics from './useAnalytics'
 import useStorage from './useStorage'
 import useMedia from './useMedia'
 import useContainerDimensions from './useContainerDimensions'
@@ -11,6 +12,7 @@ import {useStateEvents, useReducerEvents} from './useEvents'
 
 
 module.exports = {
+  useAnalytics,
   useStorage,
   useMedia,
   useContainerDimensions,

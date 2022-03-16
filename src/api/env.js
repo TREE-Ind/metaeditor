@@ -31,12 +31,6 @@ class ConfigClass extends BaseClass {
 		return {
 			home: '/',
 		  // auth: '/auth',
-		  // auth_signup: '/auth/signup',
-		  // auth_reset: '/auth/reset',
-		  // auth_success: '/',
-		  // cabinet: '/cabinet',
-			// cabinet_profile: '/cabinet/profile',
-			// contacts: '/contacts',
 		}
 	}
 
@@ -74,7 +68,7 @@ class ConfigClass extends BaseClass {
 	get credentials() {
 		let res = {
 			// GOOGLE_RECAPTCHA: '',
-			// GOOGLE_TAG_ID: 'G-*****',
+			GOOGLE_TAG_ID: 'G-9TH9WBLLJF',
 			// GOOGLE_MAP_API_KEY: '',
 			// CHATRA_ID: false,
 		}

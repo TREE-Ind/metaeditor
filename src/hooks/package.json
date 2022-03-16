@@ -6,7 +6,8 @@
     "use-sound": "^4.0.1",
     "react-hotkeys-hook": "^3.4.4",
     "react-device-detect": "^2.1.2",
-    "@react-hook/resize-observer": "^1.2.5"
+    "@react-hook/resize-observer": "^1.2.5",
+    "react-ga4": "latest"
   },
   "devDependencies": {}
 }
