@@ -1,4 +1,4 @@
-const useApi = new class {
+const Request = new class {
 
   async fetch(method, url) {
     return await fetch(url, {
@@ -12,13 +12,13 @@ const useApi = new class {
     })
   }
 
-  async get(url) {
+  async GET(url) {
     return await this.fetch('GET', url);
   }
 
-  async delete(url) {
+  async DELETE(url) {
     return await this.fetch('DELETE', url);
   }
 }
 
-export default useApi
+export default Request

@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // context
-import {usePlayer} from '../../context/'
+import {usePlayer, useConnection} from '../../context/'
 
 // material
 import Button from '@mui/material/Button';
@@ -20,8 +19,9 @@ import {useStorage} from 'hooks/'
 const STORAGE_KEY = 'DEV_SERVER_DATA'
 
 
-function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
+function ConnectionForm(props) {
   const player = usePlayer()
+  const connection = useConnection()
 
   const refDialog = React.useRef(null)
   const storage = useStorage()
@@ -37,52 +37,44 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
 
   // Initial dialog
   React.useEffect(() => {
-    if(!props.autoConnect) {
+    if(!connection.state.auto_connect) {
       refDialog.current.open()
 
       // Restore local server data
       const stored_data = storage.getItem(STORAGE_KEY)
-      if(stored_data?.host) {
-        setServerData('host', stored_data.host)
+      const payload = {
+        host: stored_data.host,
+        port: stored_data.port,
       }
-      if(stored_data?.port) {
-        setServerData('port', stored_data.port)
-      }
+      connection.manualConnection(payload)
 
     }
   }, [])
 
   React.useEffect(() => {
 
-    if(!props.autoConnect) {
-      storage.setItem(STORAGE_KEY, serverData)
-      console.error('serverData', serverData);
+    if(!connection.state.autoConnect) {
+      storage.setItem(STORAGE_KEY, connection.state)
+      console.error('connection.state', connection.state);
     }
 
-  }, [serverData])
+  }, [connection.state])
 
-  // // Reopen dialog if lost connection
-  // React.useEffect(() => {
-  //
-  //   if(info.isDev) {
-  //     if(state.connected) {
-  //
-  //       // Update storage with new server credentials
-  //       storage.setItem(STORAGE_KEY, serverData)
-  //
-  //       // Close dialog if stream loaded
-  //       refDialog.current.close()
-  //
-  //     } else {
-  //       refDialog.current.open()
-  //     }
-  //   }
-  //
-  // }, [state.connected])
+  // Close dialog
+  React.useEffect(() => {
+
+    if(!connection.state.autoConnect) {
+      if(player.state.loaded) {
+        refDialog.current.close()
+      }
+    }
+
+  }, [player.state.loaded])
+
 
   const handleInput = key => event => {
     const value = event.target.value
-    setServerData(key, value)
+    connection.handleConnection({[key]: value})
   }
 
   const setDefault = () => {
@@ -90,8 +82,10 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
       <a href="#" onClick={(event) => {
         event.preventDefault()
         event.stopPropagation()
-        setServerData('host', 'http://127.0.0.1')
-        setServerData('port', 80)
+        connection.handleConnection({
+          host: 'http://127.0.0.1',
+          port: 80,
+        })
       }}>
         Set default: http://127.0.0.1:80
       </a>
@@ -107,7 +101,8 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
         event.preventDefault()
         event.stopPropagation()
 
-        initConnection()
+        // initConnection()
+        connection.initConnection()
       }}>
 
         <Box sx={{ flexGrow: 1, pt: 2, pb: 3 }}>
@@ -121,7 +116,7 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
                 label="Host"
                 type="url"
                 placeholder="http://127.0.0.1"
-                value={serverData.host}
+                value={connection.state.host}
                 onChange={handleInput('host')}
                 helperText={setDefault()}
                  />
@@ -135,7 +130,7 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
                 label="Port"
                 type="number"
                 placeholder="80"
-                value={serverData.port}
+                value={connection.state.port}
                 onChange={handleInput('port')} />
 
             </Grid>
@@ -171,14 +166,6 @@ function ConnectionForm({serverData, setServerData, initConnection, ...props}) {
     </div>
   )
 }
-
-
-ConnectionForm.propTypes = {
-  autoConnect: PropTypes.bool.isRequired,
-  serverData: PropTypes.object.isRequired,
-  setServerData: PropTypes.func.isRequired,
-  initConnection: PropTypes.func.isRequired,
-};
 
 
 export default React.forwardRef((props, ref) => (

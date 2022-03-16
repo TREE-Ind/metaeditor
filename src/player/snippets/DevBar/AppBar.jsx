@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer} from '../../context/'
+import {usePlayer, useConnection} from '../../context/'
 
 // material
 import MuiAppBar from '@mui/material/AppBar';
@@ -35,6 +35,8 @@ const AppBar = styled.custom(MuiAppBar, theme => ({
 
 const ResponsiveAppBar = (props) => {
   const player = usePlayer()
+  const connection = useConnection()
+
   const {state, cls} = player
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -52,7 +54,9 @@ const ResponsiveAppBar = (props) => {
   ].map(([label, icon, onClick]) => ({label, icon, onClick}))
 
   const settings = [
-    ['Restart stream', 'refresh', () => props.onRestart()]
+    ['Restart stream', 'refresh', () => {
+      connection.onRestartStream()
+    }]
   ].map(([label, icon, onClick]) => ({label, icon, onClick}))
 
   const handleOpenNavMenu = (event) => {
@@ -155,7 +159,6 @@ const ResponsiveAppBar = (props) => {
 
 ResponsiveAppBar.propTypes = {
   handleMenu: PropTypes.func.isRequired,
-  onRestart: PropTypes.func.isRequired,
 };
 
 export default ResponsiveAppBar;

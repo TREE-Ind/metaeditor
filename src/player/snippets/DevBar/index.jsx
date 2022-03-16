@@ -1,11 +1,13 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 // api
 import {env} from 'api/'
 
 // hooks
 import {useHotkeys} from 'hooks/'
+
+// context
+import {useConnection} from '../../context/';
 
 // styles
 import {styled} from 'styles/snippets'
@@ -43,6 +45,8 @@ const RootDiv = styled.ul(theme => ({
 }))
 
 function DevBar(props) {
+  const connection = useConnection()
+
   const refSystemDialog = React.useRef(null)
   const refConnectionForm = React.useRef(null)
 
@@ -52,7 +56,7 @@ function DevBar(props) {
   useHotkeys('ctrl+r', async (e, ke) => {
      if(!e.repeat) {
        if(confirm('Do you want to restart the streaming server?')) {
-         await props.onRestart()
+         await connection.onRestartStream()
        }
        return ;
      }
@@ -132,17 +136,8 @@ function DevBar(props) {
 
         {renderDialog()}
 
-        <ConnectionForm
-          ref={refConnectionForm}
-          autoConnect={props.autoConnect}
-          serverData={props.serverData}
-          setServerData={props.setServerData}
-          initConnection={props.initConnection}
-        />
-
-        <AppBar
-          onRestart={props.onRestart}
-          handleMenu={handleMenu} />
+        <ConnectionForm ref={refConnectionForm} />
+        <AppBar handleMenu={handleMenu} />
 
       </Box>
     )
@@ -159,13 +154,5 @@ function DevBar(props) {
   )
 };
 
-
-DevBar.propTypes = {
-  autoConnect: PropTypes.bool.isRequired,
-  onRestart: PropTypes.func.isRequired,
-  setServerData: PropTypes.func.isRequired,
-  serverData: PropTypes.object.isRequired,
-  initConnection: PropTypes.func.isRequired,
-};
 
 export default DevBar;

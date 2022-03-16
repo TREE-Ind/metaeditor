@@ -7,6 +7,10 @@ import {env} from 'api/'
 // libs
 import PixelStreaming from './lib';
 
+// context
+import ConnectionProvider, {useConnection} from './context/useConnection/';
+
+
 // styles
 import {styled} from 'styles/snippets'
 
@@ -16,21 +20,31 @@ import PlayerContent from './Content'
 // snippets
 import BackPreloader from './snippets/BackPreloader'
 
+
+
 const RootDiv = styled.div(theme => ({
   backgroundColor: 'rgba(0,0,0, 1)',
 }))
 
-function PixelWrapper(props) {
+const isDev = env.isDev
+
+function PixelWrapper({autoConnect, ...props}) {
+  const connection = useConnection()
+
   const refPixelStreaming = React.useRef(null)
   const refContent = React.useRef(null)
 
-  const getHost = {host: props.host, port: props.port}
-  const [serverData, setServerData] = React.useState(getHost)
-
   React.useEffect(() => {
-    setServerData(getHost)
-  }, [props.host, props.port])
 
+    if(autoConnect) {
+      connection.onRequestStream()
+    }
+
+  }, [])
+
+  if(connection.state.auto_connect && !connection.state.loaded) {
+    return (<div />);
+  }
 
   return (
     <RootDiv>
@@ -67,30 +81,14 @@ function PixelWrapper(props) {
         onDebug={(payload) => {
           console.warn('debug', payload);
         }}
-        autoConnect={props.autoConnect}
+        autoConnect={autoConnect}
         quality={1}
-        isDev={env.isDev}
-        host={serverData.host}
-        port={serverData.port} >
+        isDev={isDev}
+        host={connection.state.host}
+        port={connection.state.port} >
 
         {(payload) => (
-          <>
-
-            <PlayerContent
-              {...payload}
-              ref={refContent}
-              serverData={serverData}
-              setServerData={(key, value) => setServerData(c => ({
-                ...c, [key]: value,
-              }))}
-              onRestart={props.onRestart}
-              secondsToStart={props.secondsToStart || 0}
-              secondsToKill={props.secondsToKill || 0}
-              initConnection={payload.initConnection}
-              autoConnect={props.autoConnect}
-            />
-
-          </>
+          <PlayerContent ref={refContent} />
         )}
       </PixelStreaming>
 
@@ -99,21 +97,18 @@ function PixelWrapper(props) {
 }
 
 PixelWrapper.propTypes = {
-  status: PropTypes.string,
-	host: PropTypes.string,
-  port: PropTypes.any,
   autoConnect: PropTypes.bool,
-  secondsToStart: PropTypes.number,
-  secondsToKill: PropTypes.number,
-  onRestart: PropTypes.func.isRequired,
 };
 
 PixelWrapper.defaultProps = {
-  host: undefined,
-  port: undefined,
   autoConnect: false,
-  secondsToStart: 0,
-  secondsToKill: 0,
 };
 
-export default PixelWrapper
+
+const PixelWrapperContext = (props) => (
+  <ConnectionProvider>
+    <PixelWrapper {...props} />
+  </ConnectionProvider>
+)
+
+export default PixelWrapperContext

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {env} from 'api/'
 
 // context
-import {usePlayer} from '../context/'
+import {usePlayer, useConnection} from '../context/'
 
 // hooks
 import {useCountdown} from '../hooks/'
@@ -85,11 +85,12 @@ const VideoCover = styled.div(theme => ({
 
 function Preloader(props) {
   const player = usePlayer()
+  const connection = useConnection()
 
   const {state} = player
 
   const countdown = useCountdown({
-		seconds: props.secondsToStart,
+		seconds: connection.state.secondsToStart,
 		onProgress: (payload) => {
       // console.error('>>> onProgress', payload);
     },
@@ -164,12 +165,12 @@ function Preloader(props) {
   )
 }
 
-Preloader.propTypes = {
-  secondsToStart: PropTypes.number.isRequired,
-};
-
-Preloader.defaultProps = {
-  secondsToStart: 0,
-};
+// Preloader.propTypes = {
+//   secondsToStart: PropTypes.number.isRequired,
+// };
+//
+// Preloader.defaultProps = {
+//   secondsToStart: 0,
+// };
 
 export default Preloader

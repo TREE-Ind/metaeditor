@@ -100,7 +100,13 @@ const ModuleRoot = (props) => {
 	}
 
 	const ContextClass = new class {
-		constructor() {}
+		constructor() {
+
+			if(typeof window !== 'undefined') {
+				window.ps_init = () => this.initConnection()
+			}
+
+		}
 
 		get cls() {
 			return PS.cls;

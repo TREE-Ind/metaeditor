@@ -258,8 +258,8 @@ function ContentDrawer(props) {
 ContentDrawer.propTypes = {
 	show: PropTypes.bool.isRequired,
   height: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  title: PropTypes.any,
+  children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import ContextProvider, {usePlayer} from './context/';
+import ContextProvider, {usePlayer, useConnection} from './context/';
 
 // hooks
 import {useUnload} from 'hooks/'
@@ -26,6 +26,7 @@ import Messages from './snippets/Messages'
 
 function PlayerContent(props) {
   const player = usePlayer()
+  const connection = useConnection()
 
   const refMessages = React.useRef(null)
   const refCallback = React.useRef(null)
@@ -50,20 +51,20 @@ function PlayerContent(props) {
     <div>
 
       <CallbackLoader ref={refCallback} />
-      <Preloader secondsToStart={props.secondsToStart} />
+      <Preloader />
       <RippleClick />
       <KeyboardHelper />
 
       <Messages
         ref={refMessages}
-        secondsToKill={props.secondsToKill} />
+        // secondsToKill={props.secondsToKill}
+      />
 
       <DevBar
-        onRestart={props.onRestart}
-        serverData={props.serverData}
-        setServerData={props.setServerData}
-        autoConnect={props.autoConnect}
-        initConnection={props.initConnection}
+        // onResData={props.serverData}
+        // setServerData={props.setServerData}
+        // autoConnect={props.autoConnect}
+        // initConnection={props.initConnection}
       />
 
       <Content />
@@ -74,21 +75,21 @@ function PlayerContent(props) {
 
 
 PlayerContent.propTypes = {
-  onRestart: PropTypes.func.isRequired,
-  secondsToStart: PropTypes.number.isRequired,
-  secondsToKill: PropTypes.number.isRequired,
-  serverData: PropTypes.exact({
-    host: PropTypes.string,
-    port: PropTypes.any,
-  }),
-  setServerData: PropTypes.func.isRequired,
-  initConnection: PropTypes.func.isRequired,
-  autoConnect: PropTypes.bool.isRequired,
+  // onRestart: PropTypes.func.isRequired,
+  // secondsToStart: PropTypes.number.isRequired,
+  // secondsToKill: PropTypes.number.isRequired,
+  // serverData: PropTypes.exact({
+  //   host: PropTypes.string,
+  //   port: PropTypes.any,
+  // }),
+  // setServerData: PropTypes.func.isRequired,
+  // initConnection: PropTypes.func.isRequired,
+  // autoConnect: PropTypes.bool.isRequired,
 };
 
 PlayerContent.defaultProps = {
-  secondsToStart: 0,
-  secondsToKill: 0,
+  // secondsToStart: 0,
+  // secondsToKill: 0,
 };
 
 const PlayerContext = (props) => (
