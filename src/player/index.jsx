@@ -24,6 +24,7 @@ import BackPreloader from './snippets/BackPreloader'
 
 const RootDiv = styled.div(theme => ({
   backgroundColor: 'rgba(0,0,0, 1)',
+  height: 'var(--window-height)',
 }))
 
 const isDev = env.isDev

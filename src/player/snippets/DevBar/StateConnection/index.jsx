@@ -5,6 +5,8 @@ import {useConnection} from '../../../context/'
 
 // material
 import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Icon from '@mui/material/Icon';
 
 // components
 import JsonEditor from 'components/JsonEditor/'
@@ -20,15 +22,20 @@ function StateConnection() {
   return (
     <div>
 
-      <Button
+      <ButtonGroup
         sx={{mb: 2}}
         fullWidth
-        color="inherit"
         variant="outlined"
-        size="large"
-        onClick={() => refConnectionForm.current.open()}>
-        Manual connection
-      </Button>
+        color="inherit">
+        <Button onClick={() => refConnectionForm.current.open()}>
+          Manual connection
+        </Button>
+        <Button sx={{width: 50}} onClick={() => {
+          connection.onRestartStream()
+        }}>
+          <Icon>refresh</Icon>
+        </Button>
+      </ButtonGroup>
 
       <ConnectionForm ref={refConnectionForm} />
 

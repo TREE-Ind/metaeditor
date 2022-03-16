@@ -83,12 +83,14 @@ const VideoCover = styled.div(theme => ({
 
 }))
 
-function Preloader(props) {
+function Preloader() {
   const player = usePlayer()
   const connection = useConnection()
 
+  const secondsToStart = connection.state.seconds_to_start
+
   const countdown = useCountdown({
-		seconds: connection.state.secondsToStart,
+		seconds: secondsToStart,
 		onProgress: (payload) => {
       // console.error('>>> onProgress', payload);
     },

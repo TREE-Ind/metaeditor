@@ -24,6 +24,9 @@ import Icon from '@mui/material/Icon';
 // styles
 import {styled} from 'styles/snippets'
 
+// blocks
+import ConnectionForm from './StateConnection/ConnectionForm'
+
 
 const AppBar = styled.custom(MuiAppBar, theme => ({
   borderRadius: theme.shape.borderRadius,
@@ -53,12 +56,6 @@ const ResponsiveAppBar = (props) => {
     ['Connection', 'vpn_key', () => props.handleMenu('connection')],
   ].map(([label, icon, onClick]) => ({label, icon, onClick}))
 
-  const settings = [
-    ['Restart stream', 'refresh', () => {
-      connection.onRestartStream()
-    }]
-  ].map(([label, icon, onClick]) => ({label, icon, onClick}))
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -75,6 +72,7 @@ const ResponsiveAppBar = (props) => {
   };
 
   const renderMenu = (list) => {
+
     return (
       <div>
         {list.map((item, index) => (
@@ -96,62 +94,60 @@ const ResponsiveAppBar = (props) => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters variant="dense">
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2 }}
-          >
-            DEV
-          </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
-            {icons.map((item, index) => (
-              <Tooltip key={index} title={item.label}>
-                <IconButton
-                  onClick={() => {
-                    handleCloseNavMenu()
-                    item.onClick()
-                  }}
-                  sx={{ color: 'white' }}>
-                  <Icon>{item.icon}</Icon>
-                </IconButton>
-              </Tooltip>
-            ))}
-          </Box>
+      <Toolbar disableGutters variant="dense" sx={{px: 1}}>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ mx: 2 }}
+        >
+          DEV
+        </Typography>
 
-          <Box sx={{ flexGrow: 0, pl: 0, mr: -1 }}>
-            <Tooltip title="Additional">
-              <IconButton onClick={handleOpenUserMenu}>
-                <Icon>menu</Icon>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex' } }}>
+          {icons.map((item, index) => (
+            <Tooltip key={index} title={item.label}>
+              <IconButton
+                onClick={() => {
+                  handleCloseNavMenu()
+                  item.onClick()
+                }}
+                sx={{ color: 'white' }}>
+                <Icon>{item.icon}</Icon>
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-                {renderMenu(icons)}
-                <Divider />
-              </Box>
-              {renderMenu(settings)}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
+          ))}
+        </Box>
+
+        <Box sx={{ flexGrow: 0, pl: 0, display: { xs: 'block', sm: 'none' } }}>
+          <Tooltip title="Additional">
+            <IconButton onClick={handleOpenUserMenu}>
+              <Icon>menu</Icon>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {renderMenu(icons)}
+          </Menu>
+        </Box>
+      </Toolbar>
+
+      <ConnectionForm />
+
     </AppBar>
   );
 };
