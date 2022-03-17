@@ -43,8 +43,8 @@ function JsonSourceList({label, json, height, ...props}) {
 JsonSourceList.propTypes = {
   label: PropTypes.string.isRequired,
   onClear: PropTypes.func.isRequired,
-  json: PropTypes.object.isRequired,
-  height: PropTypes.number,
+  json: PropTypes.any.isRequired,
+  height: PropTypes.any,
 };
 
 JsonSourceList.defaultProps = {

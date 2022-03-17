@@ -46,19 +46,20 @@ const actions = () => {
     }
 
     handleMenu(current_menu) {
-      this.sounds.click()
       this.draggableCard.close() //hack for draggable component
       this.handleDrawer.close() //hack for drawer component
 
       current_menu = state.current_menu === current_menu ? false : current_menu
+      if(current_menu) this.sounds.click()
       dispatch({current_menu, ui_visible: true})
     }
 
     handleUiVisible() {
-      this.sounds.click()
       this.draggableCard.close() //hack for draggable component
 
-      dispatch({ui_visible: !state.ui_visible})
+      const ui_visible = !state.ui_visible
+      if(ui_visible) this.sounds.click()
+      dispatch({ui_visible})
     }
 
     get handleDrawer() {
@@ -70,7 +71,6 @@ const actions = () => {
           setTimeout(() => dispatchComponent('streamDrawer', {slug, active: true}), 300)
         },
         close: () => {
-          this.sounds.click()
           dispatchComponent('streamDrawer', {slug: false, active: false})
         },
       }

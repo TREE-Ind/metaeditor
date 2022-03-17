@@ -55,29 +55,29 @@ function PixelWrapper({autoConnect, ...props}) {
       <PixelStreaming
         ref={refPixelStreaming}
         onLoad={(payload) => {
-          console.warn('loaded', payload);
+          // console.warn('loaded', payload);
         }}
         onConnect={() => {
-          console.warn('connected');
+          // console.warn('connected');
         }}
         onRestart={() => {
-          console.warn('onRestart');
+          // console.warn('onRestart');
         }}
         onError={(payload) => {
-          console.error('error', payload);
+          // console.error('error', payload);
         }}
         onClose={(payload) => {
-          console.error('closed', payload);
+          // console.error('closed', payload);
         }}
         onCommand={(payload => {
-          console.warn('command', payload);
+          // console.warn('command', payload);
           refContent.current.onCommand(payload)
         })}
         onCallback={(payload => {
-          console.warn('callback', payload);
+          // console.warn('callback', payload);
         })}
         onProgress={(payload) => {
-          console.warn('progress', payload);
+          // console.warn('progress', payload);
         }}
         autoConnect={autoConnect}
         quality={1}

@@ -35,8 +35,8 @@ function CommandsList() {
         <li>
           <JsonSourceList
             label="Commands"
-            json={player.cls.logs.list}
-            onClear={() => player.cls.logs.clear()}
+            json={player.cls.commands.list}
+            onClear={() => player.cls.commands.clear()}
             height={undefined} />
         </li>
         <li>

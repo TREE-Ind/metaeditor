@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// hooks
+import {useHotkeys} from 'hooks/'
+
 // context
 import {useLayout} from '../context/'
 
@@ -44,8 +47,14 @@ const CardList = styled.ul(theme => ({
 
 function DraggableCard(props) {
   const layout = useLayout()
-
   const {data, active} = layout.draggableCard
+
+  useHotkeys('esc', (e, ke) => {
+     if(!e.repeat) {
+       layout.draggableCard.close()
+       return ;
+     }
+   }, [])
 
   return (
     <DraggableObject

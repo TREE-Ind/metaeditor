@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // hooks
-import {useContainerDimensions} from 'hooks/'
+import {useHotkeys, useContainerDimensions} from 'hooks/'
 
 // material
 import Icon from '@mui/material/Icon';
@@ -177,6 +177,13 @@ function ContentDrawer(props) {
   // const [expanded, setExpanded] = React.useState(true)
 
   const isExpanded = props.show // && expanded
+
+  useHotkeys('esc', (e, ke) => {
+     if(!e.repeat) {
+       props.onClose()
+       return ;
+     }
+   }, [])
 
   const expandSwitcher = () => {
     props.onClose()
