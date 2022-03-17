@@ -79,9 +79,6 @@ function PixelWrapper({autoConnect, ...props}) {
         onProgress={(payload) => {
           console.warn('progress', payload);
         }}
-        onDebug={(payload) => {
-          console.warn('debug', payload);
-        }}
         autoConnect={autoConnect}
         quality={1}
         isDev={isDev}

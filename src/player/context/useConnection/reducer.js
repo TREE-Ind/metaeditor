@@ -4,9 +4,6 @@ const initialState = {
   loaded: false,
 
   status: undefined,
-  host: undefined,
-  port: undefined,
-
   entry_id: undefined,
   host: undefined,
   port: undefined,

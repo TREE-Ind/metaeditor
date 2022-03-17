@@ -51,7 +51,7 @@ const ResponsiveAppBar = (props) => {
     }],
     ['Data state', 'info', () => props.handleMenu('state')],
     ['Debug data', 'tune', () => props.handleMenu('debug')],
-    ['Logs', 'notifications', () => props.handleMenu('logs')],
+    ['Pixel Streaming logs', 'notifications', () => props.handleMenu('logs')],
     ['Commands', 'flag', () => props.handleMenu('commands')],
     ['Connection', 'vpn_key', () => props.handleMenu('connection')],
   ].map(([label, icon, onClick]) => ({label, icon, onClick}))

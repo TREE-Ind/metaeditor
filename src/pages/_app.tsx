@@ -11,7 +11,7 @@ import createEmotionCache from "../styles/mui-theme/createEmotionCache";
 import NotificationsProvider from '../components/Notifications/Provider'
 
 // hooks
-import {useAnalytics} from 'hooks/'
+import useAnalytics from 'hooks/useAnalytics'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

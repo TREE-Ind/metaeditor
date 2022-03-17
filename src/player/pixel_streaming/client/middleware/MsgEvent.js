@@ -1,22 +1,22 @@
-import * as log from 'loglevel';
+// import * as log from 'loglevel';
 // log.warn("module-tastic");
 
 
-const LOG_LEVEL = {
-	DETAILED: 5,
-	NORMAL: 1,
-}
-
-const LOG_CURRENT = LOG_LEVEL.NORMAL
+// const LOG_LEVEL = {
+// 	DETAILED: 5,
+// 	NORMAL: 1,
+// }
+//
+// const LOG_CURRENT = LOG_LEVEL.NORMAL
 
 
 const MsgEvent = new class {
 	constructor() {}
 
-	_event(type, payload, log) {
-		if(LOG_CURRENT === LOG_LEVEL.NORMAL && log !== LOG_LEVEL.NORMAL) {
-			return ;
-		}
+	_event(type, payload) {
+		// if(LOG_CURRENT === LOG_LEVEL.NORMAL && log !== LOG_LEVEL.NORMAL) {
+		// 	return ;
+		// }
 
 		const detail = {type, payload}
 		const ev = new CustomEvent('ps_debug', {detail})
@@ -24,27 +24,27 @@ const MsgEvent = new class {
 	}
 
 	func(...args) {
-		this._event('func', args, LOG_LEVEL.DETAILED)
+		this._event('func', args)
 	}
 	log(...args) {
-		this._event('log', args, LOG_LEVEL.NORMAL)
+		this._event('log', args)
 	}
 	warn(...args) {
-		this._event('warn', args, LOG_LEVEL.NORMAL)
+		this._event('warn', args)
 	}
 	info(...args) {
-		this._event('info', args, LOG_LEVEL.NORMAL)
+		this._event('info', args)
 	}
 	error(...args) {
-		this._event('error', args, LOG_LEVEL.NORMAL)
+		this._event('error', args)
 	}
 
 	get webrtc() {
 		return {
-			log: (...args) => this._event('webrtc:log', args, LOG_LEVEL.DETAILED),
-			warn: (...args) => this._event('webrtc:warn', args, LOG_LEVEL.DETAILED),
-			info: (...args) => this._event('webrtc:info', args, LOG_LEVEL.DETAILED),
-			error: (...args) => this._event('webrtc:error', args, LOG_LEVEL.DETAILED),
+			log: (...args) => this._event('webrtc:log', args),
+			warn: (...args) => this._event('webrtc:warn', args),
+			info: (...args) => this._event('webrtc:info', args),
+			error: (...args) => this._event('webrtc:error', args),
 		};
 	}
 }

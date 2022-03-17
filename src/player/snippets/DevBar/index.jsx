@@ -21,7 +21,7 @@ import SystemDialog from './SystemDialog'
 import StateData from './StateData'
 import StateConnection from './StateConnection/'
 import DebugForm from './DebugForm'
-import LogsData from './LogsData'
+import LogsData from './LogsData/'
 import CommandsList from './CommandsList/'
 import PublicBar from '../PublicBar/'
 
@@ -32,7 +32,7 @@ const debugMode = true //env.isDev
 
 const RootDiv = styled.ul(theme => ({
   position: 'absolute',
-  zIndex: theme.zIndex.appBar + 1,
+  zIndex: theme.zIndex.appBar + 100,
   top: theme.spacing(2),
   right: theme.spacing(2),
   pointerEvents: 'all',
@@ -78,7 +78,7 @@ function DevBar(props) {
       state: ['State', <StateData />],
       connection: ['Connection', <StateConnection />],
       debug: ['Debug', <DebugForm />],
-      logs: ['Logs', <LogsData />],
+      logs: ['Pixel Streaming logs', <LogsData />],
       commands: ['Commands', <CommandsList />],
     }
 

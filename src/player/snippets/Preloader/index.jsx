@@ -30,7 +30,7 @@ const LogoDiv = styled.div(theme => ({
   paddingBottom: theme.spacing(4),
   '& > img': {
     maxWidth: 100,
-  }
+  },
 }))
 
 const RootBox = styled.custom(MuiBox, theme => ({
@@ -53,12 +53,21 @@ const ProgressBox = styled.custom(MuiBox, theme => ({
   flexDirection: 'column',
   position: 'relative',
 
+  paddingBottom: '20vh',
+
   '& > [data-progress]': {
     width: '20vw',
-    [theme.breakpoints.down('sm')]: {
-      width: '50vw',
-    },
+    // [theme.breakpoints.down('sm')]: {
+    //   width: '20vw',
+    // },
   },
+  '& > [data-helpertext]': {
+    fontSize: 11,
+    textTransform: 'uppercase',
+    marginTop: theme.spacing(3),
+    letterSpacing: '.3em',
+  },
+
 }))
 
 
@@ -133,9 +142,9 @@ function Preloader() {
             <Progress />
           </div>
 
-          <Typography variant="body1" sx={{mt: 3}}>
+          <div data-helpertext>
             Loading 3D
-          </Typography>
+          </div>
 
         </ProgressBox>
       );

@@ -12,7 +12,6 @@ import DebugData from './snippets/DebugData/';
 
 export {
 	usePS,
-	DebugData,
 }
 
 const VideoContainer = styled.div((theme) => ({

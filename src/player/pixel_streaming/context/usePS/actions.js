@@ -1,7 +1,7 @@
 import React from "react"
 
 // hooks
-import {useWindowSize, useReducerEvents} from '../../hooks/'
+import {useWindowSize, useStateEvents, useReducerEvents} from '../../hooks/'
 
 // libs
 import moment from 'moment'
@@ -24,6 +24,7 @@ const actions = () => {
 
   const [commandsList, setCommandsList] = React.useState([])
   const [callbacksList, setCallbacksList] = React.useState([])
+  const [logsList, setLogsList] = useStateEvents([])
 
   // Resizing window
   React.useEffect(() => {
@@ -40,11 +41,8 @@ const actions = () => {
 
 
   // Listen debug messages
-  const debugRef = React.useRef(null)
   const debugListener = ({detail}) => {
-    if(typeof debugRef.current === 'function') {
-      debugRef.current(detail)
-    }
+    setLogsList(c => [detail, ...c].filter((o,i) => i < 10000))
   }
 
   // Detect body click (for webrtc sound)
@@ -62,8 +60,7 @@ const actions = () => {
     document.body.addEventListener('click', bodyClick);  // Click body
 
     return () => {
-      debugRef.current = null
-      document.rem
+      document.removeEventListener('ps_debug', debugListener)
       document.body.removeEventListener('click', bodyClick); // Remove body click listeneroveEventListener('ps_debug', debugListener)
     }
   }, [])
@@ -90,21 +87,22 @@ const actions = () => {
       };
     }
 
+    get logs() {
+      return {
+        clear: () => setLogsList([]),
+        list: logsList,
+      };
+    }
+
     init({
       host, port, quality,
       onRestart, onCommand, onCallback,
-      onLoad, onConnect, onError, onClose, onDebug,
+      onLoad, onConnect, onError, onClose,
     }) {
 
       // Set resolution multiplier
       if(typeof quality === 'number') {
         dispatch({resolution_multiplier: quality})
-      }
-
-      // Sending events listener to onDebug function
-      debugRef.current = (payload) => {
-        if(typeof onDebug !== 'function') return ;
-        onDebug(payload)
       }
 
       this.client.init({
