@@ -1,8 +1,11 @@
-const replace = require("replace-in-file");
 const { exec } = require("child_process");
 const packageJson = require("../package.json");
 
-class Deploy {
+// extra
+const Replacer = require('./replacer')
+
+
+const Deploy = new class {
   constructor() {
     this.dir = '.deploy'
     this.repo_url = 'https://github.com/markolofsen/metaeditor'
@@ -37,7 +40,7 @@ class Deploy {
 
     await this.exec(`npx javascript-obfuscator ${ps_path}/index_src.js --output ${ps_path}/index.js`)
     await this.exec('npx next build && npx next export -o ./build')
-    await this.replaceFilePaths()
+    await Replacer.start()
     await this.exec('npx gh-pages -d ./build')
 
     // Open urls
@@ -54,35 +57,7 @@ class Deploy {
 
 
   }
-
-  async replaceFilePaths() {
-
-    const replace = async (filepath) => {
-
-      const options = {
-        files: `./build/${filepath}`,
-        from: [/src="\//g, /href="\//g],
-        to: ['src="./', 'href="./'],
-      };
-
-      await new Promise(async (resolve, reject) => {
-        try {
-          const results = await replace(options);
-          console.log("Replacement results:", results);
-          resolve()
-        } catch (error) {
-          console.error("Error occurred:", error);
-          reject()
-        }
-      })
-    }
-
-    await replace('404/index.html')
-    await replace('dev/index.html')
-    await replace('index.html')
-
-  }
 }
 
 
-new Deploy().deploy()
+Deploy.deploy()

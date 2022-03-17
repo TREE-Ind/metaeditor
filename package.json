@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export -o build",
-    "static": "next build && next export && http-server ./build/ -o -p 8080",
+    "static": "next build && next export && node .deploy/replacer.js -start && http-server ./build/ -o -p 8080",
     "deploy": "node .deploy/",
     "lint": "next lint",
     "test": "jest --watch --env=jsdom",
