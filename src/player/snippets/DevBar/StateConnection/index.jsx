@@ -31,7 +31,9 @@ function StateConnection() {
           Manual connection
         </Button>
         <Button sx={{width: 50}} onClick={() => {
-          connection.onRestartStream()
+          if(confirm('Restart streaming server?')) {
+            connection.onRestartStream()
+          }
         }}>
           <Icon>refresh</Icon>
         </Button>

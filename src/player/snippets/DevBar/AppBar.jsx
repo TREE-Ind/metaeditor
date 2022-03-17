@@ -46,15 +46,38 @@ const ResponsiveAppBar = (props) => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const icons = [
-    ['Play/Stop', state.loaded ? 'pause' : 'play_arrow', () => {
-      cls.playStop()
-    }],
-    ['Data state', 'info', () => props.handleMenu('state')],
-    ['Debug data', 'tune', () => props.handleMenu('debug')],
-    ['Pixel Streaming logs', 'notifications', () => props.handleMenu('logs')],
-    ['Commands', 'flag', () => props.handleMenu('commands')],
-    ['Connection', 'vpn_key', () => props.handleMenu('connection')],
-  ].map(([label, icon, onClick]) => ({label, icon, onClick}))
+    ['play', 'Play/Stop', 'play_arrow'],
+    ['state', 'Data state', 'info'],
+    ['debug', 'Debug data', 'tune'],
+    ['logs', 'Pixel Streaming logs', 'notifications'],
+    ['commands', 'Commands', 'flag'],
+    ['connection', 'Connection', 'vpn_key'],
+  ].map(([slug, label, icon]) => {
+    let res = {
+      label,
+      icon,
+      onClick: () => props.handleMenu(slug),
+      disabled: false,
+    }
+
+    const isStreamDisabled = !state.loaded && state.closed?.code !== 1005
+
+    switch (slug) {
+      case 'play':
+        res.icon = state.loaded ? 'pause' : 'play_arrow'
+        res.onClick = () => cls.playStop()
+        res.disabled = isStreamDisabled
+        break;
+        
+      case 'state':
+      case 'debug':
+        res.disabled = isStreamDisabled
+      // default:
+
+    }
+
+    return res;
+  })
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -76,9 +99,12 @@ const ResponsiveAppBar = (props) => {
     return (
       <div>
         {list.map((item, index) => (
-          <MenuItem key={index} onClick={() => {
-            handleCloseUserMenu()
-            item.onClick()
+          <MenuItem
+            key={index}
+            disabled={item.disabled}
+            onClick={() => {
+              handleCloseUserMenu()
+              item.onClick()
           }}>
             <ListItemIcon>
               <Icon fontSize="small">{item.icon}</Icon>
@@ -109,6 +135,7 @@ const ResponsiveAppBar = (props) => {
           {icons.map((item, index) => (
             <Tooltip key={index} title={item.label}>
               <IconButton
+                disabled={item.disabled}
                 onClick={() => {
                   handleCloseNavMenu()
                   item.onClick()
