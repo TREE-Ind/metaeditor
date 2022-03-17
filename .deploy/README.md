@@ -1,17 +1,5 @@
-## Deploy gh-pages
+## Deployment
 
-[How to Host a Next.JS App on GitHub Pages](https://tishonator.com/blog/how-to-host-a-next-js-app-on-github-pages)
+* [Deployment info](https://metaeditor.io/docs/reactjs/deployment)
 
-
-
-After `yarn deploy` create empty `.nojekyll` in [gh-pages](https://github.com/markolofsen/metaeditor/tree/gh-pages):
-
-- `/`
-
-- `/_next/`
-
-
-[Set domain](https://github.com/markolofsen/metaeditor/settings/pages) `ps.metaeditor.io`
-
-
----
+* [How to Host a Next.JS App on GitHub Pages](https://tishonator.com/blog/how-to-host-a-next-js-app-on-github-pages)

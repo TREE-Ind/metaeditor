@@ -5,11 +5,12 @@ const packageJson = require("../package.json");
 const Replacer = require('./replacer')
 
 
+// config
+const REPO_URL = 'https://github.com/markolofsen/metaeditor'
+
+
 const Deploy = new class {
-  constructor() {
-    this.dir = '.deploy'
-    this.repo_url = 'https://github.com/markolofsen/metaeditor'
-  }
+  constructor() {}
 
   async exec(cmd) {
 
@@ -44,16 +45,14 @@ const Deploy = new class {
     await this.exec('npx gh-pages -d ./build')
 
     // Open urls
-    await this.exec(`open ${this.repo_url}/actions`)
+    await this.exec(`open https://metaeditor.io/docs/reactjs/deployment`)
+    await this.exec(`open ${REPO_URL}/actions`)
 
-    setTimeout(async () => {
-
-      await this.exec(`open ${this.repo_url}/blob/main/${this.dir}/README.md`)
-      await this.exec(`open ${this.repo_url}/settings/pages`)
-      await this.exec(`open ${this.repo_url}/new/gh-pages`)
-      await this.exec(`open ${this.repo_url}/new/gh-pages/_next`)
-
-    }, 1000 * 1)
+    // setTimeout(async () => {
+    //   await this.exec(`open ${REPO_URL}/settings/pages`)
+    //   await this.exec(`open ${REPO_URL}/new/gh-pages`)
+    //   await this.exec(`open ${REPO_URL}/new/gh-pages/_next`)
+    // }, 1000 * 1)
 
 
   }
