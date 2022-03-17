@@ -4,58 +4,41 @@ import PropTypes from 'prop-types';
 // material
 import { styled } from 'styles/snippets'
 import MuiAccordion from '@mui/material/Accordion';
-import MuiAccordionSummary from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 // import Button from '@mui/material/Button';
 
 // components
 import Container from './Container'
 
-const Accordion = styled.withStyles(MuiAccordion, theme => ({
 
-  root: {
-    // backgroundColor: 'red',
-    // border: '1px solid rgba(0, 0, 0, .125)',
-    // background: 'transparent',
-    padding: 0,
-    // background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4051995798319328) 30%, rgba(0,0,0,0.6320903361344538) 51%, rgba(0,0,0,0.8337710084033614) 81%, rgba(0,0,0,0.9178046218487395) 100%)',
-    backgroundColor: 'transparent',
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-    },
-  },
-  expanded: {
 
+const Accordion = styled.custom(MuiAccordion, theme => ({
+
+  // backgroundColor: 'red',
+  // border: '1px solid rgba(0, 0, 0, .125)',
+  // background: 'transparent',
+  padding: 0,
+  // background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4051995798319328) 30%, rgba(0,0,0,0.6320903361344538) 51%, rgba(0,0,0,0.8337710084033614) 81%, rgba(0,0,0,0.9178046218487395) 100%)',
+  backgroundColor: 'transparent',
+  boxShadow: 'none',
+  '&:not(:last-child)': {
+    borderBottom: 0,
   },
+  '&:before': {
+    display: 'none',
+  },
+  '&$expanded': {
+    margin: 'auto',
+  },
+
+  '&.Mui-expanded': {
+    margin: 0,
+  },
+
 }))
 
-const AccordionSummary = styled.withStyles(MuiAccordionSummary, theme => ({
-  root: {
-		display: 'none',
-    '&$expanded': {},
-  },
-  content: {
-    '&$expanded': {},
-  },
-  expanded: {},
-}))
-
-
-const AccordionDetails = styled.withStyles(MuiAccordionDetails, theme => ({
-  root: {
-    padding: 0,
-    // paddingBottom: theme.spacing(3),
-    // marginTop: 100,
-  },
-}))
 
 
 
@@ -130,11 +113,8 @@ function ContentSlider({slug, ...props}) {
              exit: 200,
             }
           }}>
-	        <AccordionSummary />
-	        <AccordionDetails style={{
-            // paddingBottom: item.noPadding ? 0 : theme.spacing(2),
-            paddingBottom: 0,
-          }}>
+	        <AccordionSummary sx={{display: 'none'}} />
+	        <AccordionDetails style={{padding: 0}}>
             {renderContainer(item)}
 	        </AccordionDetails>
 	      </Accordion>

@@ -56,23 +56,31 @@ class Deploy {
   }
 
   async replaceFilePaths() {
-    const options = {
-      //you may need to modify the file address to suite your project
-      files: "./build/index.html",
-      from: [/src="\//g, /href="\//g],
-      to: ['src="./', 'href="./'],
-    };
 
-    await new Promise(async (resolve, reject) => {
-      try {
-        const results = await replace(options);
-        console.log("Replacement results:", results);
-        resolve()
-      } catch (error) {
-        console.error("Error occurred:", error);
-        reject()
-      }
-    })
+    const replace = async (filepath) => {
+
+      const options = {
+        files: `./build/${filepath}`,
+        from: [/src="\//g, /href="\//g],
+        to: ['src="./', 'href="./'],
+      };
+
+      await new Promise(async (resolve, reject) => {
+        try {
+          const results = await replace(options);
+          console.log("Replacement results:", results);
+          resolve()
+        } catch (error) {
+          console.error("Error occurred:", error);
+          reject()
+        }
+      })
+    }
+
+    await replace('404/index.html')
+    await replace('dev/index.html')
+    await replace('index.html')
+
   }
 }
 
