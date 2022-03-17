@@ -56,7 +56,7 @@ const withEnv = (phase) => {
 function moduleExports(phase) {
   const res = {
 		...withEnv(phase),
-		trailingSlash: true,
+		trailingSlash: false,
 		// pagesPaths: ['src/pages', 'src/pages2'],
 
 	  reactStrictMode: false,

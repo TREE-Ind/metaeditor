@@ -5,6 +5,9 @@ const Replacer = new class {
 
   async replace(filepath) {
 
+    // const slashes = (filepath.match(/\//g) || []).length - 2;
+    // const parent = '../'.repeat(slashes)
+
     const options = {
       files: filepath,
       from: [/src="\//g, /href="\//g],
@@ -29,8 +32,9 @@ const Replacer = new class {
       if (err) {
         console.log('Error', err);
       } else {
-        // console.log(res);
-        await this.replace(res)
+        for(let filepath of res) {
+          await this.replace(filepath)
+        }
       }
     });
 
