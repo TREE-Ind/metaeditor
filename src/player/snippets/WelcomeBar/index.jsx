@@ -3,6 +3,9 @@ import * as React from 'react';
 // hooks
 import {useStorage} from 'hooks/'
 
+// context
+import {useConnection} from '../../context/';
+
 // material
 import Box from '@mui/material/Box';
 
@@ -16,6 +19,7 @@ import Content from './Content'
 
 
 function CustomizedDialogs() {
+  const connection = useConnection()
   const refDialog = React.useRef(null)
 
   const storage = useStorage()
@@ -24,18 +28,20 @@ function CustomizedDialogs() {
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
-
-    if(!mounted) {
-      const stored_data = storage.getItem(storageKey, 'local')
-      if(typeof stored_data !== 'object') {
-        setMounted(true)
-        setTimeout(() => {
-          refDialog.current.open()
-        }, 1000 * 5)
-      }
-    }
-
+    handleOpen()
   }, [])
+
+  const handleOpen = () => {
+    if(mounted || connection.state.auto_connect === false) return ;
+
+    const stored_data = storage.getItem(storageKey, 'local')
+    if(typeof stored_data !== 'object') {
+      setMounted(true)
+      setTimeout(() => {
+        refDialog.current.open()
+      }, 1000 * 5)
+    }
+  }
 
   return (
     <div>
