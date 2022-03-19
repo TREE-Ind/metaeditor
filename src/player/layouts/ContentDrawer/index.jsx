@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import {useLayout} from '../../context/'
 
 // blocks
-import BodyColor from './blocks/BodyColor'
-import InteriorColor from './blocks/InteriorСolor'
-import DefaultBlock from './blocks/DefaultBlock'
+import BlockPaint from './blocks/BlockPaint'
+import BlockWheels from './blocks/BlockWheels'
+import BlockTrim from './blocks/BlockTrim'
+import BlockLeather from './blocks/BlockLeather'
+import BlockSeats from './blocks/BlockSeats'
 
 
 // components
@@ -23,9 +25,11 @@ function ContentDrawer(props) {
 
 
   const list = {
-    body_color: ['Body Color', BodyColor],
-    interior_color: ['Interior Color', InteriorColor],
-    default: ['Default', DefaultBlock],
+    paint: ['Paint', BlockPaint],
+    wheels: ['Wheels', BlockWheels],
+    trim: ['Trim', BlockTrim],
+    leather: ['Leather', BlockLeather],
+    seats: ['Seats', BlockSeats],
   }
 
   const renderContent = () => {

@@ -18,10 +18,12 @@ function DrawerBlock(props) {
   const player = usePlayer()
   const layout = useLayout()
 
-  const itm = ['Default', undefined]
-  const items = [
-    itm, itm, itm, itm, itm, //itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm,
-  ].map(([name, src]) => ({name, src}))
+  const tmp = ['Trim name']
+  const items = Array(3).fill(tmp)
+  .map(([name], index) => ({
+    name,
+    src: env.staticPath('tmp', 'configurator', `trim_${index+1}.png`)
+  }))
 
   return (
     <div>

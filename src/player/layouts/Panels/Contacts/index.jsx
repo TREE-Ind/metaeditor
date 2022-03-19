@@ -128,7 +128,7 @@ function OverviewCard(props) {
 			<ContentList>
 
 				<li data-li="image">
-					<img src={env.staticPath('tmp', 'about_preview.jpg')} />
+					<img src={env.staticPath('tmp', 'contacts_preview.jpg')} />
 				</li>
 
 				<li data-li="content">

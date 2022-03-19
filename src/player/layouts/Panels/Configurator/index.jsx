@@ -6,8 +6,26 @@ import {env} from 'api/'
 // context
 import {usePlayer, useLayout} from 'player/context/';
 
+// styles
+import { styled } from 'styles/snippets'
+
 // player components
 import CarouselItems from 'player/components/CarouselItems'
+
+
+
+const ContentDiv = styled.div(theme => ({
+  flex: 1,
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  ...theme.typography.h6,
+  borderLeft: `solid 1px ${theme.palette.divider}`,
+  paddingLeft: theme.spacing(2),
+  marginLeft: theme.spacing(-2),
+}))
+
 
 function Panel() {
   const layout = useLayout()
@@ -17,12 +35,12 @@ function Panel() {
     const tmp = ['Demo', 'default', undefined]
 
     const items = [
-      ['Paint', 'body_color', env.staticPath('tmp', 'carousel_wheels.jpg')],
-      ['Wheels', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
-      ['Trime', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
-      ['Leather', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
-      ['Seat', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
-    ].map(([name, slug, src]) => ({name, slug, src}))
+      ['Paint', 'paint'],
+      ['Wheels', 'wheels'],
+      ['Trim', 'trim'],
+      ['Leather', 'leather'],
+      ['Seats', 'seats'],
+    ].map(([name, slug]) => ({name, slug, src: env.staticPath('tmp', 'icons', `car_${slug}.svg`)}))
 
     return (
       <CarouselItems
@@ -33,9 +51,9 @@ function Panel() {
         items={items}>
         {(item, index) => {
           return (
-            <div>
+            <ContentDiv>
               {item.name}
-            </div>
+            </ContentDiv>
           )
         }}
       </CarouselItems>

@@ -21,22 +21,27 @@ const ItemList = styled.ul(theme => ({
   display: 'flex',
   pointerEvents: 'all',
   cursor: 'pointer',
-  border: `solid 2px transparent`,
+  border: `solid 1px rgba(255,255,255,.2)`,
   borderRadius: theme.shape.borderRadius,
-  transition: theme.transitions.create(['border-color']),
-  backgroundColor: 'rgba(0,0,0,.9)',
+  transition: theme.transitions.create(['background-color', 'border-color']),
+  backgroundColor: 'rgba(0,0,0,.7)',
   padding: theme.spacing('2px'),
   minHeight: 110,
   '&:hover': {
-    borderColor: theme.palette.primary.main,
+    backgroundColor: 'rgba(0,0,0,1)',
+    borderColor: 'rgba(255,255,255,.4)',
   },
   '& > [data-li="image"]': {
     minWidth: 100,
     maxWidth: 100,
-    backgroundColor: theme.palette.background.default,
-    borderRadius: theme.shape.borderRadius / 1.3,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center center',
+    // backgroundColor: theme.palette.background.default,
+    // borderRadius: theme.shape.borderRadius / 1.3,
+    // backgroundSize: 'cover',
+    // backgroundPosition: 'center center',
+    padding: theme.spacing(2),
+    '& > img': {
+      width: '100%',
+    }
   },
   '& > [data-li="content"]': {
     flex: 1,
@@ -58,9 +63,9 @@ function CustomCarousel(props) {
           return (
             <ItemList key={index} onClick={() => props.onClickItem(item, index)}>
               {imageSrc ? (
-                <li data-li="image" style={{
-                  backgroundImage: `url(${imageSrc})`,
-                }} />
+                <li data-li="image">
+                  <img src={imageSrc} />
+                </li>
               ) : ''}
               <li data-li="content">
                 {props.children(item, index)}

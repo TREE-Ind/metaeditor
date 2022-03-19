@@ -18,10 +18,12 @@ function DrawerBlock(props) {
   const player = usePlayer()
   const layout = useLayout()
 
-  const itm = ['Color', env.staticPath('tmp', 'carousel_wheels.jpg')]
-  const items = [
-    itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm, itm,
-  ].map(([name, src]) => ({name, src}))
+  const tmp = ['Color name']
+  const items = Array(5).fill(tmp)
+  .map(([name], index) => ({
+    name,
+    src: env.staticPath('tmp', 'configurator', `paint_${index+1}.png`)
+  }))
 
   return (
     <div>
