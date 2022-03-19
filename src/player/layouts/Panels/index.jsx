@@ -3,6 +3,9 @@ import React from 'react';
 // context
 import {useLayout} from '../../context/';
 
+// material
+import Box from '@mui/material/Box';
+
 // components
 import ContentSlider from '../../components/ContentSlider'
 
@@ -10,6 +13,7 @@ import ContentSlider from '../../components/ContentSlider'
 import Description from './Description/'
 import Contacts from './Contacts/'
 import Configurator from './Configurator/'
+import Rendering from './Rendering/'
 
 
 function PanelsList() {
@@ -17,15 +21,21 @@ function PanelsList() {
 
   const list = [
     {
-      slug: 'description',
-      children: Description,
+      slug: 'configurator',
+      children: Configurator,
+      container: false,
+      noPadding: false,
+    },
+    {
+      slug: 'rendering',
+      children: Rendering,
       container: true,
       noPadding: false,
     },
     {
-      slug: 'configurator',
-      children: Configurator,
-      container: false,
+      slug: 'description',
+      children: Description,
+      container: true,
       noPadding: false,
     },
     {
@@ -39,14 +49,14 @@ function PanelsList() {
   const slug = layout.state.current_menu
 
   return (
-    <div>
+    <Box sx={{pt: 3}}>
 
       <ContentSlider
         list={list}
         slug={slug}
       />
 
-    </div>
+    </Box>
   );
 }
 

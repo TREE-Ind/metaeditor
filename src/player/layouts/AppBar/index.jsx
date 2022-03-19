@@ -39,6 +39,7 @@ import SignalQuality from './SignalQuality/'
 
 const pages = [
   ['Configurator', 'configurator'],
+  ['Rendering', 'rendering'],
   ['Description', 'description'],
   ['Contacts', 'contacts'],
 ].map(([label, slug]) => ({label, slug}));

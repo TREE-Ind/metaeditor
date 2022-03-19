@@ -55,7 +55,7 @@ const RootList = styled.ul(theme => ({
   },
 
   '& > li > [data-list="bottom"]': {
-    background: 'linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0) 100%)',
+    background: 'linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 40%, rgba(0,0,0,0.6) 70%, rgba(0,0,0,0) 100%)',
 
     '& > [data-li="appbar"]': {
       pointerEvents: 'all',

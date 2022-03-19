@@ -23,13 +23,22 @@ const ItemList = styled.ul(theme => ({
   cursor: 'pointer',
   border: `solid 1px rgba(255,255,255,.2)`,
   borderRadius: theme.shape.borderRadius,
-  transition: theme.transitions.create(['background-color', 'border-color']),
+  transition: theme.transitions.create(['background-color', 'border-color', 'border']),
   backgroundColor: 'rgba(0,0,0,.7)',
   padding: theme.spacing('2px'),
   minHeight: 110,
-  '&:hover': {
+
+  '&:hover, &[data-selected="true"]': {
     backgroundColor: 'rgba(0,0,0,1)',
     borderColor: 'rgba(255,255,255,.4)',
+    '& > [data-li="image"] > img': {
+      transform: 'scale(1.2)',
+      opacity: 1,
+    },
+  },
+  '&[data-selected="true"]': {
+    borderColor: 'rgba(255,255,255, .8)', //theme.palette.primary.main,
+    borderWidth: 2,
   },
   '& > [data-li="image"]': {
     minWidth: 100,
@@ -38,14 +47,18 @@ const ItemList = styled.ul(theme => ({
     // borderRadius: theme.shape.borderRadius / 1.3,
     // backgroundSize: 'cover',
     // backgroundPosition: 'center center',
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     '& > img': {
-      width: '100%',
+      transition: theme.transitions.create(['transform', 'opacity']),
+      width: '50%',
+      opacity: .8,
     }
   },
   '& > [data-li="content"]': {
     flex: 1,
-    padding: theme.spacing(1, 2),
   },
 }))
 
@@ -61,7 +74,10 @@ function CustomCarousel(props) {
           const imageSrc = props.image(item)
 
           return (
-            <ItemList key={index} onClick={() => props.onClickItem(item, index)}>
+            <ItemList
+              key={index}
+              onClick={() => props.onClickItem(item, index)}
+              data-selected={props.onSelected(item, index)}>
               {imageSrc ? (
                 <li data-li="image">
                   <img src={imageSrc} />
@@ -82,6 +98,7 @@ CustomCarousel.propTypes = {
   items: PropTypes.array.isRequired,
   image: PropTypes.func.isRequired,
   onClickItem: PropTypes.func.isRequired,
+  onSelected: PropTypes.func.isRequired,
 };
 
 CustomCarousel.defaultProps = {

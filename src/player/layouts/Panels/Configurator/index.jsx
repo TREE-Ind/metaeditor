@@ -23,7 +23,6 @@ const ContentDiv = styled.div(theme => ({
   ...theme.typography.h6,
   borderLeft: `solid 1px ${theme.palette.divider}`,
   paddingLeft: theme.spacing(2),
-  marginLeft: theme.spacing(-2),
 }))
 
 
@@ -48,6 +47,7 @@ function Panel() {
         onClickItem={(item, index) => {
           layout.handleDrawer.open(item.slug)
         }}
+        onSelected={(item, index) => layout.handleDrawer.slug === item.slug}
         items={items}>
         {(item, index) => {
           return (

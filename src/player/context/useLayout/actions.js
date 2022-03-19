@@ -65,6 +65,7 @@ const actions = () => {
     get handleDrawer() {
 
       return {
+        slug: state.components.streamDrawer.slug,
         open: (slug) => {
           this.sounds.click()
           dispatchComponent('streamDrawer', {slug: false, active: false})
