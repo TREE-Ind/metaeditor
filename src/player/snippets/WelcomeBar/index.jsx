@@ -4,7 +4,7 @@ import * as React from 'react';
 import {useStorage} from 'hooks/'
 
 // context
-import {useConnection} from '../../context/';
+import {useConnection} from 'player/context/';
 
 // material
 import Box from '@mui/material/Box';

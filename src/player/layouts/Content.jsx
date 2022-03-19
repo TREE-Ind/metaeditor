@@ -17,6 +17,7 @@ import Slide from '@mui/material/Slide';
 // layouts
 import AppBar from './AppBar'
 import Panels from './Panels/'
+import HiddenPanels from './HiddenPanels/'
 import ContentDrawer from './ContentDrawer/'
 
 // player components
@@ -95,13 +96,15 @@ function Content(props) {
         <li>
           <ul data-list="bottom">
             <li data-li="panels">
-              <Collapse
-                in={uiVisible}
-                mountOnEnter={false}
-                unmountOnExit={false}
-                orientation="vertical">
+
+              <Collapse in={uiVisible} mountOnEnter={false} unmountOnExit={false}>
                 <Panels />
               </Collapse>
+
+              <Collapse in={uiVisible && !layout.state.current_menu}>
+                <HiddenPanels />
+              </Collapse>
+
             </li>
             <li data-li="appbar">
               <AppBar />

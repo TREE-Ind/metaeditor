@@ -161,16 +161,20 @@ const ResponsiveAppBar = () => {
               {env.data.siteLogoName}
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-              {pages.map((item, index) => (
-                <MenuButton
-                  data-selected={isMenuSelected(item)}
-                  key={index}
-                  onClick={handleMenu(item.slug)}
-                  sx={{ my: 0, mx: 1, color: 'white', display: 'block' }}
-                >
-                  {item.label}
-                </MenuButton>
-              ))}
+              {pages.map((item, index) => {
+                const selected = isMenuSelected(item)
+                return (
+                  <MenuButton
+                    data-selected={selected}
+                    endIcon={(selected && <Icon>close</Icon>)}
+                    key={index}
+                    onClick={handleMenu(item.slug)}
+                    sx={{ my: 0, mx: 1, color: 'white' }}
+                  >
+                    {item.label}
+                  </MenuButton>
+                )
+              })}
             </Box>
 
             <SignalQuality>

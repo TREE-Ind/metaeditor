@@ -7,7 +7,7 @@ import {useLayout} from '../../context/';
 import Box from '@mui/material/Box';
 
 // components
-import ContentSlider from '../../components/ContentSlider'
+import ContentSlider from 'player/components/ContentSlider'
 
 // panels
 import Description from './Description/'
