@@ -6,6 +6,7 @@ import ContextProvider, {usePlayer, useConnection} from './context/';
 
 // hooks
 import {useUnload} from 'hooks/'
+import {useNotifyController} from './hooks/'
 
 // material
 import Button from '@mui/material/Button';
@@ -21,15 +22,12 @@ import WelcomeBar from './snippets/WelcomeBar/'
 // layouts
 import Content from './layouts/Content'
 
-// snippets
-import Messages from './snippets/Messages'
-
 
 function PlayerContent(props) {
   const player = usePlayer()
   const connection = useConnection()
 
-  const refMessages = React.useRef(null)
+  const notifyController = useNotifyController()
   const refCallback = React.useRef(null)
 
   useUnload(e => {
@@ -42,7 +40,7 @@ function PlayerContent(props) {
 	// as the second argument
 	React.useImperativeHandle(props.innerRef, () => ({
     onCommand: (payload) => {
-      refMessages.current.onCommand(payload)
+      notifyController.sendCommand(payload)
       refCallback.current.onShow(payload)
     },
   }));
@@ -57,7 +55,6 @@ function PlayerContent(props) {
       <Preloader />
       <RippleClick />
       <KeyboardHelper />
-      <Messages ref={refMessages} />
       <DevBar />
 
       <Content />

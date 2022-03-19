@@ -3,7 +3,7 @@
 import {useHelpers} from 'hooks/'
 
 // context
-import {usePlayer} from '../../../context/'
+import {usePlayer} from 'player/context/';
 
 
 function useSignal(props) {
@@ -23,8 +23,6 @@ function useSignal(props) {
 		}
 	}
 
-	const signal = getStrength()
-
 	const bitrate_hint = helpers.format.formatNumber(bitrate, {
 		decimal: 0,
 		separator: '.',
@@ -33,7 +31,7 @@ function useSignal(props) {
   const received_hint = helpers.format.formatBytes(bytesReceived)
 
   return {
-    signal,
+    strength: getStrength(),
     bitrate_hint,
     received_hint,
   };

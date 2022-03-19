@@ -107,7 +107,7 @@ const BootstrapDialogTitle = (props) => {
   return (
     <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
       {children}
-      {onClose ? (
+      {closeIcon ? (
         <IconButton
           onClick={onClose}
           sx={{
@@ -122,7 +122,7 @@ const BootstrapDialogTitle = (props) => {
 };
 
 
-function CustomDialog({buttonConfirm, defaultOpen, ...props}) {
+function CustomDialog({buttonConfirm, disableEscape, defaultOpen, ...props}) {
   const [open, setOpen] = React.useState(defaultOpen);
 
   // The component instance will be extended
@@ -148,20 +148,26 @@ function CustomDialog({buttonConfirm, defaultOpen, ...props}) {
     props.onClose()
   };
 
+  const onClosePermissions = (reason) => {
+    if(disableEscape && ['escapeKeyDown', 'backdropClick'].includes(reason)) return ;
+    handleClose();
+  }
+
   let variant
   if(props.closeIcon) variant = 'icon'
   if(props.showActions) variant = 'actions'
-
 
   return (
     <div>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={(event, reason) => onClosePermissions(reason)}
         fullWidth
         maxWidth={props.maxWidth}>
 
-        <BootstrapDialogTitle onClose={handleClose} closeIcon={props.closeIcon}>
+        <BootstrapDialogTitle
+          closeIcon={props.closeIcon && !disableEscape}
+          onClose={handleClose}>
           {props.title}
         </BootstrapDialogTitle>
 
@@ -205,6 +211,7 @@ CustomDialog.propTypes = {
   closeIcon: PropTypes.bool,
   showActions: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
+  disableEscape: PropTypes.bool,
   buttonConfirm: PropTypes.exact({
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
@@ -219,6 +226,7 @@ CustomDialog.defaultProps = {
   showActions: true,
   closeIcon: true,
   onClose: () => {},
+  disableEscape: false,
   buttonConfirm: {
     label: 'Confirm',
     onClick: () => {},

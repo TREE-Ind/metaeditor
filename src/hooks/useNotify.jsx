@@ -45,7 +45,7 @@ function useNotify() {
   const cls = new class {
     constructor() {}
 
-    classByKey(key) {
+    closeByKey(key) {
       closeSnackbar(key)
     }
 

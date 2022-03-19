@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {useContainerDimensions} from 'hooks/'
 
 // context
-import {usePlayer, useLayout} from '../context/'
+import {usePlayer, useLayout} from 'player/context/';
 
 // styles
 import {styled} from 'styles/snippets'

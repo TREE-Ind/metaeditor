@@ -12,7 +12,7 @@ return (
 
 ***** injection
 // context
-import {usePlayer} from './context/';
+import {usePlayer, useLayout, useConnection} from 'player/context/';
 
 const player = usePlayer()
 

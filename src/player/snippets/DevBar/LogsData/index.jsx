@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {usePlayer} from '../../../context/'
+import {usePlayer} from 'player/context/';
 
 // styles
 import {styled} from 'styles/snippets'

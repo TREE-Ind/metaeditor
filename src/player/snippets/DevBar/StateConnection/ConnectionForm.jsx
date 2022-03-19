@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {usePlayer, useConnection} from '../../../context/'
+import {usePlayer, useConnection} from 'player/context/';
 
 // material
 import Button from '@mui/material/Button';
@@ -42,11 +42,16 @@ function ConnectionForm(props) {
 
       // Restore local server data
       const stored_data = storage.getItem(STORAGE_KEY)
-      const payload = {
-        host: stored_data.host,
-        port: stored_data.port,
+      if(stored_data) {
+        const payload = {
+          host: stored_data?.host,
+          port: stored_data?.port,
+        }
+
+        if(payload.host && payload.port) {
+          connection.manualConnection(payload)
+        }
       }
-      connection.manualConnection(payload)
 
     }
   }, [])
@@ -155,8 +160,9 @@ function ConnectionForm(props) {
         ref={refDialog}
         title="Development: Connection form"
         subtitle="Run STUN and TURN Servers and a project with Unreal Engine."
-        closeIcon={false}
+        closeIcon
         showActions={false}
+        disableEscape={false}
       >
         <div>
           {renderForm()}

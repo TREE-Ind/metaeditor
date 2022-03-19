@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer, useConnection} from '../../context/'
+import {usePlayer, useConnection} from 'player/context/';
 
 // material
 import MuiAppBar from '@mui/material/AppBar';
@@ -68,11 +68,10 @@ const ResponsiveAppBar = (props) => {
         res.onClick = () => cls.playStop()
         res.disabled = isStreamDisabled
         break;
-        
-      case 'state':
-      case 'debug':
-        res.disabled = isStreamDisabled
-      // default:
+
+      // case 'state':
+      // case 'debug':
+      //   res.disabled = isStreamDisabled
 
     }
 

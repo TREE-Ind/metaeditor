@@ -4,7 +4,7 @@ import React from "react";
 import {useHotkeys} from 'hooks/'
 
 // context
-import {usePlayer} from '../../../context/';
+import {usePlayer} from 'player/context/';
 
 
 function useFullscreen() {

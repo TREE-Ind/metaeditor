@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import {env} from 'api/'
 
 // context
-import {usePlayer, useConnection} from '../../context/'
+import {usePlayer, useConnection} from 'player/context/';
 
 // hooks
-import {useCountdown} from '../../hooks/'
+import {useCountdown} from 'player/hooks/'
 
 // material
 import Typography from '@mui/material/Typography';
@@ -100,18 +100,15 @@ function Preloader() {
 
   const secondsToStart = connection.state.seconds_to_start
 
-  const countdown = useCountdown({
-		seconds: secondsToStart,
-		onProgress: (payload) => {
-      // console.error('>>> onProgress', payload);
-    },
-	})
+  const countdown = useCountdown({seconds: secondsToStart})
 
 	React.useEffect(() => {
 
 		if(player.state.loaded) {
       countdown.stop()
-		}
+		} else {
+      countdown.start()
+    }
 
 	}, [player.state.loaded])
 

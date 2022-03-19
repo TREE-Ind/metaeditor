@@ -1,5 +1,5 @@
 // context
-import {usePlayer} from '../../context/'
+import {usePlayer} from 'player/context/';
 
 // components
 import JsonEditor from 'components/JsonEditor/'

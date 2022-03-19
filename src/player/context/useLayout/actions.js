@@ -4,7 +4,7 @@ import React from "react"
 import {env} from 'api/'
 
 // context
-import {usePlayer} from '../';
+import {usePlayer} from 'player/context/';
 
 // reducers
 import reducer from './reducer'

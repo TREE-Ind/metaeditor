@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer} from '../../../../context/'
+import {usePlayer} from 'player/context/';
 
 // libs
 import _ from 'lodash'

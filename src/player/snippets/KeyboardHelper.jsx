@@ -4,7 +4,7 @@ import React from 'react';
 import {useDevice, useHotkeys, useIsHotkeyPressed} from 'hooks/'
 
 // context
-import {usePlayer} from '../context/';
+import {usePlayer} from 'player/context/';
 
 // styles
 import {styled} from 'styles/snippets'

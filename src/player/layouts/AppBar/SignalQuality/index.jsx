@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer} from '../../../context/'
+import {usePlayer} from 'player/context/';
 
 // helpers
 import useSignal from './useSignal'
@@ -82,7 +82,7 @@ function SignalQualityMenu(props) {
 		return (
 			<RootList>
 				<li data-li="icon">
-					<SignalIcon size="large" value={signal.signal} />
+					<SignalIcon size="large" value={signal.strength} />
 				</li>
 				<li data-li="content">
 					<ContentList>
@@ -119,7 +119,7 @@ function SignalQualityMenu(props) {
 				<SignalIcon
 					disabled={!player.state.loaded}
 					size="small"
-					value={signal.signal}
+					value={signal.strength}
 					onClick={handleOpen} />
 			)}
 

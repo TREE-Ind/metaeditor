@@ -53,6 +53,7 @@ function CustomizedDialogs() {
         defaultOpen={false}
         closeIcon
         showActions={false}
+        disableEscape
       >
 
         <Box sx={{p: 2}}>

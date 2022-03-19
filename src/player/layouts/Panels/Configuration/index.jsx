@@ -4,7 +4,7 @@ import React from 'react';
 import {env} from 'api/'
 
 // context
-import {usePlayer, useLayout} from '../../../context/'
+import {usePlayer, useLayout} from 'player/context/';
 
 // player components
 import CarouselItems from 'player/components/CarouselItems'

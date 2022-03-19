@@ -1,6 +1,6 @@
 
 // context
-import {usePlayer} from '../../context/';
+import {usePlayer} from 'player/context/';
 
 
 // material

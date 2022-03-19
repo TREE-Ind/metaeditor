@@ -6,7 +6,7 @@ import useOnlineStatus from 'react-online-hook';
 // hooks
 import {useNotify} from 'hooks/'
 
-function OfflineMessage() {
+function useOffline() {
   const notify = useNotify()
 
   const { isOnline } = useOnlineStatus()
@@ -16,7 +16,7 @@ function OfflineMessage() {
     const notifyKey = 'is-offline'
 
     if(isOnline) {
-      notify.classByKey(notifyKey)
+      notify.closeByKey(notifyKey)
     } else {
       notify.error('You are currently offline!', {
         key: notifyKey,
@@ -31,7 +31,7 @@ function OfflineMessage() {
 
   }, [isOnline])
 
-  return (<div />)
+  return ;
 }
 
-export default OfflineMessage
+export default useOffline

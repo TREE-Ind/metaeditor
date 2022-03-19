@@ -8,10 +8,10 @@ import {env} from 'api/'
 import {useMedia} from 'hooks/'
 
 // libs
-import packageJson from '../../../../package.json'
+import packageJson from 'player/package.json'
 
 // context
-import {usePlayer, useLayout} from '../../context/';
+import {usePlayer, useLayout} from 'player/context/';
 
 // styles
 import {styled} from 'styles/snippets'
