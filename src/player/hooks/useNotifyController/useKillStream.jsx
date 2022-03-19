@@ -17,13 +17,12 @@ function useKillStream(props) {
   const player = usePlayer()
   const connection = useConnection()
 
-  const [time, setTime] = React.useState(false)
+  const [time, setTime] = React.useState(0)
 
   const secondsToKill = connection.state.seconds_to_kill
   const countdown = useCountdown({seconds: secondsToKill})
 
   React.useEffect(() => {
-    console.error('@countdown.value', countdown.value);
     const newTime = moment().add(secondsToKill, 'seconds').format('HH:mm')
     setTime(newTime)
   }, [countdown.value])
@@ -31,35 +30,19 @@ function useKillStream(props) {
   React.useEffect(() => {
 
     if(player.state.loaded) {
-      countdown.stop()
-    } else {
-      countdown.start()
+
+      if(secondsToKill >= connection.MIN_SECONDS_TO_KILL) {
+        countdown.stop()
+        cls.hide()
+      } else {
+        countdown.start()
+        cls.show()
+      }
     }
 
-  }, [player.state.loaded])
+  }, [player.state.loaded, secondsToKill])
 
-  // React.useEffect(() => {
-  //
-  //   if(!player.state.loaded) {
-  //     countdown.stop()
-  //     cls.hide()
-  //   }
-  //
-	// }, [player.state.loaded])
-  //
-  // React.useEffect(() => {
-  //
-  //   if(player.state.loaded) {
-  //     if(secondsToKill >= connection.MIN_SECONDS_TO_KILL) {
-  //       countdown.stop()
-  //       cls.hide()
-  // 		} else {
-  //       countdown.start()
-  //       cls.show()
-  //     }
-  //   }
-  //
-	// }, [player.state.loaded, secondsToKill])
+
 
   const cls = new class {
     constructor() {

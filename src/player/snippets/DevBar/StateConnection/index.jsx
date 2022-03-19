@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {useConnection} from '../../../context/'
+import {usePlayer, useConnection} from '../../../context/'
 
 // material
 import Button from '@mui/material/Button';
@@ -16,8 +16,18 @@ import ConnectionForm from './ConnectionForm'
 
 
 function StateConnection() {
+  const player = usePlayer()
   const connection = useConnection()
   const refConnectionForm = React.useRef(null)
+
+  const openStreamingPage = () => {
+    const {host, port} = connection.state
+    const port_ = port != 80 ? `:${port}` : ''
+    const streamingUrl = `${host}${port_}`
+
+    player.cls.playStop()
+    window.open(streamingUrl)
+  }
 
   return (
     <div>
@@ -38,6 +48,16 @@ function StateConnection() {
           <Icon>refresh</Icon>
         </Button>
       </ButtonGroup>
+
+      <Button
+        sx={{mb: 2}}
+        fullWidth
+        variant="outlined"
+        color="inherit"
+        disabled={!connection.state.loaded}
+        onClick={openStreamingPage}>
+        Streaming page
+      </Button>
 
       <ConnectionForm ref={refConnectionForm} />
 

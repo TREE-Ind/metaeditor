@@ -38,8 +38,8 @@ import SignalQuality from './SignalQuality/'
 
 
 const pages = [
-  ['About', 'about'],
-  ['Сonfiguration', 'сonfiguration'],
+  ['Configurator', 'configurator'],
+  ['Description', 'description'],
   ['Contacts', 'contacts'],
 ].map(([label, slug]) => ({label, slug}));
 
@@ -204,7 +204,7 @@ const ResponsiveAppBar = () => {
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu}>
+                <IconButton onClick={handleOpenUserMenu} disabled>
                   <Icon>settings</Icon>
                 </IconButton>
               </Tooltip>

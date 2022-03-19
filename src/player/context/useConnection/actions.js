@@ -122,10 +122,10 @@ const actions = () => {
 
       const init = async () => {
         await this.request.get()
-        .then(json => {
+        .then(res => {
 
           // console.warn('onTimeToKill()', json);
-          dispatch(json)
+          dispatch(res.body)
 
         })
         .catch(err => {

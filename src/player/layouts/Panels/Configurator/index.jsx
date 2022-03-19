@@ -17,11 +17,11 @@ function Panel() {
     const tmp = ['Demo', 'default', undefined]
 
     const items = [
-      ['Body Color', 'body_color', env.staticPath('tmp', 'carousel_wheels.jpg')],
-      ['Interior Color', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
-
-      tmp, tmp, tmp, tmp, tmp, tmp, tmp, tmp,
-
+      ['Paint', 'body_color', env.staticPath('tmp', 'carousel_wheels.jpg')],
+      ['Wheels', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
+      ['Trime', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
+      ['Leather', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
+      ['Seat', 'interior_color', env.staticPath('tmp', 'interior.jpg')],
     ].map(([name, slug, src]) => ({name, slug, src}))
 
     return (

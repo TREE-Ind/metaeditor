@@ -14,6 +14,8 @@ import {useCountdown} from 'player/hooks/'
 import Typography from '@mui/material/Typography';
 import MuiBox from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import Icon from '@mui/material/Icon';
+import IconButton from '@mui/material/IconButton';
 
 // styles
 import {styled} from 'styles/snippets'
@@ -70,6 +72,12 @@ const ProgressBox = styled.custom(MuiBox, theme => ({
 
 }))
 
+const ButtonStopped = styled.custom(IconButton, theme => ({
+  position: 'relative',
+  '& > .material-icons': {
+    fontSize: '5rem',
+  },
+}))
 
 const VideoCover = styled.div(theme => ({
   position: 'absolute',
@@ -112,6 +120,8 @@ function Preloader() {
 
 	}, [player.state.loaded])
 
+
+
   const renderInner = () => {
 
     if(player.state.connected && player.state.loaded) {
@@ -119,6 +129,14 @@ function Preloader() {
     }
 
     const renderPreloader = () => {
+
+      if(!player.state.loaded && player.state.stream_stopped) {
+        return (
+          <ButtonStopped onClick={() => player.cls.playStop()}>
+            <Icon>play_arrow</Icon>
+          </ButtonStopped>
+        );
+      }
 
       if(countdown.value === 0 || countdown.value >= 100) {
         return (
@@ -149,7 +167,6 @@ function Preloader() {
 
     return (
       <div>
-
         <VideoCover>
           <video loop autoPlay muted>
             <source src={videoUrl} type="video/mp4" />

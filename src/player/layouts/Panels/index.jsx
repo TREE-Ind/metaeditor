@@ -7,9 +7,9 @@ import {useLayout} from '../../context/';
 import ContentSlider from '../../components/ContentSlider'
 
 // panels
-import About from './About/'
+import Description from './Description/'
 import Contacts from './Contacts/'
-import Configuration from './Configuration/'
+import Configurator from './Configurator/'
 
 
 function PanelsList() {
@@ -17,14 +17,14 @@ function PanelsList() {
 
   const list = [
     {
-      slug: 'about',
-      children: About,
+      slug: 'description',
+      children: Description,
       container: true,
       noPadding: false,
     },
     {
-      slug: 'сonfiguration',
-      children: Configuration,
+      slug: 'configurator',
+      children: Configurator,
       container: false,
       noPadding: false,
     },

@@ -110,7 +110,7 @@ const actions = () => {
           dispatch({users_count: count})
         },
         onCommand: (payload) => {
-          console.warn('::onCommand');
+          // console.warn('::onCommand');
           payload = {
             time: moment.utc().format(),
             error: undefined, // if true the show debug message
@@ -146,20 +146,30 @@ const actions = () => {
           // }
         },
         onLoad: (stream_config) => {
-          console.warn('::onLoad');
-          dispatch({...defaultState, loaded: true, connected: true, stream_config})
+          // console.warn('::onLoad');
+          dispatch({
+            ...defaultState,
+            loaded: true,
+            connected: true,
+            stream_stopped: false,
+            stream_config,
+          })
 
           onLoad(stream_config)
           // renewIntercation()
         },
         onConnect: () => {
-          console.warn('::onConnect');
-          dispatch({...defaultState, connected: true})
+          // console.warn('::onConnect');
+          dispatch({
+            ...defaultState,
+            connected: true,
+            stream_stopped: false,
+          })
 
           onConnect()
         },
         onError: ({code, reason}) => {
-          console.warn('::onError', {code, reason});
+          // console.warn('::onError', {code, reason});
           dispatch({
             error: {code, reason},
             connected: false,
@@ -168,7 +178,7 @@ const actions = () => {
           onError({code, reason})
         },
         onClose: async ({code, reason}) => {
-          console.warn('::onClose', {code, reason});
+          // console.warn('::onClose', {code, reason});
 
           dispatch({
             ...defaultState,
@@ -258,6 +268,7 @@ const actions = () => {
         dispatch({
           loaded: false,
           connected: false,
+          stream_stopped: true,
         })
       }
 

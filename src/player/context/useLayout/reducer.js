@@ -1,5 +1,5 @@
 const initialState = {
-  current_menu: 'about',
+  current_menu: 'configurator',
   components: {
     streamDrawer: {
       active: false,
