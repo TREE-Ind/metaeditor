@@ -1,10 +1,10 @@
 import React from "react";
 
 // hooks
-import {useHotkeys} from 'hooks/'
+import { useHotkeys } from 'hooks/'
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 
 function useFullscreen() {
@@ -13,11 +13,11 @@ function useFullscreen() {
 
   // Hot key
   useHotkeys('ctrl+f', (e, ke) => {
-     if(!e.repeat) {
-       cls.open()
-       return ;
-     }
-   }, [])
+    if (!e.repeat) {
+      cls.open()
+      return;
+    }
+  }, [])
 
 
   const fullscreenchanged = (event) => {
@@ -53,27 +53,27 @@ function useFullscreen() {
 
       if (this.doc.requestFullscreen) {
         this.doc.requestFullscreen()
-        .then(() => {
-      		// element has entered fullscreen mode successfully
-      	})
-      	.catch((error) => {
-      		console.error({error});
-      	});
+          .then(() => {
+            // element has entered fullscreen mode successfully
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
       } else if (this.doc.webkitRequestFullscreen) { /* Safari */
         this.doc.webkitRequestFullscreen()
-        .then(() => {
-      		// element has entered fullscreen mode successfully
-      	})
-      	.catch((error) => {
-      		console.error({error});
-      	});
+          .then(() => {
+            // element has entered fullscreen mode successfully
+          })
+          .catch((error) => {
+            console.error({ error });
+          });
       } else if (this.doc.msRequestFullscreen) { /* IE11 */
         this.doc.msRequestFullscreen().then(() => {
-      		// element has entered fullscreen mode successfully
-      	})
-      	.catch((error) => {
-      		console.error({error});
-      	});
+          // element has entered fullscreen mode successfully
+        })
+          .catch((error) => {
+            console.error({ error });
+          });
       }
     }
 

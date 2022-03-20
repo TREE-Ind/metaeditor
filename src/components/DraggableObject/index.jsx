@@ -17,7 +17,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // material
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 import Zoom from '@mui/material/Zoom';
 
 // libs
@@ -59,7 +59,7 @@ const ChildrenDiv = styled.div(theme => ({
 
 function DraggableObject(props) {
 	// const refChildren = React.useRef(null)
-  // const { width, height, scrollTop, scrollLeft } = useContainerDimensions(refChildren);
+	// const { width, height, scrollTop, scrollLeft } = useContainerDimensions(refChildren);
 
 	const [active, setActive] = React.useState(false)
 	const [mounted, setMounted] = React.useState(false)
@@ -84,9 +84,9 @@ function DraggableObject(props) {
 
 	React.useEffect(() => {
 
-		if(props.show) {
+		if (props.show) {
 			window.component_draggable = window?.component_draggable + 1 || 0
-			refHandleClass.current = 'draggable_'+window.component_draggable
+			refHandleClass.current = 'draggable_' + window.component_draggable
 			setMounted(true)
 		}
 
@@ -106,40 +106,40 @@ function DraggableObject(props) {
 
 	const handleDrag = (e, data) => {
 		console.log('Event: ', e);
-    console.log('Data: ', data);
+		console.log('Data: ', data);
 	}
 
 	const CardHandler = (payload) => {
 		return (
-			<div className={handleClass} style={{cursor: 'move'}}>
+			<div className={handleClass} style={{ cursor: 'move' }}>
 				{payload.children}
 			</div>
 		)
 	}
 
-	if(!mounted) {
+	if (!mounted) {
 		return (<div />)
 	}
 
-  return (
+	return (
 		<RootDiv data-active={active}>
-	    <Draggable
+			<Draggable
 				// offsetParent
 				// onMouseDown
 				disabled={props.disabled}
 				allowAnyClick
 				bounds="parent"
-	      axis="both"
-	      handle={'.'+handleClass}
-	      defaultPosition={props.defaultPosition}
+				axis="both"
+				handle={'.' + handleClass}
+				defaultPosition={props.defaultPosition}
 				// position={}
 				// positionOffset={}
-	      position={null}
-	      grid={[1, 1]}
-	      scale={1}
-	      onStart={handleStart}
-	      onDrag={handleDrag}
-	      onStop={handleStop}>
+				position={null}
+				grid={[1, 1]}
+				scale={1}
+				onStart={handleStart}
+				onDrag={handleDrag}
+				onStop={handleStop}>
 
 				<ChildrenDiv>
 					<Zoom
@@ -150,13 +150,13 @@ function DraggableObject(props) {
 						}}
 
 						style={{ transitionDelay: props.show ? '100ms' : '100ms' }}>
-						{props.children({active, CardHandler, handleClass})}
+						{props.children({ active, CardHandler, handleClass })}
 					</Zoom>
 				</ChildrenDiv>
 
-	    </Draggable>
+			</Draggable>
 		</RootDiv>
-  );
+	);
 }
 
 // const defaultPosition_str = PropTypes.oneOf(['center'])
@@ -174,7 +174,7 @@ DraggableObject.propTypes = {
 };
 
 DraggableObject.defaultProps = {
-	defaultPosition: {x: 0, y: 0}, // accepts strings, like `{x: '10%', y: '10%'}`.
+	defaultPosition: { x: 0, y: 0 }, // accepts strings, like `{x: '10%', y: '10%'}`.
 	// defaultPosition: 'center',
 	disabled: false,
 	show: true,

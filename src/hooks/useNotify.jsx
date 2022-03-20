@@ -43,7 +43,7 @@ function useNotify() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const cls = new class {
-    constructor() {}
+    constructor() { }
 
     closeByKey(key) {
       closeSnackbar(key)
@@ -54,7 +54,7 @@ function useNotify() {
       let makeContent = content
 
       // Add title for snackbar mui
-      if(typeof content === 'object' && options.title) {
+      if (typeof content === 'object' && options.title) {
         makeContent = {
           ...content,
           title: options.title,

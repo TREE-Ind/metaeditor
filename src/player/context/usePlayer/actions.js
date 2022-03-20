@@ -4,7 +4,7 @@ import React from "react"
 import reducer from './reducer'
 
 // context
-import {usePS} from '../../lib'
+import { usePS } from '../../lib'
 
 const actions = () => {
   const PS = usePS()
@@ -18,10 +18,10 @@ const actions = () => {
 
 
   const commands = new class {
-    constructor() {}
+    constructor() { }
 
-    _emit(type, value, verification_id=undefined) {
-      PS.cls.client.emit({type, value, verification_id})
+    _emit(type, value, verification_id = undefined) {
+      PS.cls.client.emit({ type, value, verification_id })
     }
 
     testCommand(value) {

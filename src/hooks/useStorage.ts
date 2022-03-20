@@ -64,7 +64,7 @@ const useStorage = (): UseStorageReturnValue => {
     // If value is object
     try {
       value = JSON.parse(value)
-    } catch(err) {}
+    } catch (err) { }
 
     return isBrowser ? value : '';
   };
@@ -73,10 +73,10 @@ const useStorage = (): UseStorageReturnValue => {
     if (isBrowser) {
 
       // If value is object
-      if(typeof value === 'object') {
+      if (typeof value === 'object') {
         try {
           value = JSON.stringify(value)
-        } catch(err) {
+        } catch (err) {
           console.error('Can\'t serialize data', err)
         }
       }

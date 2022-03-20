@@ -5,6 +5,5 @@
   "dependencies": {
     "react-draggable": "^4.4.4"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }

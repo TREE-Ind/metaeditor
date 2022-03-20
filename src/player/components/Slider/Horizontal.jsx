@@ -59,17 +59,17 @@ function SliderHorizontal(props) {
 	};
 
 	return (
-    <PrettoSlider
+		<PrettoSlider
 			disabled={props.disabled}
-      step={props.step}
+			step={props.step}
 			min={props.min}
 			max={props.max}
-      value={value}
-      onChange={handleChange}
-      valueLabelDisplay="off"
-      getAriaValueText={(v) => v}
-      valueLabelFormat={props.format}
-    />
+			value={value}
+			onChange={handleChange}
+			valueLabelDisplay="off"
+			getAriaValueText={(v) => v}
+			valueLabelFormat={props.format}
+		/>
 	);
 }
 

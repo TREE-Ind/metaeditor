@@ -1,7 +1,7 @@
 
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import MuiButton from '@mui/material/Button';
@@ -16,7 +16,7 @@ const Button = styled.custom(MuiButton, theme => ({
 }))
 
 
-function PublicButton({active, tooltip, ...props}) {
+function PublicButton({ active, tooltip, ...props }) {
   return (
     <Tooltip title={tooltip}>
       <Button

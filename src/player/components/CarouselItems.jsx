@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // components
 import CarouselItems from 'components/CarouselItems/'
@@ -66,7 +66,7 @@ function CustomCarousel(props) {
   return (
     <RootDiv>
       <CarouselItems
-        numberOfCards={{xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6, default: 4}}
+        numberOfCards={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5, xxl: 6, default: 4 }}
         infiniteLoop
         gutter={10}
         items={props.items}>

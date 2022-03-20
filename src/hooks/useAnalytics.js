@@ -17,7 +17,7 @@ function demo() {
 import React from 'react';
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // hooks
 import { useRouter } from 'next/router'
@@ -45,15 +45,15 @@ function useAnalytics() {
 	// ------ //
 
 	// Start
-  React.useEffect(() => {
-    cls.init(env.credentials.GOOGLE_TAG_ID)
-  }, [])
+	React.useEffect(() => {
+		cls.init(env.credentials.GOOGLE_TAG_ID)
+	}, [])
 
-  const cls = new class {
-		constructor() {}
+	const cls = new class {
+		constructor() { }
 
 		init(trackingId) {
-			if(!trackingId) return ;
+			if (!trackingId) return;
 
 			// Multiple products (previously known as trackers)
 			ReactGA.initialize([

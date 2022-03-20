@@ -1,10 +1,10 @@
 import React from "react"
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // libs
-import {Request} from 'libs/'
+import { Request } from 'libs/'
 
 // reducers
 import reducer from './reducer'
@@ -56,49 +56,49 @@ const actions = () => {
       window.ps_init()
     }
 
-    handleConnection({host, port}) {
-      if(host) {
-        dispatch({host})
+    handleConnection({ host, port }) {
+      if (host) {
+        dispatch({ host })
       }
-      if(port) {
-        dispatch({port})
+      if (port) {
+        dispatch({ port })
       }
     }
 
-    manualConnection({host, port}) {
-      dispatch({loaded: true, status: 'localhost', host, port})
+    manualConnection({ host, port }) {
+      dispatch({ loaded: true, status: 'localhost', host, port })
     }
 
     async onRequestStream() {
       handleStop()
 
-      dispatch({auto_connect: true})
+      dispatch({ auto_connect: true })
 
       const onStartStream = async () => {
 
         await this.request.get()
-        .then(res => {
+          .then(res => {
 
-          if(res.status === 200) {
+            if (res.status === 200) {
 
-            dispatch(res.body)
+              dispatch(res.body)
 
-            if(res.body?.status === 'active') {
-              clearInterval(refInterval.current)
-              this.onTimeToKill()
+              if (res.body?.status === 'active') {
+                clearInterval(refInterval.current)
+                this.onTimeToKill()
+              }
+
             }
 
-          }
 
-
-        })
-        .catch(err => {
-          console.log(err)
-        });
+          })
+          .catch(err => {
+            console.log(err)
+          });
       }
 
       await onStartStream()
-      dispatch({loaded: true})
+      dispatch({ loaded: true })
 
       refInterval.current = setInterval(() => onStartStream(), 1000 * 3)
     }
@@ -106,14 +106,14 @@ const actions = () => {
     async onRestartStream() {
 
       await this.request.delete()
-      .then(res => {
-        // setTimeout(onRequestStream, 1000 * 1) // Delay: hack for stream server
-        document.location.reload();
-      })
-      .catch(err => {
-        console.log(err)
-        this.onRestartStream()
-      });
+        .then(res => {
+          // setTimeout(onRequestStream, 1000 * 1) // Delay: hack for stream server
+          document.location.reload();
+        })
+        .catch(err => {
+          console.log(err)
+          this.onRestartStream()
+        });
 
     }
 
@@ -122,15 +122,15 @@ const actions = () => {
 
       const init = async () => {
         await this.request.get()
-        .then(res => {
+          .then(res => {
 
-          // console.warn('onTimeToKill()', json);
-          dispatch(res.body)
+            // console.warn('onTimeToKill()', json);
+            dispatch(res.body)
 
-        })
-        .catch(err => {
-          console.log(err)
-        });
+          })
+          .catch(err => {
+            console.log(err)
+          });
       }
 
       refKillInterval.current = setInterval(init, 1000 * 10)

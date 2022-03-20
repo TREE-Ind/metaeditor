@@ -1,10 +1,10 @@
 import React from "react";
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // styles
-import {makeStyles, alpha} from 'styles/snippets'
+import { makeStyles, alpha } from 'styles/snippets'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,17 +44,17 @@ function RippleClick(props) {
   const refClick = React.useRef(null)
 
   const [show, setShow] = React.useState(false)
-  const [position, setPosition] = React.useState({pageX: 0, pageY:0})
+  const [position, setPosition] = React.useState({ pageX: 0, pageY: 0 })
 
   const playerLoaded = player.state.loaded
 
   const onRippleStart = React.useCallback((event) => {
-    if(event.which !== 1) return ;
-    if(event.target.id !== 'streamingVideo') return ;
+    if (event.which !== 1) return;
+    if (event.target.id !== 'streamingVideo') return;
 
-    const {pageX, pageY} = event
+    const { pageX, pageY } = event
 
-    setPosition({pageX, pageY})
+    setPosition({ pageX, pageY })
     setShow(true)
 
     clearTimeout(refClick.current)
@@ -78,7 +78,7 @@ function RippleClick(props) {
   }, [])
 
   React.useEffect(() => {
-    if(playerLoaded) {
+    if (playerLoaded) {
       addListener()
     } else {
       removeListener()

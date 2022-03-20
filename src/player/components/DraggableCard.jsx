@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // hooks
-import {useHotkeys} from 'hooks/'
+import { useHotkeys } from 'hooks/'
 
 // context
-import {useLayout} from '../context/'
+import { useLayout } from '../context/'
 
 // material
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
 
@@ -19,8 +19,8 @@ import DraggableObject from 'components/DraggableObject/'
 const CardList = styled.ul(theme => ({
   pointerEvents: 'all',
   backgroundColor: 'blue',
-	width: 150,
-	height: 150,
+  width: 150,
+  height: 150,
   boxShadow: theme.shadows[5],
   overflow: 'hidden',
   borderRadius: theme.shape.borderRadius,
@@ -47,14 +47,14 @@ const CardList = styled.ul(theme => ({
 
 function DraggableCard(props) {
   const layout = useLayout()
-  const {data, active} = layout.draggableCard
+  const { data, active } = layout.draggableCard
 
   useHotkeys('esc', (e, ke) => {
-     if(!e.repeat) {
-       layout.draggableCard.close()
-       return ;
-     }
-   }, [])
+    if (!e.repeat) {
+      layout.draggableCard.close()
+      return;
+    }
+  }, [])
 
   return (
     <DraggableObject
@@ -64,7 +64,7 @@ function DraggableCard(props) {
         x: 600,
         y: 100,
       }}>
-      {({active, CardHandler, handleClass}) => (
+      {({ active, CardHandler, handleClass }) => (
         <CardList data-active={active}>
           <li data-li="handler">
             <CardHandler>

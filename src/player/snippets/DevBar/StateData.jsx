@@ -1,6 +1,6 @@
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // components
 import JsonEditor from 'components/JsonEditor/'
@@ -14,9 +14,9 @@ function StateData() {
         label="State data"
         content={player.state}
         height={'50vh'}
-        onChange={() => {}}
+        onChange={() => { }}
         viewOnly
-       />
+      />
     </div>
   )
 }

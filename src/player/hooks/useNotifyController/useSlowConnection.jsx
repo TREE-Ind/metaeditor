@@ -1,14 +1,14 @@
 import React from "react";
 
 // context
-import {usePlayer} from 'player/context/'
+import { usePlayer } from 'player/context/'
 import useSignal from 'player/layouts/AppBar/SignalQuality/useSignal.js'
 
 // libs
 import useOnlineStatus from 'react-online-hook';
 
 // hooks
-import {useNotify} from 'hooks/'
+import { useNotify } from 'hooks/'
 
 function useSlowConnection() {
   const signal = useSignal()
@@ -17,13 +17,13 @@ function useSlowConnection() {
 
   React.useEffect(() => {
 
-    if(!player.state.loaded) return ;
+    if (!player.state.loaded) return;
 
     const notifyKey = 'is-slow-connection'
 
-    if(signal.strength > 1) {
+    if (signal.strength > 1) {
       notify.closeByKey(notifyKey)
-      return ;
+      return;
     }
 
     notify.warning(`Very slow connection`, {
@@ -38,7 +38,7 @@ function useSlowConnection() {
 
   }, [player.state.loaded, signal.strength])
 
-  return ;
+  return;
 }
 
 export default useSlowConnection

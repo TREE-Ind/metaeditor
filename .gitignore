@@ -9,11 +9,11 @@
 /coverage
 
 # next.js
-/.next/
-#/out/
+.next/
+out/
+.env*.local
 
-# production
-/out
+# prod deployment
 /build
 
 # misc

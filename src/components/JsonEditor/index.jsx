@@ -19,8 +19,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // material
-import {styled} from 'styles/snippets'
-import Portal from '@mui/material/Portal';
+import { styled } from 'styles/snippets'
 import MuiFormLabel from '@mui/material/FormLabel';
 
 //Using source code
@@ -53,7 +52,7 @@ function JsonEditor({
 
 	const value = typeof content === 'string' ? JSON.parse(content) : content
 
-	const handleUpdate = ({json, plainText, ...other}) => {
+	const handleUpdate = ({ json, plainText, ...other }) => {
 		// console.warn('json', json);
 		// console.warn('plainText', plainText);
 		// console.warn('other', other);
@@ -61,7 +60,7 @@ function JsonEditor({
 
 		try {
 			json = JSON.parse(json)
-		} catch(err) {}
+		} catch (err) { }
 
 		props.onChange(json)
 	}

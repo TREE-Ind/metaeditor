@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {usePlayer, useConnection} from 'player/context/';
+import { usePlayer, useConnection } from 'player/context/';
 
 // material
 import Button from '@mui/material/Button';
@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import CustomDialog from 'components/Dialog/'
 
 // hooks
-import {useStorage} from 'hooks/'
+import { useStorage } from 'hooks/'
 
 
 const STORAGE_KEY = 'DEV_SERVER_DATA'
@@ -27,9 +27,9 @@ function ConnectionForm(props) {
   const storage = useStorage()
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
     open: () => {
       refDialog.current.open()
     }
@@ -37,18 +37,18 @@ function ConnectionForm(props) {
 
   // Initial dialog
   React.useEffect(() => {
-    if(!connection.state.auto_connect) {
+    if (!connection.state.auto_connect) {
       refDialog.current.open()
 
       // Restore local server data
       const stored_data = storage.getItem(STORAGE_KEY)
-      if(stored_data) {
+      if (stored_data) {
         const payload = {
           host: stored_data?.host,
           port: stored_data?.port,
         }
 
-        if(payload.host && payload.port) {
+        if (payload.host && payload.port) {
           connection.manualConnection(payload)
         }
       }
@@ -58,7 +58,7 @@ function ConnectionForm(props) {
 
   React.useEffect(() => {
 
-    if(!connection.state.autoConnect) {
+    if (!connection.state.autoConnect) {
       storage.setItem(STORAGE_KEY, connection.state)
     }
 
@@ -67,8 +67,8 @@ function ConnectionForm(props) {
   // Close dialog
   React.useEffect(() => {
 
-    if(!connection.state.autoConnect) {
-      if(player.state.loaded) {
+    if (!connection.state.autoConnect) {
+      if (player.state.loaded) {
         refDialog.current.close()
       }
     }
@@ -78,7 +78,7 @@ function ConnectionForm(props) {
 
   const handleInput = key => event => {
     const value = event.target.value
-    connection.handleConnection({[key]: value})
+    connection.handleConnection({ [key]: value })
   }
 
   const setDefault = () => {
@@ -123,7 +123,7 @@ function ConnectionForm(props) {
                 value={connection.state.host}
                 onChange={handleInput('host')}
                 helperText={setDefault()}
-                 />
+              />
 
             </Grid>
             <Grid item xs={4}>
@@ -165,6 +165,11 @@ function ConnectionForm(props) {
         disableEscape={false}
       >
         <div>
+
+          <div>
+            Documentation: <a href="https://metaeditor.io/docs/dev/localhost" target="_blank">Connection to localhost</a>
+          </div>
+
           {renderForm()}
         </div>
       </CustomDialog>
@@ -174,5 +179,5 @@ function ConnectionForm(props) {
 
 
 export default React.forwardRef((props, ref) => (
-	<ConnectionForm {...props} innerRef={ref} />
+  <ConnectionForm {...props} innerRef={ref} />
 ))

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import CircularProgress from '@mui/material/CircularProgress';

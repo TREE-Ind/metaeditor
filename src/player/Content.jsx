@@ -1,15 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // context
-import ContextProvider, {usePlayer, useConnection} from './context/';
+import ContextProvider from './context/';
 
 // hooks
-import {useUnload} from 'hooks/'
-import {useNotifyController} from './hooks/'
-
-// material
-import Button from '@mui/material/Button';
+import { useUnload } from 'hooks/'
+import { useNotifyController } from './hooks/'
 
 // snippets
 import Preloader from './snippets/Preloader/'
@@ -17,15 +13,13 @@ import CallbackLoader from './snippets/CallbackLoader'
 import RippleClick from './snippets/RippleClick'
 import KeyboardHelper from './snippets/KeyboardHelper'
 import DevBar from './snippets/DevBar/'
-import WelcomeBar from './snippets/WelcomeBar/'
+import WelcomeBar from './snippets/WelcomeBar'
 
 // layouts
 import Content from './layouts/Content'
 
 
 function PlayerContent(props) {
-  const player = usePlayer()
-  const connection = useConnection()
 
   const notifyController = useNotifyController()
   const refCallback = React.useRef(null)
@@ -36,9 +30,9 @@ function PlayerContent(props) {
   });
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
     onCommand: (payload) => {
       notifyController.sendCommand(payload)
       refCallback.current.onShow(payload)
@@ -70,5 +64,5 @@ const PlayerContext = (props) => (
 )
 
 export default React.forwardRef((props, ref) => (
-	<PlayerContext {...props} innerRef={ref} />
+  <PlayerContext {...props} innerRef={ref} />
 ))

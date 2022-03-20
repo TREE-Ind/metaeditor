@@ -32,23 +32,23 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 // hooks
-import {useMedia} from 'hooks/'
+import { useMedia } from 'hooks/'
 
 // material
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 import MuiSwipeableDrawer from '@mui/material/SwipeableDrawer';
 import Box from '@mui/material/Box';
 
 
 const SwipeableDrawer = styled.custom(MuiSwipeableDrawer, (theme) => ({
-	zIndex: theme.zIndex.appBar + 101,
+  zIndex: theme.zIndex.appBar + 101,
 }))
 
 
 
 function CustomDrawer(props) {
   const media = useMedia();
-	const isMobile = media.down.sm
+  const isMobile = media.down.sm
 
   const [open, setOpen] = React.useState(false);
 
@@ -77,13 +77,13 @@ function CustomDrawer(props) {
 
     setOpen(open)
 
-    if(open === false && typeof props.onClose === 'function') {
+    if (open === false && typeof props.onClose === 'function') {
       props.onClose()
     }
   };
 
   let width = props.width
-  if(isMobile) {
+  if (isMobile) {
     width = `calc(100vw - ${theme.spacing(9)})`
   }
 
@@ -95,7 +95,7 @@ function CustomDrawer(props) {
         onClose={(event) => toggleDrawer(event, false)}
         onOpen={(event) => toggleDrawer(event, true)}
       >
-        <Box sx={{p: 0}} style={{width}}>
+        <Box sx={{ p: 0 }} style={{ width }}>
           {props.children}
         </Box>
       </SwipeableDrawer>
@@ -116,5 +116,5 @@ CustomDrawer.defaultProps = {
 };
 
 export default React.forwardRef((props, ref) => (
-	<CustomDrawer {...props} innerRef={ref} />
+  <CustomDrawer {...props} innerRef={ref} />
 ))

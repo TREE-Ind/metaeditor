@@ -20,7 +20,10 @@
     "plugin:testing-library/react",
     "prettier"
   ], // make sure prettier is last
-  "plugins": ["@emotion", "testing-library"],
+  "plugins": [
+    "@emotion",
+    "testing-library"
+  ],
   "rules": {
     "react/no-unescaped-entities": "off",
     "@typescript-eslint/no-explicit-any": "off",
@@ -37,7 +40,9 @@
         "**/__tests__/**/*.[jt]s?(x)",
         "**/?(*.)+(spec|test).[jt]s?(x)"
       ],
-      "extends": ["plugin:testing-library/react"]
+      "extends": [
+        "plugin:testing-library/react"
+      ]
     }
   ],
   "settings": {

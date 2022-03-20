@@ -1,14 +1,14 @@
 const FormatClass = new class {
 
 	makeUuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
+		return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+			const r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+			return v.toString(16);
+		});
+	}
 
 	nl2br(text) {
-		if(!text) return '';
+		if (!text) return '';
 		return text.replace(/(?:\r\n|\r|\n)/g, '<br>');;
 	}
 
@@ -40,8 +40,8 @@ const FormatClass = new class {
 		separator = ',',
 	} = {}) {
 		// return value.toString();
-		if(typeof value === 'undefined' || value.toString().length == 0) return '...';
-		if(!value && value != 0) return '...';
+		if (typeof value === 'undefined' || value.toString().length == 0) return '...';
+		if (!value && value != 0) return '...';
 		try {
 			const str = parseFloat(value.toString()).toFixed(decimal).split('.')
 
@@ -62,11 +62,11 @@ const FormatClass = new class {
 	}
 
 	formatNumberShortener(value) {
-		if(value >= 1000000) {
+		if (value >= 1000000) {
 			const v = value / 1000000
 			const round = v.toFixed(Number.isInteger(v) ? 0 : 1)
 			return `${round} M`;
-		} else if(value >= 1000) {
+		} else if (value >= 1000) {
 			return `${(value / 1000).toFixed(0)} K`;
 		}
 		return value;
@@ -82,35 +82,35 @@ const FormatClass = new class {
 		let _minutes = Math.floor((sec_num - (_hours * 3600)) / 60);
 		let _seconds = sec_num - (_hours * 3600) - (_minutes * 60);
 
-		if(_hours < 10) {
+		if (_hours < 10) {
 			_hours = "0" + _hours;
 		}
-		if(_minutes < 10) {
+		if (_minutes < 10) {
 			_minutes = "0" + _minutes;
 		}
-		if(_seconds < 10) {
+		if (_seconds < 10) {
 			_seconds = "0" + _seconds;
 		}
 
 		// Response...
 
-		if(variant == 'small') {
+		if (variant == 'small') {
 			_hours = Math.round(_hours)
 			_minutes = Math.round(_minutes)
 			_seconds = Math.round(_seconds)
 
-			if(seconds > 3600) {
+			if (seconds > 3600) {
 				return `${_hours} h. ${_minutes} m.`;
 			}
 
 			return `${_minutes} min.`;
 		}
 
-		if(variant == 'seconds') {
+		if (variant == 'seconds') {
 			_hours = Math.round(_hours)
 			_minutes = Math.round(_minutes)
 			_seconds = Math.round(_seconds)
-			if(_minutes) {
+			if (_minutes) {
 				return `${_minutes} m ${_seconds} s.`
 			}
 
@@ -121,49 +121,49 @@ const FormatClass = new class {
 		return `${_hours}:${_minutes}:${_seconds}`
 	}
 
-	formatMegabytes(megabytes, decimals=2) {
+	formatMegabytes(megabytes, decimals = 2) {
 		return this.formatBytes(megabytes * 1024 * 1024, decimals);
 	}
 
-	formatBytes(bytes, decimals=2) {
-    if (bytes === 0) return '0 Bytes';
+	formatBytes(bytes, decimals = 2) {
+		if (bytes === 0) return '0 Bytes';
 
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		const k = 1024;
+		const dm = decimals < 0 ? 0 : decimals;
+		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	}
 
 	plainTextToLinks(inputText) {
-    if(!inputText) return '';
+		if (!inputText) return '';
 
-    var replacedText, replacePattern1, replacePattern2, replacePattern3;
+		var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
-    //URLs starting with http://, https://, or ftp://
-    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a data-link rel="nofollow" href="$1" target="_blank">$1</a>');
+		//URLs starting with http://, https://, or ftp://
+		replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+		replacedText = inputText.replace(replacePattern1, '<a data-link rel="nofollow" href="$1" target="_blank">$1</a>');
 
-    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText = replacedText.replace(replacePattern2, '$1<a data-link rel="nofollow" href="http://$2" target="_blank">$2</a>');
+		//URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+		replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+		replacedText = replacedText.replace(replacePattern2, '$1<a data-link rel="nofollow" href="http://$2" target="_blank">$2</a>');
 
-    //Change email addresses to mailto:: links.
-    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
-    replacedText = replacedText.replace(replacePattern3, '<a data-link rel="nofollow" href="mailto:$1">$1</a>');
+		//Change email addresses to mailto:: links.
+		replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+		replacedText = replacedText.replace(replacePattern3, '<a data-link rel="nofollow" href="mailto:$1">$1</a>');
 
-    return replacedText;
+		return replacedText;
 	}
 
 	plainTextShortener(text, maxLength) {
-    if(typeof text !== 'string') return '';
-    if(text.length > maxLength) {
-      text = text.substr(0, maxLength) + '...'
-    }
-    return text;
-  }
+		if (typeof text !== 'string') return '';
+		if (text.length > maxLength) {
+			text = text.substr(0, maxLength) + '...'
+		}
+		return text;
+	}
 
 
 	/**

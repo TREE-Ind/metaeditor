@@ -28,7 +28,7 @@ import useResizeObserver from '@react-hook/resize-observer'
 const useContainerDimensions = myRef => {
 
   const getDimensions = () => {
-    if(!myRef.current) return dimensions;
+    if (!myRef.current) return dimensions;
 
     const {
       offsetWidth, offsetHeight,

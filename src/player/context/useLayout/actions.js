@@ -1,16 +1,16 @@
 import React from "react"
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // reducers
 import reducer from './reducer'
 
 // hooks
-import {useSound} from 'hooks/'
+import { useSound } from 'hooks/'
 
 const actions = () => {
   const player = usePlayer()
@@ -25,7 +25,7 @@ const actions = () => {
 
   const dispatchComponent = (key, payload) => dispatch_({
     type: reducer.KEY.COMPONENT,
-    payload: {[key]: payload},
+    payload: { [key]: payload },
   })
 
   const cls = new class {
@@ -35,7 +35,7 @@ const actions = () => {
 
     get sounds() {
       const play = obj => {
-        if(player.state.volume) {
+        if (player.state.volume) {
           obj.play()
         }
       }
@@ -50,16 +50,16 @@ const actions = () => {
       this.handleDrawer.close() //hack for drawer component
 
       current_menu = state.current_menu === current_menu ? false : current_menu
-      if(current_menu) this.sounds.click()
-      dispatch({current_menu, ui_visible: true})
+      if (current_menu) this.sounds.click()
+      dispatch({ current_menu, ui_visible: true })
     }
 
     handleUiVisible() {
       this.draggableCard.close() //hack for draggable component
 
       const ui_visible = !state.ui_visible
-      if(ui_visible) this.sounds.click()
-      dispatch({ui_visible})
+      if (ui_visible) this.sounds.click()
+      dispatch({ ui_visible })
     }
 
     get handleDrawer() {
@@ -68,11 +68,11 @@ const actions = () => {
         slug: state.components.streamDrawer.slug,
         open: (slug) => {
           this.sounds.click()
-          dispatchComponent('streamDrawer', {slug: false, active: false})
-          setTimeout(() => dispatchComponent('streamDrawer', {slug, active: true}), 300)
+          dispatchComponent('streamDrawer', { slug: false, active: false })
+          setTimeout(() => dispatchComponent('streamDrawer', { slug, active: true }), 300)
         },
         close: () => {
-          dispatchComponent('streamDrawer', {slug: false, active: false})
+          dispatchComponent('streamDrawer', { slug: false, active: false })
         },
       }
     }
@@ -84,14 +84,14 @@ const actions = () => {
         active: state.components.draggableCard.active,
         close: () => {
           this.sounds.click()
-          dispatchComponent('draggableCard', {active: false})
+          dispatchComponent('draggableCard', { active: false })
         },
         open: (title, body) => {
           this.sounds.click()
-          dispatchComponent('draggableCard', {active: false})
+          dispatchComponent('draggableCard', { active: false })
           setTimeout(() => dispatchComponent('draggableCard', {
             active: true,
-            data: {title, body},
+            data: { title, body },
           }), 300)
         }
       };

@@ -1,16 +1,16 @@
 import React from 'react';
 
 // context
-import {usePlayer, useConnection} from 'player/context/';
+import { usePlayer, useConnection } from 'player/context/';
 
 // hooks
-import {useCountdown} from 'player/hooks/'
+import { useCountdown } from 'player/hooks/'
 
 // material
 import MuiLinearProgress from '@mui/material/LinearProgress';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 
 const LinearProgress = styled.custom(MuiLinearProgress, theme => ({
@@ -24,23 +24,23 @@ function PreloaderProgress() {
 
   const secondsToStart = connection.state.seconds_to_start
 
-  const countdown = useCountdown({seconds: secondsToStart})
+  const countdown = useCountdown({ seconds: secondsToStart })
 
-	React.useEffect(() => {
+  React.useEffect(() => {
 
-		if(player.state.loaded) {
+    if (player.state.loaded) {
       countdown.stop()
-		} else {
+    } else {
       countdown.start()
     }
 
-	}, [player.state.loaded])
+  }, [player.state.loaded])
 
-  if(player.state.loaded) {
+  if (player.state.loaded) {
     return (<div />);
   }
 
-  if(player.state.connected && player.state.loaded) {
+  if (player.state.connected && player.state.loaded) {
     return (<div />);
   }
 

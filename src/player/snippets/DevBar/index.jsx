@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // hooks
-import {useHotkeys} from 'hooks/'
+import { useHotkeys } from 'hooks/'
 
 // context
-import {useConnection} from '../../context/';
+import { useConnection } from '../../context/';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import Box from '@mui/material/Box';
@@ -53,24 +53,24 @@ function DevBar(props) {
   const [currentMenu, setCurrentMenu] = React.useState(false)
 
   useHotkeys('ctrl+r', async (e, ke) => {
-     if(!e.repeat) {
-       if(confirm('Do you want to restart the streaming server?')) {
-         await connection.onRestartStream()
-       }
-       return ;
-     }
-   }, [])
+    if (!e.repeat) {
+      if (confirm('Do you want to restart the streaming server?')) {
+        await connection.onRestartStream()
+      }
+      return;
+    }
+  }, [])
 
   useHotkeys('ctrl+z', (e, ke) => {
-     if(!e.repeat) {
-       setShow(c => {
-         // const res = !c
-         // setCurrentMenu(false)
-         return !c;
-       })
-       return ;
-     }
-   }, [show])
+    if (!e.repeat) {
+      setShow(c => {
+        // const res = !c
+        // setCurrentMenu(false)
+        return !c;
+      })
+      return;
+    }
+  }, [show])
 
   const renderDialog = () => {
 
@@ -86,7 +86,7 @@ function DevBar(props) {
     let dialogTitle = ''
     let dialogObj = (<div />)
 
-    if(list.hasOwnProperty(currentMenu)) {
+    if (list.hasOwnProperty(currentMenu)) {
       dialogTitle = item[0]
       dialogObj = item[1]
     }
@@ -109,10 +109,10 @@ function DevBar(props) {
   }
 
   const renderDevBar = () => {
-    if(!show) return ;
+    if (!show) return;
 
     return (
-      <Box sx={{ml: 1}}>
+      <Box sx={{ ml: 1 }}>
 
         {renderDialog()}
 

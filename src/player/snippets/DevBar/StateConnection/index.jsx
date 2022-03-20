@@ -1,7 +1,7 @@
 import React from 'react';
 
 // context
-import {usePlayer, useConnection} from '../../../context/'
+import { usePlayer, useConnection } from '../../../context/'
 
 // material
 import Button from '@mui/material/Button';
@@ -21,7 +21,7 @@ function StateConnection() {
   const refConnectionForm = React.useRef(null)
 
   const openStreamingPage = () => {
-    const {host, port} = connection.state
+    const { host, port } = connection.state
     const port_ = port != 80 ? `:${port}` : ''
     const streamingUrl = `${host}${port_}`
 
@@ -33,15 +33,15 @@ function StateConnection() {
     <div>
 
       <ButtonGroup
-        sx={{mb: 2}}
+        sx={{ mb: 2 }}
         fullWidth
         variant="outlined"
         color="inherit">
         <Button onClick={() => refConnectionForm.current.open()}>
           Manual connection
         </Button>
-        <Button sx={{width: 50}} onClick={() => {
-          if(confirm('Restart streaming server?')) {
+        <Button sx={{ width: 50 }} onClick={() => {
+          if (confirm('Restart streaming server?')) {
             connection.onRestartStream()
           }
         }}>
@@ -50,7 +50,7 @@ function StateConnection() {
       </ButtonGroup>
 
       <Button
-        sx={{mb: 2}}
+        sx={{ mb: 2 }}
         fullWidth
         variant="outlined"
         color="inherit"
@@ -65,9 +65,9 @@ function StateConnection() {
         label="Connection data"
         content={connection.state}
         height={'50vh'}
-        onChange={() => {}}
+        onChange={() => { }}
         viewOnly
-       />
+      />
 
     </div>
   )

@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 
 
-function CustomContainer({children, ...props}) {
+function CustomContainer({ children, ...props }) {
   return (
     <React.Fragment>
       <CssBaseline />
@@ -20,7 +20,7 @@ function CustomContainer({children, ...props}) {
 }
 
 CustomContainer.propTypes = {
-	children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 CustomContainer.defaultProps = {

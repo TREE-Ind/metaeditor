@@ -51,5 +51,5 @@ function useReducerEvents(reducer, initialState) {
   return [state, dispatch, ref];
 }
 
-export {useStateEvents, useReducerEvents}
+export { useStateEvents, useReducerEvents }
 export default undefined

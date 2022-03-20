@@ -7,7 +7,7 @@ import moment from 'moment'
 import JsonEditor from 'components/JsonEditor/'
 
 
-function JsonSourceList({label, json, height, ...props}) {
+function JsonSourceList({ label, json, height, ...props }) {
 
   const list = json.map(item => {
     const time = moment.utc(item.time)
@@ -33,9 +33,9 @@ function JsonSourceList({label, json, height, ...props}) {
         label={label}
         content={list}
         height={height}
-        onChange={() => {}}
+        onChange={() => { }}
         viewOnly
-       />
+      />
     </div>
   )
 }

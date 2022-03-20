@@ -29,41 +29,41 @@ const useStyles = makeStyles(theme => ({
 
 
 const Provider = ({ children }) => {
- const classes = useStyles();
+  const classes = useStyles();
 
- return (
-  <SnackbarProvider
-    style={{ pointerEvents: 'all' }}
-    hideIconVariant={false}
-    // disableWindowBlurListener={false}
-    preventDuplicate
-    maxSnack={5}
-    dense
-    autoHideDuration={3000}
-    anchorOrigin={{
-      vertical: "top",
-      horizontal: "left"
-    }}
-    classes={{
-      root: classes.root,
-      variantSuccess: classes.success,
-      variantError: classes.error,
-      variantWarning: classes.warning,
-      variantInfo: classes.info,
-    }}
-    content={(key, message) => {
+  return (
+    <SnackbarProvider
+      style={{ pointerEvents: 'all' }}
+      hideIconVariant={false}
+      // disableWindowBlurListener={false}
+      preventDuplicate
+      maxSnack={5}
+      dense
+      autoHideDuration={3000}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "left"
+      }}
+      classes={{
+        root: classes.root,
+        variantSuccess: classes.success,
+        variantError: classes.error,
+        variantWarning: classes.warning,
+        variantInfo: classes.info,
+      }}
+      content={(key, message) => {
 
-      if(message?.title) {
-        return (
-          <SnackMessage id={key} message={message} title={message.title} />
-        )
-      }
+        if (message?.title) {
+          return (
+            <SnackMessage id={key} message={message} title={message.title} />
+          )
+        }
 
-      return undefined
-    }}
+        return undefined
+      }}
     >
-    {children}
-  </SnackbarProvider>
+      {children}
+    </SnackbarProvider>
   );
 }
 

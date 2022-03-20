@@ -42,7 +42,7 @@ const Accordion = styled.custom(MuiAccordion, theme => ({
 
 
 
-function ContentSlider({slug, ...props}) {
+function ContentSlider({ slug, ...props }) {
   const [expanded, setExpanded] = React.useState(false);
   const [resetContent, setResetContent] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
@@ -51,10 +51,10 @@ function ContentSlider({slug, ...props}) {
 
   React.useEffect(() => {
 
-    if(!mounted) {
+    if (!mounted) {
       setMounted(true)
       setExpanded(slug)
-      return ;
+      return;
     }
     // console.error({slug});
 
@@ -79,9 +79,9 @@ function ContentSlider({slug, ...props}) {
   }, [])
 
   const renderContainer = (item) => {
-    if(resetContent === item.slug) return ;
+    if (resetContent === item.slug) return;
 
-    if(item.container) {
+    if (item.container) {
       return (
         <Container>
           {item.children()}
@@ -100,25 +100,25 @@ function ContentSlider({slug, ...props}) {
   return (
     <div>
 
-			{props.list.map((item, index) => (
-				<Accordion
+      {props.list.map((item, index) => (
+        <Accordion
           key={index}
           square
           expanded={expanded === item.slug}
           TransitionProps={{
             unmountOnExit: false,
             timeout: {
-             appear: 300,
-             enter: 500,
-             exit: 200,
+              appear: 300,
+              enter: 500,
+              exit: 200,
             }
           }}>
-	        <AccordionSummary sx={{display: 'none'}} />
-	        <AccordionDetails style={{padding: 0}}>
+          <AccordionSummary sx={{ display: 'none' }} />
+          <AccordionDetails style={{ padding: 0 }}>
             {renderContainer(item)}
-	        </AccordionDetails>
-	      </Accordion>
-			))}
+          </AccordionDetails>
+        </Accordion>
+      ))}
 
     </div>
   );

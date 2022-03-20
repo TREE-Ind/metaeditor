@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // context
-import {usePlayer, useConnection} from 'player/context/';
+import { usePlayer, useConnection } from 'player/context/';
 
 // hooks
-import {useCountdown} from 'player/hooks/'
+import { useCountdown } from 'player/hooks/'
 
 // material
 import Typography from '@mui/material/Typography';
@@ -18,7 +18,7 @@ import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // blocks
 import Progress from './Progress'
@@ -108,29 +108,29 @@ function Preloader() {
 
   const secondsToStart = connection.state.seconds_to_start
 
-  const countdown = useCountdown({seconds: secondsToStart})
+  const countdown = useCountdown({ seconds: secondsToStart })
 
-	React.useEffect(() => {
+  React.useEffect(() => {
 
-		if(player.state.loaded) {
+    if (player.state.loaded) {
       countdown.stop()
-		} else {
+    } else {
       countdown.start()
     }
 
-	}, [player.state.loaded])
+  }, [player.state.loaded])
 
 
 
   const renderInner = () => {
 
-    if(player.state.connected && player.state.loaded) {
+    if (player.state.connected && player.state.loaded) {
       return (<div />);
     }
 
     const renderPreloader = () => {
 
-      if(!player.state.loaded && player.state.stream_stopped) {
+      if (!player.state.loaded && player.state.stream_stopped) {
         return (
           <ButtonStopped onClick={() => player.cls.playStop()}>
             <Icon>play_arrow</Icon>
@@ -138,7 +138,7 @@ function Preloader() {
         );
       }
 
-      if(countdown.value === 0 || countdown.value >= 100) {
+      if (countdown.value === 0 || countdown.value >= 100) {
         return (
           <CircularProgress
             color="inherit"
@@ -178,7 +178,7 @@ function Preloader() {
     )
   }
 
-  if(player.state.loaded) {
+  if (player.state.loaded) {
     return (<div />);
   }
 

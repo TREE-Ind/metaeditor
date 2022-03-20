@@ -2,7 +2,7 @@ import { createTheme, responsiveFontSizes } from '@mui/material';
 import { typography } from './typography';
 
 // snippets
-import {media} from '../snippets'
+import { media } from '../snippets'
 
 
 /* Material-UI Theme Creator
@@ -26,7 +26,7 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-    	default: defaultColors.default,
+      default: defaultColors.default,
       paper: defaultColors.paper,
     },
     primary,
@@ -214,7 +214,7 @@ declare module '@mui/material/styles' {
 
 declare let window;
 
-if(typeof window !== 'undefined'){
+if (typeof window !== 'undefined') {
   window.theme = theme
 }
 

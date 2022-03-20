@@ -28,6 +28,6 @@ function App() {
 
 import { useHotkeys, useIsHotkeyPressed } from 'react-hotkeys-hook';
 
-export {useIsHotkeyPressed}
+export { useIsHotkeyPressed }
 
 export default useHotkeys

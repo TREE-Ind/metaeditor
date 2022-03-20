@@ -1,13 +1,13 @@
 import React from 'react';
 
 // hooks
-import {useDevice, useHotkeys, useIsHotkeyPressed} from 'hooks/'
+import { useDevice, useHotkeys, useIsHotkeyPressed } from 'hooks/'
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import Icon from '@mui/material/Icon';
@@ -88,16 +88,16 @@ let key_timer = null
 
 function KeyboardHelper() {
 	const player = usePlayer()
-	const {isBrowser, isMobile} = useDevice();
+	const { isBrowser, isMobile } = useDevice();
 
-  const [active, setActive] = React.useState(null);
-  const [isArrows, setIsArrows] = React.useState(false);
+	const [active, setActive] = React.useState(null);
+	const [isArrows, setIsArrows] = React.useState(false);
 
 	const playerLoaded = player.state.loaded
 
 	React.useEffect(() => {
 
-		if(isBrowser && active) {
+		if (isBrowser && active) {
 			clearTimeout(key_timer)
 			key_timer = setTimeout(() => {
 				setActive(null)
@@ -106,23 +106,23 @@ function KeyboardHelper() {
 
 	}, [active])
 
-  // useTimeout (
-  //   () => setActive(null),
-  //   active ? 1000 : null,
+	// useTimeout (
+	//   () => setActive(null),
+	//   active ? 1000 : null,
 	// );
 
-  const list = {
-    up: ['w', 'keyboard_arrow_up'],
-    down: ['s', 'keyboard_arrow_down'],
-    left: ['a', 'keyboard_arrow_left'],
-    right: ['d', 'keyboard_arrow_right'],
-  }
+	const list = {
+		up: ['w', 'keyboard_arrow_up'],
+		down: ['s', 'keyboard_arrow_down'],
+		left: ['a', 'keyboard_arrow_left'],
+		right: ['d', 'keyboard_arrow_right'],
+	}
 
 	const list_extra = [
-		[['up','right'], ['w','d']],
-		[['up','left'], ['w','a']],
-		[['bottom','right'], ['s','d']],
-		[['bottom','left'], ['s','a']],
+		[['up', 'right'], ['w', 'd']],
+		[['up', 'left'], ['w', 'a']],
+		[['bottom', 'right'], ['s', 'd']],
+		[['bottom', 'left'], ['s', 'a']],
 	].map(item => {
 		item[1] = [item[1].join('+'), item[1].reverse().join('+')]
 		return item;
@@ -130,75 +130,75 @@ function KeyboardHelper() {
 	// const list_extra_obj = Object.entries(list_extra).map(([act, keys]) => (act))
 
 
-  const list_keys = Object.entries(list).map(([key, value]) => (value[0]))
-  const list_arrows = Object.entries(list).map(([key, value]) => (key))
+	const list_keys = Object.entries(list).map(([key, value]) => (value[0]))
+	const list_arrows = Object.entries(list).map(([key, value]) => (key))
 
-	const list_render = Object.entries(list).map(([name, [key, icon]]) => ({name, key, icon}))
+	const list_render = Object.entries(list).map(([name, [key, icon]]) => ({ name, key, icon }))
 
-  for(let key of list_keys) {
-    useHotkeys(key, (e, ke) => {
-      setActive(key)
-      setIsArrows(false)
-    }, [])
+	for (let key of list_keys) {
+		useHotkeys(key, (e, ke) => {
+			setActive(key)
+			setIsArrows(false)
+		}, [])
 
 		useHotkeys(`Shift+${key}`, (e, ke) => {
-      setActive(key)
-      setIsArrows(false)
-    }, [])
-  }
+			setActive(key)
+			setIsArrows(false)
+		}, [])
+	}
 
-	for(let item of list_extra) {
-		for(let key of item[1]) {
+	for (let item of list_extra) {
+		for (let key of item[1]) {
 			useHotkeys(key, (e, ke) => {
-	      setActive(key)
-	      setIsArrows(false)
-	    }, [])
+				setActive(key)
+				setIsArrows(false)
+			}, [])
 
 			useHotkeys(`Shift+${key}`, (e, ke) => {
-	      setActive(key)
-	      setIsArrows(false)
-	    }, [])
+				setActive(key)
+				setIsArrows(false)
+			}, [])
 		}
-  }
+	}
 
-  for(let key of list_arrows) {
-    useHotkeys(key, (e, ke) => {
-      setActive(key)
-      setIsArrows(true)
-    }, [])
-  }
+	for (let key of list_arrows) {
+		useHotkeys(key, (e, ke) => {
+			setActive(key)
+			setIsArrows(true)
+		}, [])
+	}
 
-  // for(let key of list_arrows) {
-  //   useHotkeys(key, (e, ke) => {
-  //     setActive(key)
-  //   }, [])
-  // }
+	// for(let key of list_arrows) {
+	//   useHotkeys(key, (e, ke) => {
+	//     setActive(key)
+	//   }, [])
+	// }
 
 
- //  useHotkeys('w',
- //    (event, handler) => {
- //      console.warn('event',event);
- //      console.warn('handler',handler);
- //    },
- //    { filter: () => true },
- //    []
- // )
+	//  useHotkeys('w',
+	//    (event, handler) => {
+	//      console.warn('event',event);
+	//      console.warn('handler',handler);
+	//    },
+	//    { filter: () => true },
+	//    []
+	// )
 
- // useHotkeys('w', (e, ke) => {
- //    // if(!e.repeat) {
- //    //   console.log(e.repeat);
- //    //   setC(c + 1)
- //    // }
- //    setActive('w')
- //  }, [c])
+	// useHotkeys('w', (e, ke) => {
+	//    // if(!e.repeat) {
+	//    //   console.log(e.repeat);
+	//    //   setC(c + 1)
+	//    // }
+	//    setActive('w')
+	//  }, [c])
 
-  // useHotkeys('w', () => setAmount(prevAmount => prevAmount + 100))
-  // useHotkeys('ctrl+d', () => setAmount(prevAmount => prevAmount - 100))
+	// useHotkeys('w', () => setAmount(prevAmount => prevAmount + 100))
+	// useHotkeys('ctrl+d', () => setAmount(prevAmount => prevAmount - 100))
 
-  // const isPressed = useIsHotkeyPressed()('w');
-  // const pressed = useIsHotkeyPressed()('w'); // Returns true if Return key is pressed down.
+	// const isPressed = useIsHotkeyPressed()('w');
+	// const pressed = useIsHotkeyPressed()('w'); // Returns true if Return key is pressed down.
 
-	if(!playerLoaded || isMobile) {
+	if (!playerLoaded || isMobile) {
 		return (<div />);
 	}
 

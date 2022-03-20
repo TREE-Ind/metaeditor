@@ -1,10 +1,10 @@
 import React from 'react';
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import MuiLinearProgress from '@mui/material/LinearProgress';
@@ -38,9 +38,9 @@ function CallbackLoader(props) {
   }, []);
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
     onShow: (payload) => {
       handleOpen(payload)
     },
@@ -50,7 +50,7 @@ function CallbackLoader(props) {
   }));
 
   const handleOpen = (payload) => {
-    if(!playerLoaded || ['console_command'].includes(payload?.type)) return ;
+    if (!playerLoaded || ['console_command'].includes(payload?.type)) return;
 
     handleClose()
 
@@ -71,7 +71,7 @@ function CallbackLoader(props) {
     setProgress(0)
   };
 
-  if(progress <= 0 || progress >= 100) {
+  if (progress <= 0 || progress >= 100) {
     return (<div />);
   }
 
@@ -83,5 +83,5 @@ function CallbackLoader(props) {
 }
 
 export default React.forwardRef((props, ref) => (
-	<CallbackLoader {...props} innerRef={ref} />
+  <CallbackLoader {...props} innerRef={ref} />
 ))

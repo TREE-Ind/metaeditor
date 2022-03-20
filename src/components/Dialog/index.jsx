@@ -39,7 +39,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 // material
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
@@ -96,7 +96,7 @@ const DialogActions = styled.custom(MuiDialogActions, theme => ({
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, closeIcon, ...other } = props;
 
-  if(!closeIcon) {
+  if (!closeIcon) {
     return (
       <DialogTitle {...other}>
         {children}
@@ -122,22 +122,22 @@ const BootstrapDialogTitle = (props) => {
 };
 
 
-function CustomDialog({buttonConfirm, disableEscape, defaultOpen, ...props}) {
+function CustomDialog({ buttonConfirm, disableEscape, defaultOpen, ...props }) {
   const [open, setOpen] = React.useState(defaultOpen);
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
 
-		open: () => {
+    open: () => {
       handleClickOpen()
     },
     close: () => {
       handleClose()
     },
 
-	}));
+  }));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -149,13 +149,13 @@ function CustomDialog({buttonConfirm, disableEscape, defaultOpen, ...props}) {
   };
 
   const onClosePermissions = (reason) => {
-    if(disableEscape && ['escapeKeyDown', 'backdropClick'].includes(reason)) return ;
+    if (disableEscape && ['escapeKeyDown', 'backdropClick'].includes(reason)) return;
     handleClose();
   }
 
   let variant
-  if(props.closeIcon) variant = 'icon'
-  if(props.showActions) variant = 'actions'
+  if (props.closeIcon) variant = 'icon'
+  if (props.showActions) variant = 'actions'
 
   return (
     <div>
@@ -190,7 +190,7 @@ function CustomDialog({buttonConfirm, disableEscape, defaultOpen, ...props}) {
               variant="contained"
               onClick={async () => {
                 const res = await buttonConfirm.onClick()
-                if(typeof res === 'boolean' && res === false) return ;
+                if (typeof res === 'boolean' && res === false) return;
 
                 handleClose()
               }}>
@@ -225,11 +225,11 @@ CustomDialog.defaultProps = {
   defaultOpen: false,
   showActions: true,
   closeIcon: true,
-  onClose: () => {},
+  onClose: () => { },
   disableEscape: false,
   buttonConfirm: {
     label: 'Confirm',
-    onClick: () => {},
+    onClick: () => { },
     color: 'primary',
     disabled: false,
   },
@@ -238,5 +238,5 @@ CustomDialog.defaultProps = {
 
 
 export default React.forwardRef((props, ref) => (
-	<CustomDialog {...props} innerRef={ref} />
+  <CustomDialog {...props} innerRef={ref} />
 ))

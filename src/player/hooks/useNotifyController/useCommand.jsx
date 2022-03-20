@@ -1,10 +1,10 @@
 import React from "react";
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // hooks
-import {useNotify} from 'hooks/'
+import { useNotify } from 'hooks/'
 
 // libs
 import moment from 'moment'
@@ -34,16 +34,16 @@ function useCommand(props) {
 
     const content = renderBody(payload)
 
-    if(payload?.error) {
+    if (payload?.error) {
       notify.error(payload.error, {
         title: undefined,
         key: 'error',
       })
-      return ;
+      return;
     }
 
-    if(['console_command'].includes(payload?.type)) {
-      return ;
+    if (['console_command'].includes(payload?.type)) {
+      return;
     }
 
     notify.info(content, {
@@ -61,9 +61,9 @@ function useCommand(props) {
           label={undefined}
           content={data}
           height={150}
-          onChange={() => {}}
+          onChange={() => { }}
           viewOnly
-         />
+        />
 
       </ContentDiv>
     )

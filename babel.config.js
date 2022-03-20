@@ -3,7 +3,7 @@ module.exports = {
   plugins: [
     "@babel/plugin-transform-runtime",
     ["@babel/plugin-proposal-decorators", {
-        "legacy": true
+      "legacy": true
     }],
     [
       '@emotion/babel-plugin',

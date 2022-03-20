@@ -26,7 +26,7 @@ function useCountdown(props) {
     }
 
     start() {
-      if(typeof props.seconds !== 'number' || props.seconds < 0) return
+      if (typeof props.seconds !== 'number' || props.seconds < 0) return
 
       const startTime = moment()
       const targetTime = startTime.add(props.seconds, 'seconds')
@@ -40,10 +40,10 @@ function useCountdown(props) {
         const relDiff = (a, b) => Math.round(((a - b) / a) * 100)
         const percentage = relDiff(totalSeconds, leftSeconds)
 
-        if(percentage >= 100) {
+        if (percentage >= 100) {
           clearInterval(refInterval.current)
           setValue(100)
-          return ;
+          return;
         }
 
         setValue(percentage)

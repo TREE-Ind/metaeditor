@@ -7,11 +7,11 @@ function demo() {
 	const media = useMedia();
 	const isMobile = media.down.sm
 
-    console.warn(media)
+	console.warn(media)
 
-    // Response:
-    // "up":{"xs":true,"sm":true,"md":true,"lg":false,"xl":false},
-    // "down":{"xs":false,"sm":false,"md":true,"lg":true,"xl":true},
+	// Response:
+	// "up":{"xs":true,"sm":true,"md":true,"lg":false,"xl":false},
+	// "down":{"xs":false,"sm":false,"md":true,"lg":true,"xl":true},
 
 	return (
 		<div>
@@ -51,7 +51,7 @@ function useMedia() {
 			down: {},
 			only: {},
 		}
-		for(let i of ['xs', 'sm', 'md', 'lg', 'xl']) {
+		for (let i of ['xs', 'sm', 'md', 'lg', 'xl']) {
 			res.up[i] = useMediaQuery(theme => theme.breakpoints.up(i))
 			res.down[i] = useMediaQuery(theme => theme.breakpoints.down(i))
 			res.only[i] = useMediaQuery(theme => theme.breakpoints.only(i))

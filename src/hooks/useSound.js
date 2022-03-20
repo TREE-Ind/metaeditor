@@ -40,7 +40,7 @@ function useSound(soundObj) {
     interrupt: true,
   });
 
-  const {stop, pause, duration, sound} = exposedData
+  const { stop, pause, duration, sound } = exposedData
 
   const play = () => {
     // setPlaybackRate(playbackRate + .1);

@@ -24,12 +24,12 @@ import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import MuiButton from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import Divider from '@mui/material/Divider';
 
 // blocks
 import HelpPanel from './HelpPanel'
@@ -44,7 +44,15 @@ const pages = [
   ['Contacts', 'contacts'],
 ].map(([label, slug]) => ({label, slug}));
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = [
+  ['Documentation', 'https://metaeditor.io'],
+  ['Community in Discord', 'https://discordapp.com/invite/eGHKuQ3BHM'],
+  ['Github Issues', 'https://github.com/markolofsen/metaeditor/issues'],
+  ['Careers', 'https://metaeditor.io/careers'],
+  ['Contact Us', 'https://metaeditor.io/contacts'],
+  [false, false],
+  ['Logout', false],
+].map(([label, href]) => ({label, href}));
 
 
 const AppBar = styled.custom(MuiAppBar, theme => ({
@@ -123,7 +131,7 @@ const ResponsiveAppBar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                <Icon>menu</Icon>
               </IconButton>
               <Menu
                 anchorEl={anchorElNav}
@@ -209,7 +217,7 @@ const ResponsiveAppBar = () => {
 
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} disabled>
+                <IconButton onClick={handleOpenUserMenu}>
                   <Icon>settings</Icon>
                 </IconButton>
               </Tooltip>
@@ -227,11 +235,27 @@ const ResponsiveAppBar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                {settings.map((item, index) => {
+                  if(item.label) {
+                    return (
+                      <MenuItem
+                        key={index}
+                        onClick={() => {
+                          if(item.href) {
+                            handleCloseUserMenu()
+                            window.open(item.href)
+                          }
+                        }}
+                        disabled={!item.href}>
+                        {item.label}
+                      </MenuItem>
+                    )
+                  }
+
+                  return (
+                    <Divider key={index} />
+                  );
+                })}
               </Menu>
             </Box>
           </Toolbar>

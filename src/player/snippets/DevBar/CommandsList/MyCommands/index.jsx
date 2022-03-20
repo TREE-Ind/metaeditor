@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // libs
 import _ from 'lodash'
@@ -14,7 +14,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Icon from '@mui/material/Icon';
 
 // styles
-import {styled, alpha} from 'styles/snippets'
+import { styled, alpha } from 'styles/snippets'
 
 // use
 import useCommands from './useCommands'
@@ -110,7 +110,7 @@ function MyCommands(props) {
 
   const renderList = () => {
 
-    if(commands_list.length === 0) {
+    if (commands_list.length === 0) {
       return (<div />);
     }
 
@@ -165,12 +165,12 @@ function MyCommands(props) {
         variant="outlined"
         color="inherit">
         <Button onClick={() => setShow(c => !c)}>My commands: {commands_list.length}</Button>
-        <Button sx={{width: 50}} onClick={() => {
+        <Button sx={{ width: 50 }} onClick={() => {
           refCommandForm.current.addNew()
         }}>
           <Icon>add</Icon>
         </Button>
-        <Button sx={{width: 50}} onClick={() => {
+        <Button sx={{ width: 50 }} onClick={() => {
           refExportDialog.current.open()
         }}>
           <Icon>cloud_upload</Icon>

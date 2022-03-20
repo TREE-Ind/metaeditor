@@ -1,6 +1,6 @@
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // block
 import FullscreenButton from './FullscreenButton/'

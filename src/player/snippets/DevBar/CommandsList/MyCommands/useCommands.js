@@ -4,14 +4,14 @@ import React from 'react';
 import moment from 'moment'
 
 // hooks
-import {useStorage} from 'hooks/'
+import { useStorage } from 'hooks/'
 
 
 const defaultCommands = [
   // slug, name, json
-  ['system_sound', 'Sound: on', {enabled: true}],
-  ['system_sound', 'Sound: off', {enabled: false}],
-].map(([slug, name, json], id) => ({id: `default=${id}`, group: 'Defaults', slug, name, json, default: true}))
+  ['system_sound', 'Sound: on', { enabled: true }],
+  ['system_sound', 'Sound: off', { enabled: false }],
+].map(([slug, name, json], id) => ({ id: `default=${id}`, group: 'Defaults', slug, name, json, default: true }))
 
 
 
@@ -26,7 +26,7 @@ function useCommands() {
   ])
 
   React.useEffect(() => {
-    if(!mounted) {
+    if (!mounted) {
       setMounted(true)
       STORAGE.preload()
     }
@@ -34,21 +34,21 @@ function useCommands() {
 
   const STORAGE = new class {
     allow(command) {
-      if(command?.default === false) {
+      if (command?.default === false) {
         return true;
       }
       return false;
     }
     preload() {
-      for(let key in localStorage) {
-        if(key.startsWith('command=')) {
+      for (let key in localStorage) {
+        if (key.startsWith('command=')) {
 
           const cmdValue = storage.getItem(key, 'local')
 
           // console.error('preload key', key, '=', cmdValue);
 
           const success = updateCommand(cmdValue)
-          if(!success) {
+          if (!success) {
             addCommand(cmdValue, false)
           }
 
@@ -58,36 +58,36 @@ function useCommands() {
     update(command) {
       // console.error('@STORAGE.update', command);
 
-      if(this.allow(command)) {
+      if (this.allow(command)) {
         storage.setItem(command.id, command, 'local')
       }
     }
     delete(command) {
       // console.error('@storageDelete', command);
 
-      if(this.allow(command)) {
+      if (this.allow(command)) {
         storage.removeItem(command.id, 'local')
       }
     }
   }
 
 
-  const addCommand = (command, update=true) => {
+  const addCommand = (command, update = true) => {
 
     let isError = false
 
     try {
 
-      if(!command?.id) {
+      if (!command?.id) {
         window.ps_command_id = window?.ps_command_id + 1 || commandsList.length + 1
         command.id = `command=${window.ps_command_id}`
       }
 
-      if(typeof command.default === 'undefined') {
+      if (typeof command.default === 'undefined') {
         command.default = false
       }
 
-      if(update) {
+      if (update) {
         STORAGE.update(command)
       }
 
@@ -96,7 +96,7 @@ function useCommands() {
         ...c,
       ]))
 
-    } catch(err) {
+    } catch (err) {
       console.error(err);
 
       isError = true
@@ -110,9 +110,9 @@ function useCommands() {
 
     let commandExist = false
     setCommandsList(list => {
-      for(let i in list) {
+      for (let i in list) {
         const item = list[i]
-        if(item.id == command.id) {
+        if (item.id == command.id) {
           list[i] = command
           commandExist = true
           break;
@@ -122,7 +122,7 @@ function useCommands() {
       return [...list];
     })
 
-    if(commandExist) {
+    if (commandExist) {
       STORAGE.update(command)
       return true;
 
@@ -145,7 +145,7 @@ function useCommands() {
 
   const exportData = () => {
 
-    function downloadObjectAsJson(exportObj, exportName){
+    function downloadObjectAsJson(exportObj, exportName) {
       var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
       var downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute("href", dataStr);
@@ -156,13 +156,13 @@ function useCommands() {
     }
 
     const list = commandsList.filter(i => !i.default)
-    downloadObjectAsJson(list, 'pixel_streaming_'+moment().format())
+    downloadObjectAsJson(list, 'pixel_streaming_' + moment().format())
   }
 
   const importData = (payload) => {
 
     const isArray = Array.isArray(payload)
-    if(!isArray) {
+    if (!isArray) {
       alert('Format error!')
       return false;
     }
@@ -172,7 +172,7 @@ function useCommands() {
       isError = addCommand(item)
     });
 
-    if(isError) {
+    if (isError) {
       alert('Format error!')
       return false;
     }

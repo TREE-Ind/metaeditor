@@ -7,7 +7,7 @@ import Icon from '@mui/material/Icon';
 import IconButton from '@mui/material/IconButton';
 
 // styles
-import {styled, alpha} from 'styles/snippets'
+import { styled, alpha } from 'styles/snippets'
 
 
 const Box = styled.custom(MuiBox, theme => ({
@@ -53,14 +53,14 @@ function SystemDialog(props) {
   const [open, setOpen] = React.useState(false)
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
     open: () => setOpen(c => !c),
     // close: () => setOpen(false),
   }));
 
-  if(open === false) {
+  if (open === false) {
     return (<div />);
   }
 
@@ -94,5 +94,5 @@ SystemDialog.propTypes = {
 };
 
 export default React.forwardRef((props, ref) => (
-	<SystemDialog {...props} innerRef={ref} />
+  <SystemDialog {...props} innerRef={ref} />
 ))

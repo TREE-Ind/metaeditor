@@ -17,17 +17,17 @@ function ExportDialog(props) {
   const [data, setData] = React.useState({})
 
   // The component instance will be extended
-	// with whatever you return from the callback passed
-	// as the second argument
-	React.useImperativeHandle(props.innerRef, () => ({
+  // with whatever you return from the callback passed
+  // as the second argument
+  React.useImperativeHandle(props.innerRef, () => ({
     open: () => {
-			refDialog.current.open()
-		},
+      refDialog.current.open()
+    },
   }));
 
   const renderInner = () => {
     return (
-      <Box sx={{mt: 0}}>
+      <Box sx={{ mt: 0 }}>
 
         <JsonEditor
           label="Paste the exported data"
@@ -39,7 +39,7 @@ function ExportDialog(props) {
           }} />
 
         <Button
-          sx={{mt: 2}}
+          sx={{ mt: 2 }}
           size="large"
           fullWidth
           variant="contained"
@@ -50,12 +50,12 @@ function ExportDialog(props) {
               console.error('check', check);
 
               const res = props.onImport(data)
-              if(res) {
+              if (res) {
                 alert('Success!')
                 setData({})
                 refDialog.current.close()
               }
-            } catch(err) {
+            } catch (err) {
               alert('Format error!')
             }
 
@@ -64,7 +64,7 @@ function ExportDialog(props) {
         </Button>
 
         <Button
-          sx={{mt: 5}}
+          sx={{ mt: 5 }}
           size="large"
           fullWidth
           variant="outlined"
@@ -93,10 +93,10 @@ function ExportDialog(props) {
 }
 
 ExportDialog.propTypes = {
-	onImport: PropTypes.func.isRequired,
+  onImport: PropTypes.func.isRequired,
   onExport: PropTypes.func.isRequired,
 }
 
 export default React.forwardRef((props, ref) => (
-	<ExportDialog {...props} innerRef={ref} />
+  <ExportDialog {...props} innerRef={ref} />
 ))

@@ -18,7 +18,7 @@ import Icon from '@mui/material/Icon';
 const useStyles = makeStyles(theme => ({
   root: {
     // [theme.breakpoints.down('sm')]: {
-      minWidth: '344px !important',
+    minWidth: '344px !important',
     // },
   },
   card: {
@@ -60,46 +60,46 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SnackMessage = forwardRef<HTMLDivElement, { id: string | number, message: string | React.ReactNode, title: string }>((props, ref) => {
-    const classes = useStyles();
-    const { closeSnackbar } = useSnackbar();
-    const [expanded, setExpanded] = useState(false);
+  const classes = useStyles();
+  const { closeSnackbar } = useSnackbar();
+  const [expanded, setExpanded] = useState(false);
 
-    const handleExpandClick = useCallback(() => {
-        setExpanded((oldExpanded) => !oldExpanded);
-    }, []);
+  const handleExpandClick = useCallback(() => {
+    setExpanded((oldExpanded) => !oldExpanded);
+  }, []);
 
-    const handleDismiss = useCallback(() => {
-        closeSnackbar(props.id);
-    }, [props.id, closeSnackbar]);
+  const handleDismiss = useCallback(() => {
+    closeSnackbar(props.id);
+  }, [props.id, closeSnackbar]);
 
-    return (
-      <SnackbarContent ref={ref} className={classes.root}>
-        <Card className={classes.card}>
-            <CardActions classes={{ root: classes.actionRoot }}>
-              <Typography variant="subtitle2" className={classes.typography}>
-                {props.title}
-              </Typography>
-              <div className={classes.icons}>
-                <IconButton
-                    aria-label="Show more"
-                    className={expanded ? classes.expandOpen : classes.expand}
-                    onClick={handleExpandClick}
-                >
-                  <Icon>expand_more</Icon>
-                </IconButton>
-                <IconButton className={classes.expand} onClick={handleDismiss}>
-                    <Icon>close</Icon>
-                </IconButton>
-              </div>
-            </CardActions>
+  return (
+    <SnackbarContent ref={ref} className={classes.root}>
+      <Card className={classes.card}>
+        <CardActions classes={{ root: classes.actionRoot }}>
+          <Typography variant="subtitle2" className={classes.typography}>
+            {props.title}
+          </Typography>
+          <div className={classes.icons}>
+            <IconButton
+              aria-label="Show more"
+              className={expanded ? classes.expandOpen : classes.expand}
+              onClick={handleExpandClick}
+            >
+              <Icon>expand_more</Icon>
+            </IconButton>
+            <IconButton className={classes.expand} onClick={handleDismiss}>
+              <Icon>close</Icon>
+            </IconButton>
+          </div>
+        </CardActions>
 
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-              {props.message}
-            </Collapse>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          {props.message}
+        </Collapse>
 
-        </Card>
-      </SnackbarContent>
-    );
+      </Card>
+    </SnackbarContent>
+  );
 });
 
 export default SnackMessage;

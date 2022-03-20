@@ -1,32 +1,32 @@
 const Request = new class {
 
-  async request(method, url, params={}) {
-		let options = {
-        method,
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json' },
+  async request(method, url, params = {}) {
+    let options = {
+      method,
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
     }
 
-		try {
-			options.body = JSON.stringify(params.body)
-		} catch(err) {}
+    try {
+      options.body = JSON.stringify(params.body)
+    } catch (err) { }
 
     return await fetch(url, options)
-		.then(async res => {
+      .then(async res => {
 
-			try {
-        return {
-  				status: res.status,
-  				body: await res.json(),
-  			};
-			} catch (error) {
-        return {
-          status: res.status,
-  				error,
-        };
-      }
+        try {
+          return {
+            status: res.status,
+            body: await res.json(),
+          };
+        } catch (error) {
+          return {
+            status: res.status,
+            error,
+          };
+        }
 
-		})
+      })
   }
 
   async GET(url) {
@@ -34,7 +34,7 @@ const Request = new class {
   }
 
   async POST(url, body) {
-    return await this.request('POST', url, {body});
+    return await this.request('POST', url, { body });
   }
 
   async DELETE(url) {

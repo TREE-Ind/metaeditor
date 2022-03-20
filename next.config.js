@@ -23,24 +23,24 @@ const withEnv = (phase) => {
 	// console.log(`isDev:${isDev}  isProd:${isProd}   isStaging:${isStaging}`)
 
 
-  // Get node variables
-  let node_variables = {}
-  Object.keys(process.env).filter(v => v.startsWith('~')).map(e => {
-    node_variables[e] = process.env[e]
-  })
+	// Get node variables
+	let node_variables = {}
+	Object.keys(process.env).filter(v => v.startsWith('~')).map(e => {
+		node_variables[e] = process.env[e]
+	})
 
-	if(isDev) {
+	if (isDev) {
 		// Hack for ssl in localhost (for SSR data fetching)
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 	}
 
 	let env = {
-    ...node_variables,
+		...node_variables,
 		isDev,
-    version: packageJson.version,
+		version: packageJson.version,
 	}
 
-	if(isProd) {
+	if (isProd) {
 		env.PUBLIC_URL = packageJson.homepage
 		env.assetPrefix = './'
 	}
@@ -54,18 +54,18 @@ const withEnv = (phase) => {
 
 
 function moduleExports(phase) {
-  const res = {
+	const res = {
 		...withEnv(phase),
 		trailingSlash: false,
 		// pagesPaths: ['src/pages', 'src/pages2'],
 
-	  reactStrictMode: false,
+		reactStrictMode: false,
 
 		eslint: {
-	    // Warning: This allows production builds to successfully complete even if
-	    // your project has ESLint errors.
-	    ignoreDuringBuilds: true,
-	  },
+			// Warning: This allows production builds to successfully complete even if
+			// your project has ESLint errors.
+			ignoreDuringBuilds: true,
+		},
 
 		serverRuntimeConfig: {
 			// Will only be available on the server side
@@ -77,7 +77,7 @@ function moduleExports(phase) {
 			staticFolder: '/static',
 		},
 
-		exportPathMap: async function (defaultPathMap, {dev, dir, outDir, distDir, buildId }) {
+		exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
 			return {
 				'/': { page: '/' },
 				'/404': { page: '/404' },
@@ -91,14 +91,14 @@ function moduleExports(phase) {
 };
 
 const SentryWebpackPluginOptions = {
-  // Additional config options for the Sentry Webpack plugin. Keep in mind that
-  // the following options are set automatically, and overriding them is not
-  // recommended:
-  //   release, url, org, project, authToken, configFile, stripPrefix,
-  //   urlPrefix, include, ignore
-  silent: true, // Suppresses all logs
-  // For all available options, see:
-  // https://github.com/getsentry/sentry-webpack-plugin#options.
+	// Additional config options for the Sentry Webpack plugin. Keep in mind that
+	// the following options are set automatically, and overriding them is not
+	// recommended:
+	//   release, url, org, project, authToken, configFile, stripPrefix,
+	//   urlPrefix, include, ignore
+	silent: true, // Suppresses all logs
+	// For all available options, see:
+	// https://github.com/getsentry/sentry-webpack-plugin#options.
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to

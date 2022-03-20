@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import {usePlayer, useConnection} from 'player/context/';
+import { usePlayer, useConnection } from 'player/context/';
 
 // material
 import MuiAppBar from '@mui/material/AppBar';
@@ -22,7 +22,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Icon from '@mui/material/Icon';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // blocks
 import ConnectionForm from './StateConnection/ConnectionForm'
@@ -40,7 +40,7 @@ const ResponsiveAppBar = (props) => {
   const player = usePlayer()
   const connection = useConnection()
 
-  const {state, cls} = player
+  const { state, cls } = player
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -104,7 +104,7 @@ const ResponsiveAppBar = (props) => {
             onClick={() => {
               handleCloseUserMenu()
               item.onClick()
-          }}>
+            }}>
             <ListItemIcon>
               <Icon fontSize="small">{item.icon}</Icon>
             </ListItemIcon>
@@ -120,7 +120,7 @@ const ResponsiveAppBar = (props) => {
   return (
     <AppBar position="static">
 
-      <Toolbar disableGutters variant="dense" sx={{px: 1}}>
+      <Toolbar disableGutters variant="dense" sx={{ px: 1 }}>
         <Typography
           variant="h6"
           noWrap

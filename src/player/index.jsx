@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // api
-import {env} from 'api/'
+import { env } from 'api/'
 
 // libs
 import PixelStreaming from './lib';
 
 // context
-import ConnectionProvider, {useConnection} from './context/useConnection/';
+import ConnectionProvider, { useConnection } from './context/useConnection/';
 
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // content
 import PlayerContent from './Content'
@@ -29,7 +29,7 @@ const RootDiv = styled.div(theme => ({
 
 const isDev = env.isDev
 
-function PixelWrapper({autoConnect, ...props}) {
+function PixelWrapper({ autoConnect, ...props }) {
   const connection = useConnection()
 
   const refPixelStreaming = React.useRef(null)
@@ -37,13 +37,13 @@ function PixelWrapper({autoConnect, ...props}) {
 
   React.useEffect(() => {
 
-    if(autoConnect) {
+    if (autoConnect) {
       connection.onRequestStream()
     }
 
   }, [])
 
-  if(connection.state.auto_connect && !connection.state.loaded) {
+  if (connection.state.auto_connect && !connection.state.loaded) {
     return (<div />);
   }
 

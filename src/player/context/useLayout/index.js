@@ -8,12 +8,12 @@ import actions from './actions'
 
 
 const Provider = (props) => {
-  const payload = actions();
+	const payload = actions();
 
 	return (
 		<Context.Provider value={payload}>
 			{props.children}
-    </Context.Provider>
+		</Context.Provider>
 	);
 };
 

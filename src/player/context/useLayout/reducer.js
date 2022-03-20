@@ -23,9 +23,9 @@ function reducer(state, action) {
   const { type, payload: anValue } = action;
   // console.log(state);
 
-  if(type === KEY.UPDATE) {
+  if (type === KEY.UPDATE) {
     return { ...state, ...anValue };
-  } else if(type === KEY.COMPONENT) {
+  } else if (type === KEY.COMPONENT) {
 
     const key = Object.keys(anValue)[0]
     const renew = {

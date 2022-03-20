@@ -1,10 +1,10 @@
 import React from 'react';
 
 // context
-import {usePlayer} from 'player/context/';
+import { usePlayer } from 'player/context/';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // material
 import MuiToggleButton from '@mui/material/ToggleButton';
@@ -46,7 +46,7 @@ function LogsData() {
     <div>
 
       <ToggleButtonGroup
-        sx={{mb: 2}}
+        sx={{ mb: 2 }}
         value={value}
         exclusive
         onChange={((event, newValue) => setValue(newValue))}

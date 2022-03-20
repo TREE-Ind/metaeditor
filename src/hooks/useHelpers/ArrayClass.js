@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const ArrayClass = new class {
 
-	split(arr, size=2) {
+	split(arr, size = 2) {
 		return _.chunk(arr, Math.round(arr.length / size))
 	}
 

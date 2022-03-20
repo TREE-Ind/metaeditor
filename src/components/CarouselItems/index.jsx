@@ -34,14 +34,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // hooks
-import {useMedia} from 'hooks/'
+import { useMedia } from 'hooks/'
 
 // material
 import IconButton from '@mui/material/IconButton';
 import Icon from '@mui/material/Icon';
 
 // styles
-import {styled} from 'styles/snippets'
+import { styled } from 'styles/snippets'
 
 // libs
 // https://www.npmjs.com/package/react-items-carousel
@@ -53,7 +53,7 @@ const RootDiv = styled.div(theme => ({
   overflow: 'hidden',
 }))
 
-function ArrowButton({type}) {
+function ArrowButton({ type }) {
 
   return (
     <IconButton>
@@ -78,15 +78,15 @@ function CarouselItems(props) {
   const outsideChevron = media.up.lg
 
   let numberOfCards = props.numberOfCards.default || 4
-  for(let key of ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']) {
-    if(props.numberOfCards[key] && (media.down[key] || media.only[key])) {
+  for (let key of ['xs', 'sm', 'md', 'lg', 'xl', 'xxl']) {
+    if (props.numberOfCards[key] && (media.down[key] || media.only[key])) {
       numberOfCards = props.numberOfCards[key]
       break
     }
   }
 
 
-  if(!show) {
+  if (!show) {
     const list = props.items.filter((item, index) => index < numberOfCards)
     return (
       <RootDiv>
@@ -96,7 +96,7 @@ function CarouselItems(props) {
   }
 
   return (
-    <div style={{maxWidth: '100vw'}}>
+    <div style={{ maxWidth: '100vw' }}>
       <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}

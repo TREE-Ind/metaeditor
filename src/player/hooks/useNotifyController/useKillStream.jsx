@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment'
 
 // hooks
-import {useNotify} from 'hooks/'
-import {useCountdown} from 'player/hooks/'
+import { useNotify } from 'hooks/'
+import { useCountdown } from 'player/hooks/'
 
 // context
-import {usePlayer, useConnection} from 'player/context/';
+import { usePlayer, useConnection } from 'player/context/';
 
 
 function useKillStream(props) {
@@ -20,7 +20,7 @@ function useKillStream(props) {
   const [time, setTime] = React.useState(0)
 
   const secondsToKill = connection.state.seconds_to_kill
-  const countdown = useCountdown({seconds: secondsToKill})
+  const countdown = useCountdown({ seconds: secondsToKill })
 
   React.useEffect(() => {
     const newTime = moment().add(secondsToKill, 'seconds').format('HH:mm')
@@ -29,9 +29,9 @@ function useKillStream(props) {
 
   React.useEffect(() => {
 
-    if(player.state.loaded) {
+    if (player.state.loaded) {
 
-      if(secondsToKill >= connection.MIN_SECONDS_TO_KILL) {
+      if (secondsToKill >= connection.MIN_SECONDS_TO_KILL) {
         countdown.stop()
         cls.hide()
       } else {
@@ -50,7 +50,7 @@ function useKillStream(props) {
     }
 
     show() {
-      notify.warning('No activity. The connection will be closed in '+time, {
+      notify.warning('No activity. The connection will be closed in ' + time, {
         key: this.key,
         anchorOrigin: {
           vertical: "top",
@@ -65,7 +65,7 @@ function useKillStream(props) {
     }
   }
 
-  return ;
+  return;
 }
 
 export default useKillStream

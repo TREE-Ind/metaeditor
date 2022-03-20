@@ -16,7 +16,7 @@ function FullscreenButton() {
     <Button
       tooltip="Fullscreen"
       onClick={() => {
-        if(fullscreen.active) {
+        if (fullscreen.active) {
           fullscreen.close()
         } else {
           fullscreen.open()

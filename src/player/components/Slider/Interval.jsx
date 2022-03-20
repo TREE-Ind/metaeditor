@@ -88,25 +88,25 @@ function SliderInterval(props) {
 
 	return (
 		<RootList>
-      <li data-li-value="left">
+			<li data-li-value="left">
 				{props.format(value[0])}
 			</li>
 			<li data-li="slider">
 				<PrettoSlider
-					step={props.step || (sliderMax || 1)/100}
+					step={props.step || (sliderMax || 1) / 100}
 					min={sliderMin}
 					max={sliderMax}
-	        value={value}
-	        onChange={handleChange}
-	        valueLabelDisplay="off"
-	        getAriaValueText={(v) => v}
+					value={value}
+					onChange={handleChange}
+					valueLabelDisplay="off"
+					getAriaValueText={(v) => v}
 					valueLabelFormat={v => props.format(v)}
-	      />
+				/>
 			</li>
 			<li data-li-value="right">
 				{props.format(value[1])}
 			</li>
-    </RootList>
+		</RootList>
 	);
 }
 

@@ -21,7 +21,7 @@ const MyComponent = () => {
 */
 import React from 'react';
 
-import {env} from 'api/'
+import { env } from 'api/'
 
 const useUnload = fn => {
   const cb = React.useRef(fn); // init with fn, so that type checkers won't assume that current might be undefined
@@ -31,7 +31,7 @@ const useUnload = fn => {
   }, [fn]);
 
   React.useEffect(() => {
-    if(env.isDev) return ;
+    if (env.isDev) return;
 
     const onUnload = (...args) => cb.current?.(...args);
 
