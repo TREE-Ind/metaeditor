@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // styles
-import {styled} from '../../styles'
+import {styled} from '../styles'
 
 
 const RootDiv = styled.div(() => ({
