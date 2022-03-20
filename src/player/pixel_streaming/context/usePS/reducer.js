@@ -16,7 +16,7 @@ const initialState = {
   stream_config: false,
   mouse_moving: false,
   aggregated_stats: false,
-  window_size: {width: 0, height: 0},
+  window_size: { width: 0, height: 0 },
   resolution_multiplier: 1, // from .5 to 2
   quality_speed: false,
   last_interaction: null,
@@ -35,7 +35,7 @@ function reducer(state, action) {
   const { type, payload: anValue } = action;
   // console.log(state);
 
-  if(type === KEY.UPDATE) {
+  if (type === KEY.UPDATE) {
     return { ...state, ...anValue };
   }
 

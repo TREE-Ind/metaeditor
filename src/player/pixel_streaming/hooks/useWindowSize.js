@@ -7,9 +7,9 @@ function App() {
   const windowSize = useWindowSize();
 
   return (
-    <div>
-      {windowSize.width}px / {windowSize.height}px
-    </div>
+	<div>
+	  {windowSize.width}px / {windowSize.height}px
+	</div>
   );
 }
 */
@@ -37,8 +37,8 @@ function useWindowSize() {
 
 			// Set for css
 			const doc = document.documentElement
-			doc.style.setProperty("--window-width", window.innerWidth+'px');
-			doc.style.setProperty("--window-height", window.innerHeight+'px');
+			doc.style.setProperty("--window-width", window.innerWidth + 'px');
+			doc.style.setProperty("--window-height", window.innerHeight + 'px');
 
 		}
 
@@ -53,8 +53,8 @@ function useWindowSize() {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []); // Empty array ensures that effect is only run on mount
 
-	const {width, height} = windowSize
-	return {width, height}
+	const { width, height } = windowSize
+	return { width, height }
 }
 
 export default useWindowSize

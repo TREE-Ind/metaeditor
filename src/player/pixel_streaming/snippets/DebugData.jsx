@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // styles
-import {styled} from '../styles'
+import { styled } from '../styles'
 
 
 const RootDiv = styled.div(() => ({
@@ -82,7 +82,7 @@ function DebugForm(props) {
 
   const rootId = props.isDefault ? PANEL_ID.default : PANEL_ID.tmp
 
-  if(props.isDefault && document?.getElementById(PANEL_ID.tmp)) {
+  if (props.isDefault && document?.getElementById(PANEL_ID.tmp)) {
     return <div />;
   }
 
@@ -184,7 +184,7 @@ function DebugForm(props) {
           <input readOnly type="number" id="webrtc-high-qp-text" value="0" min="0" max="999" />
         ))}
 
-        <input readOnly id="webrtc-params-submit" type="button" value="Apply" style={{width: '100%'}} />
+        <input readOnly id="webrtc-params-submit" type="button" value="Apply" style={{ width: '100%' }} />
 
       </div>
 

@@ -28,16 +28,16 @@ const RootList = styled.ul(theme => ({
 */
 
 export const css = new class {
-  constructor() {}
+  constructor() { }
 
   makeRadius(...payload) {
     const radius = 10
     let res = []
-    for(let i of payload) {
-      if(i === 'auto') i = radius
+    for (let i of payload) {
+      if (i === 'auto') i = radius
       res.push(i)
     }
-    if(res.length > 0) { return res.map(item => item+'px').join(' '); }
+    if (res.length > 0) { return res.map(item => item + 'px').join(' '); }
     return radius;
   }
 

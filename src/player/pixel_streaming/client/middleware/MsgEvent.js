@@ -11,15 +11,15 @@
 
 
 const MsgEvent = new class {
-	constructor() {}
+	constructor() { }
 
 	_event(type, payload) {
 		// if(LOG_CURRENT === LOG_LEVEL.NORMAL && log !== LOG_LEVEL.NORMAL) {
 		// 	return ;
 		// }
 
-		const detail = {type, payload}
-		const ev = new CustomEvent('ps_debug', {detail})
+		const detail = { type, payload }
+		const ev = new CustomEvent('ps_debug', { detail })
 		document.dispatchEvent(ev)
 	}
 

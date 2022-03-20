@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // context
-import ContextProvider, {usePS} from './context/';
+import ContextProvider, { usePS } from './context/';
 
 // snippets
 import DebugData from './snippets/DebugData'
 
 // styles
-import {styled} from './styles'
+import { styled } from './styles'
 
 
 const VideoContainer = styled.div((theme) => ({
@@ -64,41 +64,41 @@ const ModuleRoot = (props) => {
 
 	React.useEffect(() => {
 
-		if(!document.getElementById("playerUI")) {
+		if (!document.getElementById("playerUI")) {
 			setDebugPanel(false)
 		}
 
 		setMounted(true)
 
-  }, [])
+	}, [])
 
 
 
-  React.useEffect(() => {
+	React.useEffect(() => {
 
-		if(typeof props.host === 'string' && prevHost.current !== props.host) {
+		if (typeof props.host === 'string' && prevHost.current !== props.host) {
 
-			if(props.autoConnect) {
+			if (props.autoConnect) {
 				initConnection()
 			}
 		}
 
 		prevHost.current = props.host; // assign the ref's current value
 
-  }, [props.host]);
+	}, [props.host]);
 
 	const refClass = new class {
-		constructor() {}
+		constructor() { }
 
-		emit({type, value, verification_id=undefined} = {}) {
-			PS.cls.client.emit({type, value, verification_id})
+		emit({ type, value, verification_id = undefined } = {}) {
+			PS.cls.client.emit({ type, value, verification_id })
 		}
 	}
 
 	const ContextClass = new class {
 		constructor() {
 
-			if(typeof window !== 'undefined') {
+			if (typeof window !== 'undefined') {
 				window.ps_init = () => this.initConnection()
 			}
 
@@ -114,9 +114,9 @@ const ModuleRoot = (props) => {
 
 		initConnection() {
 
-			if(!props.host || !props.port) {
+			if (!props.host || !props.port) {
 				console.error('Stream server not found');
-				return ;
+				return;
 			}
 
 			PS.cls.init({
@@ -145,18 +145,18 @@ const ModuleRoot = (props) => {
 	React.useImperativeHandle(props.innerRef, () => refClass);
 
 
-	if(mounted === false) {
+	if (mounted === false) {
 		return (<div />);
 	}
 
-  return (
+	return (
 		<>
 			<VideoContainer data-loaded={PS_LOADED} id="player" />
 			<Content>
 				<DebugData isDefault />
 				{props.children(ContextClass)}
 			</Content>
-    </>
+		</>
 	)
 
 };
@@ -183,18 +183,18 @@ ModuleRoot.propTypes = {
 };
 
 ModuleRoot.defaultProps = {
-	children: () => {},
+	children: () => { },
 
-	onLoad: () => {},
-	onConnect: () => {},
-	onRestart: () => {},
-	onError: () => {},
-	onClose: () => {},
-	onCommand: () => {},
-	onCallback: () => {},
-	onDebug: () => {},
+	onLoad: () => { },
+	onConnect: () => { },
+	onRestart: () => { },
+	onError: () => { },
+	onClose: () => { },
+	onCommand: () => { },
+	onCallback: () => { },
+	onDebug: () => { },
 
-	onProgress: () => {},
+	onProgress: () => { },
 	host: undefined,
 	port: 80,
 	autoConnect: true,

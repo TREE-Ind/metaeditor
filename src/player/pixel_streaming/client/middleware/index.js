@@ -3,7 +3,7 @@ import MsgEvent from './MsgEvent'
 import Config from './config'
 
 export {
-	BaseCommands,
+  BaseCommands,
   MsgEvent,
   Config,
 }

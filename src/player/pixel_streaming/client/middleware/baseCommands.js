@@ -4,18 +4,18 @@ class BaseCommands {
   }
 
 
-  emitConsole(commands, delay=1) {
+  emitConsole(commands, delay = 1) {
 
     const emitNot = () => {
       commands.forEach((command, i) => {
-        this.emit({type: 'console_command', value: { command }})
+        this.emit({ type: 'console_command', value: { command } })
       });
     }
 
-    if(!this.timeout_console) {
+    if (!this.timeout_console) {
       emitNot()
       this.timeout_console = true
-      return ;
+      return;
     }
 
     clearTimeout(this.timeout_console)
@@ -28,7 +28,7 @@ class BaseCommands {
 
 
   // Limit fps
-  setFps(value=30) {
+  setFps(value = 30) {
     this.emitConsole([`t.maxfps ${value}`], 5)
   }
 
@@ -42,34 +42,34 @@ class BaseCommands {
     this.emitConsole(['Streamer.PrioritiseQuality'], 5)
   }
 
-  resize(multiplier=1) {
+  resize(multiplier = 1) {
 
     // multiplier = 1
 
-    const max_size = {width: 2388, height: 1428}
+    const max_size = { width: 2388, height: 1428 }
 
     // Apply window size
-		function resizeResolution(srcWidth, srcHeight, maxWidth, maxHeight, multiplier=1) {
-		  srcWidth = srcWidth * multiplier
-		  srcHeight = srcHeight * multiplier
+    function resizeResolution(srcWidth, srcHeight, maxWidth, maxHeight, multiplier = 1) {
+      srcWidth = srcWidth * multiplier
+      srcHeight = srcHeight * multiplier
 
-      if(srcWidth > maxWidth || srcHeight > maxHeight) {
+      if (srcWidth > maxWidth || srcHeight > maxHeight) {
         return max_size
       }
 
-		  // const ratio = Math.min(newWidth / srcWidth, newHeight / srcHeight);
-		  // console.warn('aspected', { width: srcWidth*ratio, height: srcHeight*ratio })
+      // const ratio = Math.min(newWidth / srcWidth, newHeight / srcHeight);
+      // console.warn('aspected', { width: srcWidth*ratio, height: srcHeight*ratio })
 
-		  return { width: Math.round(srcWidth), height: Math.round(srcHeight) }
-		}
+      return { width: Math.round(srcWidth), height: Math.round(srcHeight) }
+    }
 
-    const {width, height} = resizeResolution(
-			window.innerWidth,
-			window.innerHeight,
-			max_size.width,
-			max_size.height,
-			multiplier,
-		)
+    const { width, height } = resizeResolution(
+      window.innerWidth,
+      window.innerHeight,
+      max_size.width,
+      max_size.height,
+      multiplier,
+    )
 
     clearTimeout(this.resize_timeout)
     this.resize_timeout = setTimeout(() => {

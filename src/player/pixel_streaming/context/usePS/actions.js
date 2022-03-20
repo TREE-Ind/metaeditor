@@ -1,14 +1,14 @@
 import React from "react"
 
 // hooks
-import {useWindowSize, useStateEvents, useReducerEvents} from '../../hooks/'
+import { useWindowSize, useStateEvents, useReducerEvents } from '../../hooks/'
 
 // libs
 import moment from 'moment'
 
 // reducers
 import reducer from './reducer'
-const {defaultState} = reducer
+const { defaultState } = reducer
 
 // pixel streaming
 import ClientClass from '../../client/'
@@ -20,7 +20,7 @@ const actions = () => {
 
   const [state, dispatch_, refState] = useReducerEvents(reducer.reducer, reducer.initialState);
   // const [state, dispatch_] = React.useReducer(reducer.reducer, reducer.initialState);
-  const dispatch = payload => dispatch_({type: reducer.KEY.UPDATE, payload})
+  const dispatch = payload => dispatch_({ type: reducer.KEY.UPDATE, payload })
 
   const [commandsList, setCommandsList] = React.useState([])
   const [callbacksList, setCallbacksList] = React.useState([])
@@ -29,11 +29,11 @@ const actions = () => {
   // Resizing window
   React.useEffect(() => {
 
-    if(
+    if (
       state.window_size.width !== windowSize.width ||
       state.window_size.height !== windowSize.height
     ) {
-      dispatch({window_size: windowSize})
+      dispatch({ window_size: windowSize })
       ClientClass.resize(state.resolution_multiplier)
     }
 
@@ -41,16 +41,16 @@ const actions = () => {
 
 
   // Listen debug messages
-  const debugListener = ({detail}) => {
-    setLogsList(c => [detail, ...c].filter((o,i) => i < 10000))
+  const debugListener = ({ detail }) => {
+    setLogsList(c => [detail, ...c].filter((o, i) => i < 10000))
   }
 
   // Detect body click (for webrtc sound)
   const bodyClick = () => {
-    dispatch({body_clicked: true})
+    dispatch({ body_clicked: true })
 
-    if(refState.current.volume === null) {
-      dispatch({volume: true})
+    if (refState.current.volume === null) {
+      dispatch({ volume: true })
     }
   }
 
@@ -101,13 +101,13 @@ const actions = () => {
     }) {
 
       // Set resolution multiplier
-      if(typeof quality === 'number') {
-        dispatch({resolution_multiplier: quality})
+      if (typeof quality === 'number') {
+        dispatch({ resolution_multiplier: quality })
       }
 
       this.client.init({
         onUserCount: (count) => {
-          dispatch({users_count: count})
+          dispatch({ users_count: count })
         },
         onCommand: (payload) => {
           // console.warn('::onCommand');
@@ -118,7 +118,7 @@ const actions = () => {
           }
 
           onCommand(payload)
-          setCommandsList(c => [payload, ...c].filter((o,i) => i < 100))
+          setCommandsList(c => [payload, ...c].filter((o, i) => i < 100))
         },
         onCallback: (detail) => {
           detail = {
@@ -127,7 +127,7 @@ const actions = () => {
           }
 
           onCallback(detail)
-          setCallbacksList(c => [detail, ...c].filter((o,i) => i < 100))
+          setCallbacksList(c => [detail, ...c].filter((o, i) => i < 100))
 
           // // Update state from click on stream
           // if(detail?.caller === 'stream') {
@@ -168,40 +168,40 @@ const actions = () => {
 
           onConnect()
         },
-        onError: ({code, reason}) => {
+        onError: ({ code, reason }) => {
           // console.warn('::onError', {code, reason});
           dispatch({
-            error: {code, reason},
+            error: { code, reason },
             connected: false,
           })
 
-          onError({code, reason})
+          onError({ code, reason })
         },
-        onClose: async ({code, reason}) => {
+        onClose: async ({ code, reason }) => {
           // console.warn('::onClose', {code, reason});
 
           dispatch({
             ...defaultState,
-            closed: {code, reason},
+            closed: { code, reason },
             loaded: false,
             connected: false,
           })
 
-          if(code === 4000) { // stream server closed
+          if (code === 4000) { // stream server closed
             await onRestart()
-    			}
+          }
 
           onClose()
         },
         onMouseMove: (mouse_moving) => {
-          dispatch({mouse_moving})
+          dispatch({ mouse_moving })
           // renewIntercation()
         },
         onAggregatedStats: (aggregated_stats) => {
-          dispatch({aggregated_stats})
+          dispatch({ aggregated_stats })
         },
         onQuality: (quality_speed) => {
-          dispatch({quality_speed})
+          dispatch({ quality_speed })
         },
         // onWarnTimeout: () => {
         //
@@ -222,7 +222,7 @@ const actions = () => {
     }
 
     get __ws_locked__() {
-      if(!state.loaded || !state.connected) {
+      if (!state.loaded || !state.connected) {
         console.error('Can\'t perform action');
         return true;
       }
@@ -230,19 +230,19 @@ const actions = () => {
     }
 
     changeQuality(resolution_multiplier) {
-      if(this.__ws_locked__) return ;
+      if (this.__ws_locked__) return;
 
       this.client.resize(resolution_multiplier)
-      dispatch({resolution_multiplier})
+      dispatch({ resolution_multiplier })
     }
 
     changeVolume() {
-      if(this.__ws_locked__) return ;
+      if (this.__ws_locked__) return;
 
       const volume = state.volume === null ? null : !state.volume
 
-      if(volume !== null) {
-        dispatch({volume})
+      if (volume !== null) {
+        dispatch({ volume })
 
         this.client.emit({
           type: 'system_sound',
@@ -254,14 +254,14 @@ const actions = () => {
     }
 
     playStop() {
-      if(state.loaded !== state.connected) {
+      if (state.loaded !== state.connected) {
         console.error('Can\'t perform action');
         return false;
       }
 
       const paused = !state.loaded
 
-      if(paused) {
+      if (paused) {
         this.client.reinit()
       } else {
         this.client.exit()

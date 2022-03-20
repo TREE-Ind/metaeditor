@@ -1,6 +1,6 @@
 
 // context
-import {usePS} from './context/';
+import { usePS } from './context/';
 
 // snippets
 import DebugData from './snippets/DebugData';

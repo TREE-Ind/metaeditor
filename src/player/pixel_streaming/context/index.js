@@ -5,9 +5,9 @@
 import ContextProvider from './context/';
 
 return (
-	<ContextProvider>
-		{children...}
-	</ContextProvider>
+  <ContextProvider>
+    {children...}
+  </ContextProvider>
 )
 
 ***** injection
@@ -20,7 +20,7 @@ const PS = usePS()
 
 
 import React from "react";
-import PSProvider, {usePS} from './usePS/';
+import PSProvider, { usePS } from './usePS/';
 
 function ContextProvider(props) {
   return (
