@@ -12,23 +12,33 @@ The standard implementation of [PixelStreaming](https://docs.unrealengine.com/5.
 
 
 <p align="center">
-  <a href="https://metaeditor.io/"><img src="https://metaeditor.io/assets/preview.png?v=1" width="100%" title="Pixel Streaming"></a>
+  <img src="https://metaeditor.io/assets/preview.png?v=1" width="100%" title="Pixel Streaming">
 </p>
 
-### Documentation
 
-https://metaeditor.io/docs/
+## Links
 
-### Community
+* MetaEditor — [Documentation](https://metaeditor.io/docs/)
 
-* [Discord App](https://discordapp.com/invite/eGHKuQ3BHM)
+* MetaEditor — [Demo PixelStreaming](https://ps.metaeditor.io)
 
-### Steps to run this project:
+
+## Community
+
+* Ask your question in [Discord App](https://discordapp.com/invite/eGHKuQ3BHM)
+
+* Ask your question on [StackOverflow](https://stackoverflow.com/questions/tagged/metaeditor)
+
+* [Github Issues](https://github.com/markolofsen/metaeditor/issues)
+
+
+## Steps to run this project:
 
 1. Run `yarn install` command
 2. Run `yarn dev` command
 
-### Stack:
+
+## Stack:
 
 1. PixelStreaming
 2. ReactJS + TypeScript
