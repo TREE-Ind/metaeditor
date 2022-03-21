@@ -12,6 +12,10 @@
     "workbench.colorCustomizations": {
         "sideBar.foreground": "#ffffff",
     },
+    "files.associations": {
+        "**.js": "javascriptreact",
+        "**.jsx": "javascriptreact"
+    },
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {

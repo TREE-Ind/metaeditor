@@ -1,7 +1,16 @@
 module.exports = {
-  presets: [['next/babel']],
+  presets: [
+    ['next/babel'],
+    ['@babel/preset-env', {
+      "targets": {
+        "node": "current"
+      }
+    }]
+  ],
   plugins: [
-    "@babel/plugin-transform-runtime",
+    ["@babel/plugin-transform-runtime", {
+      "regenerator": true,
+    }],
     ["@babel/plugin-proposal-decorators", {
       "legacy": true
     }],

@@ -10,7 +10,6 @@ import PixelStreaming from './lib';
 // context
 import ConnectionProvider, { useConnection } from './context/useConnection/';
 
-
 // styles
 import { styled } from 'styles/snippets'
 

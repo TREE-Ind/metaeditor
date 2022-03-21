@@ -2,5 +2,7 @@
   "name": "@player/default",
   "version": "0.1.3",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "pixel-streaming": "^3.1.3"
+  }
 }
